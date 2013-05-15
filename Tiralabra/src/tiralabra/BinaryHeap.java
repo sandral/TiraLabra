@@ -12,10 +12,13 @@ public class BinaryHeap {
 */
     private int heapSize;
 /**
- * 
+ * Asettaa taulukon kooksi 10, jos käyttäjän antama koko on negatiivinen.
  */
     private int defaultKoko = 10;
-
+/**
+ * Konstruktori
+ * @param size Luo keon, johon mahtuu näin monta alkiota.
+ */    
     public BinaryHeap(int size) {
         if (size <= 0) {
             size = defaultKoko;
@@ -55,7 +58,7 @@ public class BinaryHeap {
         return heapSize == 0;
     }
 /**
- * Lisää parametrina annettavan luvun.
+ * Lisää parametrina annettavan luvun kekoon.
  * @param k lisättävä luku
  */
     public void heapInsert(int k) {
@@ -67,7 +70,11 @@ public class BinaryHeap {
         }
         taulukko[i] = k;
     }
-
+/**
+ * Palauttaa keon pienimmän alkion.
+ * @return
+ * @throws tiralabra.BinaryHeap.HeapException ilmoittaa virheestä, jos keko on tyhjä.
+ */
     public int heapMin() throws HeapException {
         if (isEmpty()) {
             throw new HeapException("tyhjä Keko");
@@ -75,7 +82,11 @@ public class BinaryHeap {
             return taulukko[0];
         }
     }
-
+/**
+ * Palauttaa keon pienimmän alkion ja poistaa sen keosta
+ * @return
+ * @throws tiralabra.BinaryHeap.HeapException ilmoittaa virheestä, jos keko on tyhjä.
+ */
     public int heapDelMin() throws HeapException {
         if (isEmpty()) {
             throw new HeapException("tyhjä Keko");
@@ -86,19 +97,34 @@ public class BinaryHeap {
         heapify(0);
         return pienin;
     }
-
+/**
+ * Palauttaa parametrina annetun indeksin kohdalla olevan solmun vasemman lapsen indeksin.
+ * @param i  
+ * @return 
+ */
     public int left(int i) {
         return 2 * (i + 1);
     }
-
+/**
+ * Palauttaa paratmerina annetun indeksin kohdalla olevan solmun oikean lapsen indeksin.
+ * @param i
+ * @return 
+ */
     public int right(int i) {
         return 2 * (i + 1) + 1;
     }
-
+    /**
+     * Palauttaa parametrina annetun indeksin kohdalla olevan solmun vanhemman indeksin.
+     * @param i
+     * @return 
+     */
     public int parent(int i) {
         return i / 2 - 1;
     }
-
+/**
+ * Korjaa kekorakenteen, jos se on indeksin i kohdalta rikki.
+ * @param i 
+ */
     public void heapify(int i) {
         int l = left(i);
         int r = right(i);

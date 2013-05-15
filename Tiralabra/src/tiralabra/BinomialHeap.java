@@ -14,6 +14,10 @@ public class BinomialHeap {
         head = null; 
     }
     
+    /**
+     * Lisää parametrina annetun solmun kekoon.
+     * @param n lisättävä solmu
+     */
     public void insert(Node n) {
         BinomialHeap h = new BinomialHeap();
         h.head = n;
@@ -26,26 +30,55 @@ public class BinomialHeap {
         //Sitten union(h)
     }
     
-    public int minimum(BinomialHeap h) { //palauttaa keon pienimmän
+    /**
+     * Palauttaa keon pienimmän solmun avaimen.
+     * @param h
+     * @return 
+     */
+    public int minimum(BinomialHeap h) {
         return 0;
     }
     
-    public int delMinimum() { //palauttaa ja poistaa keon pienimmän
+    /**
+     * Palauttaa keon pienimmän solmun avaimen ja poistaa solmun keosta.
+     * @return 
+     */
+    public int delMinimum() { 
         return 0;
     }
     
+    /**
+     * Pienentää parametrina annetun solmun avaimen arvon k:ksi, jos
+     * k pienempi kuin solmun x avain.
+     * @param x 
+     * @param k 
+     */
     public void decreaseKey(Node x, int k) {
-        //pienentää solmun x avaimen arvon k:ksi, jos k < x.key
     }
     
+    
+    /**
+     * Poistaa parametrina annetun solmun keosta
+     * @param x 
+     */
     public void delete(Node x) {
-        //poistaa solmun x keosta;
     }
     
-    public void link(Node x, Node y) { //linkittää kaksi solmua
+    /**
+     * Linkittää parametreinä annetut solmut toisiinsa
+     * @param x
+     * @param y 
+     */
+    public void link(Node x, Node y) { 
     
     }
     
+    /**
+     * 
+     * @param h1
+     * @param h2
+     * @return 
+     */
     public BinomialHeap merge(BinomialHeap h1, BinomialHeap h2) {
         return null;
     }

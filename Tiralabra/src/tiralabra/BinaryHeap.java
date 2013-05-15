@@ -68,7 +68,7 @@ public class BinaryHeap {
             taulukko[i] = taulukko[parent(i)];
             i = parent(i);
         }
-        taulukko[i] = k;
+        taulukko[i-1] = k;
     }
 /**
  * Palauttaa keon pienimmän alkion.
@@ -92,7 +92,7 @@ public class BinaryHeap {
             throw new HeapException("tyhjä Keko");
         }
         int pienin = taulukko[0];
-        taulukko[0] = taulukko[getHeapSize()];
+        taulukko[0] = taulukko[getHeapSize()-1];
         heapSize--;
         heapify(0);
         return pienin;
@@ -103,7 +103,7 @@ public class BinaryHeap {
  * @return 
  */
     public int left(int i) {
-        return 2 * (i + 1);
+        return 2 * (i) + 1;
     }
 /**
  * Palauttaa paratmerina annetun indeksin kohdalla olevan solmun oikean lapsen indeksin.
@@ -111,7 +111,7 @@ public class BinaryHeap {
  * @return 
  */
     public int right(int i) {
-        return 2 * (i + 1) + 1;
+        return 2 * (i + 1);
     }
     /**
      * Palauttaa parametrina annetun indeksin kohdalla olevan solmun vanhemman indeksin.
@@ -146,7 +146,7 @@ public class BinaryHeap {
         // TODO code application logic here
     }
 
-    private static class HeapException extends Exception {
+    public static class HeapException extends Exception {
 
         public HeapException(String keko_on_tyhjä) {
         }

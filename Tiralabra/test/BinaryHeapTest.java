@@ -82,10 +82,36 @@ public class BinaryHeapTest {
         for (int i = 0; i < 5; i++) {
             keko.heapInsert(i);
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             assertEquals(i, keko.heapDelMin());
         }
     }
+    
+    
+    @Test 
+    public void kekoonVoiLisataSolmunJaPoistaaSen() throws HeapException {
+        keko.heapInsert(1);
+        assertEquals(1, keko.heapDelMin());
+    }
+    
+    @Test
+    public void kekoonVoiLisataKolmeSolmuaJarjestyksessa() {
+        keko.heapInsert(1);
+        keko.heapInsert(2);
+        keko.heapInsert(3);
+        assertEquals(1, keko.getTaulukko()[0]);
+        assertEquals(2, keko.getTaulukko()[1]);
+        assertEquals(3, keko.getTaulukko()[2]);
+    }
+    
+    @Test
+    public void kekoonVoiLisataKaksiSolmuaKaanteisessaJarjestyksessaJaKekoRakenneSailyy() {
+        keko.heapInsert(2);
+        keko.heapInsert(1);
+        assertEquals(1, keko.getTaulukko()[0]);
+        assertEquals(2, keko.getTaulukko()[1]);
+    }
+    
     
     
     @Test

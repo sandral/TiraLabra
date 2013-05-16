@@ -71,9 +71,9 @@ public class BinaryHeap {
     public void heapInsert(int k) {
         heapSize++;
         int i = heapSize;
-        while (i > 1 && parent(i) < k) {
-            taulukko[i] = taulukko[parent(i)];
-            i = parent(i);
+        while (i > 1 && taulukko[parent(i)] > k) {
+            taulukko[i - 1] = taulukko[parent(i)];
+            i = parent(i) + 1;
         }
         taulukko[i - 1] = k;
     }
@@ -163,6 +163,7 @@ public class BinaryHeap {
                 int x = taulukko[i];
                 taulukko[i] = taulukko[pienin];
                 taulukko[pienin] = x;
+                heapify(pienin);
             }
         } else if (l == heapSize && taulukko[i] > taulukko[l]) {
             int x = taulukko[i];

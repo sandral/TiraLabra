@@ -10,6 +10,9 @@ package tiralabra;
 public class BinomialHeap {
     private Node head;
 
+    /**
+     * Konstruktori
+     */
     public BinomialHeap() {
         head = null; 
     }
@@ -65,12 +68,15 @@ public class BinomialHeap {
     }
     
     /**
-     * Linkittää parametreinä annetut solmut toisiinsa
-     * @param x
-     * @param y 
+     * Linkittää kaksi alipuuta toisiinsa.
+     * @param x toisen alipuun juuri, josta tulee vanhempi
+     * @param y toisen alipuun juuri, josta tulee ensimmäisen lapsi.
      */
     public void link(Node x, Node y) { 
-    
+        x.parent = y;
+        x.sibling = y.child;
+        y.child = x;
+        y.degree++;
     }
     
     /**
@@ -82,10 +88,14 @@ public class BinomialHeap {
     public BinomialHeap merge(BinomialHeap h1, BinomialHeap h2) {
         return null;
     }
-    
+    /**
+     * Yhdistää tämän keon ja keon h2 yhdeksi keoksi.
+     * @param h2 Yhdistettävä keko
+     * @return 
+     */
     public BinomialHeap union(BinomialHeap h2) {
         
-        return null; //yhdistää kekoon toisen keon h2 ja tuhoaa alkuperäiset keot.
+        return null; 
     }
  
     

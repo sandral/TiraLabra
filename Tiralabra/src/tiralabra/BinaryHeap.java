@@ -3,22 +3,25 @@ package tiralabra;
 import java.util.Arrays;
 
 public class BinaryHeap {
-/**
- * Taulukko joka sisältää keon alkiot.
- */
+
+    /**
+     * Taulukko joka sisältää keon alkiot.
+     */
     private int[] taulukko;
-/**
-* Kertoo kuinka paljon keossa on alkioita. 
-*/
+    /**
+     * Kertoo kuinka paljon keossa on alkioita.
+     */
     private int heapSize;
-/**
- * Asettaa taulukon kooksi 10, jos käyttäjän antama koko on negatiivinen.
- */
+    /**
+     * Asettaa taulukon kooksi 10, jos käyttäjän antama koko on negatiivinen.
+     */
     private int defaultKoko = 10;
-/**
- * Konstruktori
- * @param size Luo keon, johon mahtuu näin monta alkiota.
- */    
+
+    /**
+     * Konstruktori
+     *
+     * @param size Luo keon, johon mahtuu näin monta alkiota.
+     */
     public BinaryHeap(int size) {
         if (size <= 0) {
             size = defaultKoko;
@@ -50,17 +53,21 @@ public class BinaryHeap {
     public void setHeapSize(int heapSize) {
         this.heapSize = heapSize;
     }
-/**
- * Tarkistaa on keko tyhjä
- * @return 
- */
+
+    /**
+     * Tarkistaa on keko tyhjä
+     *
+     * @return
+     */
     public boolean isEmpty() {
         return heapSize == 0;
     }
-/**
- * Lisää parametrina annettavan luvun kekoon.
- * @param k lisättävä luku
- */
+
+    /**
+     * Lisää parametrina annettavan luvun kekoon.
+     *
+     * @param k lisättävä luku
+     */
     public void heapInsert(int k) {
         heapSize++;
         int i = heapSize;
@@ -68,13 +75,16 @@ public class BinaryHeap {
             taulukko[i] = taulukko[parent(i)];
             i = parent(i);
         }
-        taulukko[i-1] = k;
+        taulukko[i - 1] = k;
     }
-/**
- * Palauttaa keon pienimmän alkion.
- * @return
- * @throws tiralabra.BinaryHeap.HeapException ilmoittaa virheestä, jos keko on tyhjä.
- */
+
+    /**
+     * Palauttaa keon pienimmän alkion.
+     *
+     * @return
+     * @throws tiralabra.BinaryHeap.HeapException ilmoittaa virheestä, jos keko
+     * on tyhjä.
+     */
     public int heapMin() throws HeapException {
         if (isEmpty()) {
             throw new HeapException("tyhjä Keko");
@@ -82,64 +92,92 @@ public class BinaryHeap {
             return taulukko[0];
         }
     }
-/**
- * Palauttaa keon pienimmän alkion ja poistaa sen keosta
- * @return
- * @throws tiralabra.BinaryHeap.HeapException ilmoittaa virheestä, jos keko on tyhjä.
- */
+
+    /**
+     * Palauttaa keon pienimmän alkion ja poistaa sen keosta
+     *
+     * @return
+     * @throws tiralabra.BinaryHeap.HeapException ilmoittaa virheestä, jos keko
+     * on tyhjä.
+     */
     public int heapDelMin() throws HeapException {
         if (isEmpty()) {
             throw new HeapException("tyhjä Keko");
         }
         int pienin = taulukko[0];
-        taulukko[0] = taulukko[getHeapSize()-1];
+        taulukko[0] = taulukko[getHeapSize() - 1];
         heapSize--;
         heapify(0);
         return pienin;
     }
-/**
- * Palauttaa parametrina annetun indeksin kohdalla olevan solmun vasemman lapsen indeksin.
- * @param i  
- * @return 
- */
+
+    /**
+     * Palauttaa parametrina annetun indeksin kohdalla olevan solmun vasemman
+     * lapsen indeksin.
+     *
+     * @param i
+     * @return
+     */
     public int left(int i) {
         return 2 * (i) + 1;
     }
-/**
- * Palauttaa paratmerina annetun indeksin kohdalla olevan solmun oikean lapsen indeksin.
- * @param i
- * @return 
- */
+
+    /**
+     * Palauttaa paratmerina annetun indeksin kohdalla olevan solmun oikean
+     * lapsen indeksin.
+     *
+     * @param i
+     * @return
+     */
     public int right(int i) {
         return 2 * (i + 1);
     }
+
     /**
-     * Palauttaa parametrina annetun indeksin kohdalla olevan solmun vanhemman indeksin.
+     * Palauttaa parametrina annetun indeksin kohdalla olevan solmun vanhemman
+     * indeksin.
+     *
      * @param i
-     * @return 
+     * @return
      */
     public int parent(int i) {
         return i / 2 - 1;
     }
-/**
- * Korjaa kekorakenteen, jos se on indeksin i kohdalta rikki.
- * @param i 
- */
+
+    /**
+     * Korjaa kekorakenteen, jos se on indeksin i kohdalta rikki.
+     *
+     * @param i
+     */
     public void heapify(int i) {
         int l = left(i);
         int r = right(i);
-        int suurin = 0;
+        int pienin;
         if (r < heapSize) {
-            if (taulukko[l] > taulukko[r]) {
-                suurin = l;
+            if (taulukko[l] < taulukko[r]) {
+                pienin = l;
+            } else {
+                pienin = r;
             }
-            else {
-                suurin = r;
+            if (taulukko[i] > taulukko[pienin]) {
+                int x = taulukko[i];
+                taulukko[i] = taulukko[pienin];
+                taulukko[pienin] = x;
             }
-            if (taulukko[i] < taulukko[suurin]) {
-                
-            }
+        } else if (l == heapSize && taulukko[i] > taulukko[l]) {
+            int x = taulukko[i];
+            taulukko[i] = taulukko[l];
+            taulukko[l] = x;
         }
+    }
+
+    /**
+     * Yhdistaa binaarikeon parametrina annettavan toisen kanssa yhdeksi keoksi.
+     *
+     * @param toinen Yhdistettava keko.
+     */
+    public void merge(BinaryHeap toinen) {
+        //luodaan uusi taulukko, johon kopioidaan molemmat keot ja suoritetaan buildheap.
     }
 
     public static void main(String[] args) {

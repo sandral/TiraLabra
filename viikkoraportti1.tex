@@ -1,0 +1,26 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[finnish]{babel}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\begin{document}
+\begin{center}
+\textbf{Viikkoraportti1}
+\end{center}
+Opin tällä viikolla, että on olemassa hyvin monenlaisia toisistaan poikkeavia kekorakenteita, joiden standarditotetuksetkin ovat näin ollen hyvinkin eri\-laisia keskenään. Mielenkiintoisimmilta vaikuttivat binomikeko, fibonacci-keko sekä $d$-ary-keko.  
+Tutustuin tällä viikolla lähinnä binomikeon rakenteeseen ja sen eri operaatioiden toteuksiin. Binäärikeko oli jo ennestään tuttu tirasta, joten sen suhteen ei tullut mitään uutta, paitsi ehkä se, että nyt toteutin mi\-ni\-mi\-keon, jota en ollut aiemmin toteuttanut.
+Opin kaikenlaisia teknisiä asioita kurssin käytännöistä sekä versionhallinnasta. Tutustuin myös Fibonacci-kekoon lähinnä leikkimällä appletilla joka löytyy täältä: \url{http://www.cse.yorku.ca/~aaw/Jason/FibonacciHeapAnimation.html} ja yrit\-tä\-mäl\-lä simuloida sen algoritmeja, jotka on annettu eri operaatioiden toteuttamiseksi.
+
+\ \\
+Hiukan epäselväksi on vielä jäänyt, millä perusteella fibonaccikeossa mikäkin solmu asetetaan toisen lapseksi, sillä vaikuttaa siltä, että insert lisää solmut ainoastaan juurilistaan. En myöskään aivan täysin ymmärrä binomikeon standarditoteutuksen ideaa.
+
+\ \\
+Aloitin ohjelmointityön. Binäärikeko on jo hyvässä vaiheessa, javadoc on laadittu, sekä testit osaan metodeista. Metodi heapify ei vielä toimi, eikä myöskään heapInsert, joka käyttää sitä apumetodinaan. Vielä on myös toteuttamatta operaatio merge, joka yhdistää keon toisen kanssa yhdeksi. Tie\-dän kuitenkin pääpiirteittäin, miten se tulisi toteuttaa.
+
+\ \\
+Olen aloittanut myös binomikekoa. Olen alustanut sille toteutettavat metodit, sekä laatinut javadocin niistä, mutta olen toteuttanut vasta metodin link(x,y) joka linkittää kaksi solmua toisiinsa. Toteutin myös binomikeolle myös luokan Node, jonka olioita binomikeon alkiot ovat. 
+
+\ \\
+Seuraavaksi aion selvittää, miten saisin binäärikeon loputkin metodit toi\-mi\-maan, laatia niille testit sekä toteuttaa metodin merge. Jatkan myös binomikekoa, aloitan fibonacci-kekoa sekä tutustun $d$-ary-kekoon.
+
+\end{document}

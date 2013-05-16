@@ -76,7 +76,7 @@ public class BinaryHeapTest {
         assertEquals(1, keko.heapMin());
     }
     
-    /* 
+    
     @Test
     public void kekoonVoiLisataViisiAlkiotaJotkaKaikkiLoytyvat() throws HeapException {
         for (int i = 0; i < 5; i++) {
@@ -86,7 +86,7 @@ public class BinaryHeapTest {
             assertEquals(i, keko.heapDelMin());
         }
     }
-    */
+    
     
     @Test
     public void solmunVasenLapsi() {

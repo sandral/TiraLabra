@@ -82,7 +82,7 @@ public class BinaryHeapTest {
         for (int i = 0; i < 5; i++) {
             keko.heapInsert(i);
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             assertEquals(i, keko.heapDelMin());
         }
     }
@@ -112,6 +112,15 @@ public class BinaryHeapTest {
         assertEquals(2, keko.getTaulukko()[1]);
     }
     
+    @Test
+    public void kekoonVoiLisataKolmeSolmuaKaanteisessaJarjestyksessaJaKekoRakenneSailyy() {
+        keko.heapInsert(3);
+        keko.heapInsert(2);
+        keko.heapInsert(1);
+        assertEquals(1, keko.getTaulukko()[0]);
+        assertEquals(3, keko.getTaulukko()[1]);
+        assertEquals(2, keko.getTaulukko()[2]);
+    }
     
     
     @Test

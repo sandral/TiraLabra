@@ -233,3 +233,30 @@ public class BinaryHeap {
         }
     }
 }
+
+class OmaTaulukko {
+    private int[] taulu;
+    
+    public OmaTaulukko(int koko) {
+        taulu = new int[koko];
+    }
+    
+    public void tuplaaJaKopioi() {
+        int[] uusi = new int[2 * taulu.length];
+        for (int i = 0; i < taulu.length; i++) {
+            uusi[i] = taulu[i];
+        }
+        taulu = uusi;
+    }
+    
+    public int getLuku(int i) {
+        return taulu[i];
+    }
+    
+    public void setLuku(int indeksi, int luku) {
+        taulu[indeksi] = luku;
+    }
+    
+    
+    
+}

@@ -19,6 +19,7 @@ import tiralabra.BinaryHeap.HeapException;
 public class BinaryHeapTest {
     private BinaryHeap keko;
     private BinaryHeap keko1;
+    private BinaryHeap keko2;
     
     public BinaryHeapTest() {
     }
@@ -35,6 +36,7 @@ public class BinaryHeapTest {
     public void setUp() {
         keko = new BinaryHeap(10);
         keko1 = new BinaryHeap(-5);
+        keko2 = new BinaryHeap(16);
     }
     
     @After
@@ -118,10 +120,30 @@ public class BinaryHeapTest {
         keko.heapInsert(2);
         keko.heapInsert(1);
         assertEquals(1, keko.getTaulukko()[0]);
-        assertEquals(3, keko.getTaulukko()[1]);
-        assertEquals(2, keko.getTaulukko()[2]);
+        assertEquals(2, keko.getTaulukko()[1]);
+        assertEquals(3, keko.getTaulukko()[2]);
     }
     
+   @Test 
+   public void jarjestyksessaLisatytLuvutOvatTaulukossaJarjestyksessa() {
+       for (int i = 1; i < 10; i++) {
+           keko.heapInsert(i);
+       }
+       for (int i = 1; i < 10; i++) {
+           assertEquals(i, keko.getTaulukko()[i-1]);
+       }
+   }
+   
+   @Test 
+   public void kaanteisessaJarjestyksessaLisatytLuvutOvatTaulukossaJarjestyksessa() {
+       for (int i = 10; i > 0; i--) {
+           keko.heapInsert(i);
+       }
+       for (int i = 1; i < 11; i++) {
+           assertEquals(i, keko.getTaulukko()[i-1]);
+       }
+   }
+   
     
     @Test
     public void solmunVasenLapsi() {
@@ -136,10 +158,13 @@ public class BinaryHeapTest {
         assertEquals(4, keko.right(1));
         assertEquals(6, keko.right(2));
     }
-    /*
+    
     @Test
     public void solmunVanhempi() {
-        assertEquals()
+        assertEquals(0, keko.parent(1));
+        assertEquals(0, keko.parent(2));
+        assertEquals(8, keko.parent(17));
+        
     }
-    */ 
+     
 }

@@ -141,7 +141,7 @@ public class BinaryHeap {
      * @return
      */
     public int parent(int i) {
-        return i / 2 - 1;
+        return (i - 1) / 2;
     }
 
     /**
@@ -160,15 +160,11 @@ public class BinaryHeap {
                 pienin = r;
             }
             if (taulukko[i] > taulukko[pienin]) {
-                int x = taulukko[i];
-                taulukko[i] = taulukko[pienin];
-                taulukko[pienin] = x;
+                swap(i, pienin);
                 heapify(pienin);
             }
         } else if (l == heapSize && taulukko[i] > taulukko[l]) {
-            int x = taulukko[i];
-            taulukko[i] = taulukko[l];
-            taulukko[l] = x;
+            swap(i, l);
         }
     }
 
@@ -177,12 +173,58 @@ public class BinaryHeap {
      *
      * @param toinen Yhdistettava keko.
      */
-    public void merge(BinaryHeap toinen) {
+    public void merge(BinaryHeap toinen) throws HeapException {
+        //BinaryHeap yhdistetty = new BinaryHeap(heapSize + toinen.heapSize);
+        int[] uusi = new int[heapSize + toinen.getHeapSize()];
+        for (int i = 0; i < heapSize; i++) {
+            uusi[i] = heapDelMin();
+        }
+        for (int i = heapSize; i < uusi.length; i++) {
+            uusi[i] = toinen.heapDelMin();
+        }
+        buildHeap(uusi);
         //luodaan uusi taulukko, johon kopioidaan molemmat keot ja suoritetaan buildheap.
     }
 
+    /**
+     * Tekee taulukkoon kekorakenteen.
+     *
+     * @param taulukko keonnettava taulukko.
+     */
+    public void buildHeap(int[] taulukko) {
+        for (int i = taulukko.length / 2; i > 0; i--) {
+            heapify(i);
+        }
+    }
+
     public static void main(String[] args) {
-        // TODO code application logic here
+        BinaryHeap keko = new BinaryHeap(20);
+        BinaryHeap keko1 = new BinaryHeap(20);
+        for (int i = 1; i < 16; i++) {
+            keko.heapInsert(i);
+            keko1.heapInsert(16 - i);
+        }
+        for (int i = 0; i < 15; i++) {
+            System.out.print(keko.getTaulukko()[i] + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < 15; i++) {
+            System.out.print(keko1.getTaulukko()[i] + " ");
+        }
+        
+    }
+    
+
+    /**
+     * Vaihtaa taulukon kahden alkioiden paikkoja keskenään.
+     *
+     * @param i
+     * @param j
+     */
+    private void swap(int i, int j) {
+        int x = taulukko[i];
+        taulukko[i] = taulukko[j];
+        taulukko[j] = x;
     }
 
     public static class HeapException extends Exception {

@@ -38,15 +38,25 @@ public class BinomialHeap {
      * @param h
      * @return 
      */
-    public int minimum(BinomialHeap h) {
-        return 0;
+    public int heapMin() {
+        Node y = null;
+        Node x = head;
+        int min = Integer.MAX_VALUE;
+        while (x!=null) {
+            if (x.key < min) {
+                min = x.key;
+                y = x;
+            }
+            x = x.sibling;
+        }
+        return y.key;
     }
     
     /**
      * Palauttaa keon pienimmän solmun avaimen ja poistaa solmun keosta.
      * @return 
      */
-    public int delMinimum() { 
+    public int heapDelMin() { 
         return 0;
     }
     

@@ -167,7 +167,7 @@ public class BinaryHeap {
                 heapify(pienin);
             }
 
-        } else if (l == heapSize && taulukko.getLuku(i) > taulukko.getLuku(l)) {
+        } else if (l == heapSize - 1 && taulukko.getLuku(i) > taulukko.getLuku(l)) {
             swap(i, l);
         }
     }
@@ -186,9 +186,6 @@ public class BinaryHeap {
         for (int i = aloitusKohta; i < heapSize; i++) {
             taulukko.setLuku(i, toinen.getTaulukko().getLuku(i - aloitusKohta));
         }
-        //for (int i = heapSize/2; i >= 0; i--) {
-        //   heapify(i);
-
         buildHeap(taulukko);
     }
 
@@ -219,13 +216,13 @@ public class BinaryHeap {
         BinaryHeap keko = new BinaryHeap(5);
         BinaryHeap toinen = new BinaryHeap(5);
 
-        for (int i = 5; i < 10; i++) {
+        for (int i = 5; i < 8; i++) {
             keko.heapInsert(i);
         }
         for (int i = 0; i < 5; i++) {
             toinen.heapInsert(i);
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             System.out.print(keko.taulukko.getLuku(i));
         }
         System.out.println();
@@ -236,7 +233,7 @@ public class BinaryHeap {
 
 
         keko.merge(toinen);
-
+        System.out.println("koko nyt: " + keko.heapSize);
 
         for (int i = 0; i < keko.getTaulukko().getLength(); i++) {
             System.out.print(keko.getTaulukko().getLuku(i));

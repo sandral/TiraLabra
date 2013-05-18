@@ -7,7 +7,7 @@ public class BinaryHeap {
     /**
      * Taulukko joka sisältää keon alkiot.
      */
-    private int[] taulukko;
+    private OmaTaulukko taulukko;
     /**
      * Kertoo kuinka paljon keossa on alkioita.
      */
@@ -26,7 +26,7 @@ public class BinaryHeap {
         if (size <= 0) {
             size = defaultKoko;
         }
-        taulukko = new int[size];
+        taulukko = new OmaTaulukko(size);
         heapSize = 0;
     }
 
@@ -38,11 +38,11 @@ public class BinaryHeap {
         this.defaultKoko = defaultKoko;
     }
 
-    public int[] getTaulukko() {
+    public OmaTaulukko getTaulukko() {
         return taulukko;
     }
 
-    public void setTaulukko(int[] taulukko) {
+    public void setTaulukko(OmaTaulukko taulukko) {
         this.taulukko = taulukko;
     }
 
@@ -71,13 +71,13 @@ public class BinaryHeap {
     public void heapInsert(int k) {
         heapSize++;
         int i = heapSize;
-        while (i > 1 && taulukko[parent(i)] > k) {
-            taulukko[i - 1] = taulukko[parent(i)];
+        while (i > 1 && taulukko.getLuku(parent(i)) > k) {
+            taulukko.setLuku(i - 1, taulukko.getLuku(parent(i)));
             i = parent(i) + 1;
         }
-        taulukko[i - 1] = k;
+        taulukko.setLuku(i - 1, k);
     }
-
+    
     /**
      * Palauttaa keon pienimmän alkion.
      *
@@ -89,7 +89,7 @@ public class BinaryHeap {
         if (isEmpty()) {
             throw new HeapException("tyhjä Keko");
         } else {
-            return taulukko[0];
+            return taulukko.getLuku(0);
         }
     }
 
@@ -104,8 +104,8 @@ public class BinaryHeap {
         if (isEmpty()) {
             throw new HeapException("tyhjä Keko");
         }
-        int pienin = taulukko[0];
-        taulukko[0] = taulukko[getHeapSize() - 1];
+        int pienin = taulukko.getLuku(0);
+        taulukko.setLuku(0, taulukko.getLuku(getHeapSize() - 1));
         heapSize--;
         heapify(0);
         return pienin;
@@ -154,16 +154,17 @@ public class BinaryHeap {
         int r = right(i);
         int pienin;
         if (r < heapSize) {
-            if (taulukko[l] < taulukko[r]) {
+            if (taulukko.getLuku(l) < taulukko.getLuku(r)) {
                 pienin = l;
             } else {
                 pienin = r;
             }
-            if (taulukko[i] > taulukko[pienin]) {
+            if (taulukko.getLuku(i) > taulukko.getLuku(pienin)) {
                 swap(i, pienin);
                 heapify(pienin);
             }
-        } else if (l == heapSize && taulukko[i] > taulukko[l]) {
+            
+        } else if (l == heapSize && taulukko.getLuku(i) > taulukko.getLuku(l)) {
             swap(i, l);
         }
     }
@@ -174,16 +175,7 @@ public class BinaryHeap {
      * @param toinen Yhdistettava keko.
      */
     public void merge(BinaryHeap toinen) throws HeapException {
-        //BinaryHeap yhdistetty = new BinaryHeap(heapSize + toinen.heapSize);
-        int[] uusi = new int[heapSize + toinen.getHeapSize()];
-        for (int i = 0; i < heapSize; i++) {
-            uusi[i] = heapDelMin();
-        }
-        for (int i = heapSize; i < uusi.length; i++) {
-            uusi[i] = toinen.heapDelMin();
-        }
-        buildHeap(uusi);
-        //luodaan uusi taulukko, johon kopioidaan molemmat keot ja suoritetaan buildheap.
+        
     }
 
     /**
@@ -191,8 +183,8 @@ public class BinaryHeap {
      *
      * @param taulukko keonnettava taulukko.
      */
-    public void buildHeap(int[] taulukko) {
-        for (int i = taulukko.length / 2; i > 0; i--) {
+    public void buildHeap(OmaTaulukko taulukko) {
+        for (int i = taulukko.getLength() / 2; i > 0; i--) {
             heapify(i);
         }
     }
@@ -205,11 +197,11 @@ public class BinaryHeap {
             keko1.heapInsert(16 - i);
         }
         for (int i = 0; i < 15; i++) {
-            System.out.print(keko.getTaulukko()[i] + " ");
+            System.out.print(keko.getTaulukko().getLuku(i) + " ");
         }
         System.out.println();
         for (int i = 0; i < 15; i++) {
-            System.out.print(keko1.getTaulukko()[i] + " ");
+            System.out.print(keko1.getTaulukko().getLuku(i) + " ");
         }
         
     }
@@ -222,25 +214,36 @@ public class BinaryHeap {
      * @param j
      */
     private void swap(int i, int j) {
-        int x = taulukko[i];
-        taulukko[i] = taulukko[j];
-        taulukko[j] = x;
+        int x = taulukko.getLuku(i);
+        taulukko.setLuku(i, taulukko.getLuku(j));
+        taulukko.setLuku(j, x);
     }
-
+    
     public static class HeapException extends Exception {
-
+        
         public HeapException(String keko_on_tyhjä) {
         }
     }
 }
-
+/**
+ * Taulukko, jonka pituutta voidaan tarvittaessa kasvattaa.
+ * @author root
+ */
 class OmaTaulukko {
     private int[] taulu;
     
+    /**
+     * Konstruktori
+     * @param koko 
+     */
     public OmaTaulukko(int koko) {
         taulu = new int[koko];
     }
     
+    /**
+     * Kaksinkertaistaa taulukon pituuden ja kopioi alkuperäisen taulukon 
+     * sisällön uuteen pidempään taulukkoon.
+     */
     public void tuplaaJaKopioi() {
         int[] uusi = new int[2 * taulu.length];
         for (int i = 0; i < taulu.length; i++) {
@@ -257,6 +260,22 @@ class OmaTaulukko {
         taulu[indeksi] = luku;
     }
     
+    public int getLength() {
+        return taulu.length;
+    }
     
+    /**
+     * Yhdistää taulukon toisen taulukon kanssa yhdeksi taulukoksi.
+     * @param toinen 
+     */
+    public void concatenate(OmaTaulukko toinen) {
+        int pituus = this.getLength();
+        while(this.getLength() <= toinen.getLength() + this.getLength()) {
+            this.tuplaaJaKopioi();
+        }
+        for (int i = pituus; i < this.getLength() ; i++) {
+            this.setLuku(i, toinen.getLuku(i - pituus));
+        }
+    }
     
 }

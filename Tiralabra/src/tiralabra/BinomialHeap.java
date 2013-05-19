@@ -56,22 +56,22 @@ public class BinomialHeap {
         }
         Node x = head;
         Node y = x.sibling;
-        Node edellinen = x;
-        Node edellinenx = null;
+        Node edell = x;
+        Node edellx = null;
 
         while (y != null) {
             if (y.key < x.key) {
                 x = y;
-                edellinenx = edellinen;
+                edellx = edell;
             }
-            edellinen = y;
+            edell = y;
             y = y.sibling;
         }
 
         if (x == head) {
             head = x.sibling;
         } else {
-            edellinenx.sibling = x.sibling;
+            edellx.sibling = x.sibling;
         }
 
         BinomialHeap uusi = new BinomialHeap();

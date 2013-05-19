@@ -35,21 +35,18 @@ public class BinomialHeap {
      * @return
      */
     public int heapMin() {
-        Node y = null;
         Node x = head;
-        int min = Integer.MAX_VALUE;
+        Node y = x.sibling;
         while (x != null) {
-            if (x.key < min) {
-                min = x.key;
-                y = x;
+            if (y.key < x.key) {
+                x = y;
             }
-            x = x.sibling;
         }
-        return y.key;
+        return x.key;
     }
 
     /**
-     * Palauttaa keon pienimmän solmun avaimen ja poistaa solmun keosta.
+     * Palauttaa keon pienimmän solmun arvon ja poistaa solmun keosta.
      *
      * @return
      */
@@ -99,6 +96,14 @@ public class BinomialHeap {
      * @param k
      */
     private void decreaseKey(Node x, int k) {
+        int avain = x.key;
+        Node z = x;
+        while (z.parent != null && z.parent.key > z.key) {
+            int temp = z.value;
+            z.value = z.parent.value;
+            z.parent.value = temp;
+            z = z.parent;
+        }
     }
 
     /**
@@ -107,6 +112,9 @@ public class BinomialHeap {
      * @param x
      */
     private void delete(Node x) {
+        int min = heapMin();
+        decreaseKey(x, min - 1);
+        extractMin();
     }
 
     /**
@@ -179,7 +187,35 @@ public class BinomialHeap {
     public BinomialHeap union(BinomialHeap toinen) {
         BinomialHeap uusi = new BinomialHeap();
         uusi.head = merge(this, toinen);
-        return null;
+        if (uusi.head == null) {
+            return uusi;
+        }
+        Node edellx = null;
+        Node x = uusi.head;
+        Node seurx = x.sibling;
+
+        while (seurx != null) {
+            if (x.degree != seurx.degree || 
+                    (seurx.sibling != null && seurx.sibling.degree == x.degree)) {
+                edellx = x;
+                x = seurx;
+            } else {
+                if (x.key < seurx.key) {
+                    x.sibling = seurx.sibling;
+                    link(seurx, x);
+                } else {
+                    if (seurx == null) {
+                        uusi.head = seurx;
+                    } else {
+                        edellx.sibling = seurx;
+                    }
+
+                    link(x, seurx);
+                }
+            }
+            seurx = x.sibling;
+        }
+        return uusi;
     }
 
     public boolean isEmpty() {

@@ -4,6 +4,7 @@
  */
 
 import tiralabra.BinaryHeap;
+import tiralabra.OmaTaulukko;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,7 +50,7 @@ public class BinaryHeapTest {
     // public void hello() {}
     @Test 
     public void keonTaulukonKokoOnKymmenenKunOnLuotuUusiKekoParametrillaKymmenen() {
-        assertTrue(keko.getTaulukko().length == 10);
+        assertTrue(keko.getTaulukko().getLength() == 10);
     }
     
     @Test
@@ -59,7 +60,7 @@ public class BinaryHeapTest {
     }
     @Test
     public void keonTaulukonKokoOnDefaultKunOLuotuUusiKekoParametrillaMiinusViisi() {
-        assertTrue(keko1.getTaulukko().length == keko.getDefaultKoko());
+        assertTrue(keko1.getTaulukko().getLength() == keko.getDefaultKoko());
     }
     @Test
     public void tyhjaKekoOnAlussaTyhja() {
@@ -101,17 +102,17 @@ public class BinaryHeapTest {
         keko.heapInsert(1);
         keko.heapInsert(2);
         keko.heapInsert(3);
-        assertEquals(1, keko.getTaulukko()[0]);
-        assertEquals(2, keko.getTaulukko()[1]);
-        assertEquals(3, keko.getTaulukko()[2]);
+        assertEquals(1, keko.getTaulukko().getLuku(0));
+        assertEquals(2, keko.getTaulukko().getLuku(1));
+        assertEquals(3, keko.getTaulukko().getLuku(2));
     }
     
     @Test
     public void kekoonVoiLisataKaksiSolmuaKaanteisessaJarjestyksessaJaKekoRakenneSailyy() {
         keko.heapInsert(2);
         keko.heapInsert(1);
-        assertEquals(1, keko.getTaulukko()[0]);
-        assertEquals(2, keko.getTaulukko()[1]);
+        assertEquals(1, keko.getTaulukko().getLuku(0));
+        assertEquals(2, keko.getTaulukko().getLuku(1));
     }
     
     @Test
@@ -119,9 +120,9 @@ public class BinaryHeapTest {
         keko.heapInsert(3);
         keko.heapInsert(2);
         keko.heapInsert(1);
-        assertEquals(1, keko.getTaulukko()[0]);
-        assertEquals(2, keko.getTaulukko()[1]);
-        assertEquals(3, keko.getTaulukko()[2]);
+        assertEquals(1, keko.getTaulukko().getLuku(0));
+        assertEquals(2, keko.getTaulukko().getLuku(1));
+        assertEquals(3, keko.getTaulukko().getLuku(2));
     }
     
    @Test 
@@ -130,7 +131,7 @@ public class BinaryHeapTest {
            keko.heapInsert(i);
        }
        for (int i = 1; i < 10; i++) {
-           assertEquals(i, keko.getTaulukko()[i-1]);
+           assertEquals(i, keko.getTaulukko().getLuku(i-1));
        }
    }
    
@@ -139,8 +140,8 @@ public class BinaryHeapTest {
        for (int i = 10; i > 0; i--) {
            keko.heapInsert(i);
        }
-       for (int i = 1; i < 11; i++) {
-           assertEquals(i, keko.getTaulukko()[i-1]);
+       for (int i = 1; i < 1; i++) {
+           assertEquals(i, keko.getTaulukko().getLuku(i));
        }
    }
    

@@ -4,6 +4,8 @@
  */
 package tiralabra;
 
+import tiralabra.Node;
+
 public class BinomialHeap {
 
     private Node head;
@@ -15,38 +17,50 @@ public class BinomialHeap {
         head = null;
     }
 
+    public Node getHead() {
+        return head;
+    }
+
     /**
      * Lisää parametrina annetun solmun kekoon.
      *
      * @param n lisättävä solmu
      */
-    private void insert(Node n) {
-        BinomialHeap h = new BinomialHeap();
-        h.head = n;
-        BinomialHeap yhdistetty = this.union(h);
-        head = yhdistetty.head;
+    
+    public void insert(Node n) {
+        if (this.isEmpty()) {
+            this.head = n;
+        } else {
+            BinomialHeap h = new BinomialHeap();
+            h.head = n;
+            BinomialHeap yhdistetty = this.union(h);
+            head = yhdistetty.head;
 
+        }
     }
 
-    /**
-     * Palauttaa keon pienimmän solmun avaimen.
-     *
-     * @param h
-     * @return
-     */
+        /**
+         * Palauttaa keon pienimmän solmun avaimen.
+         *
+         * @param h
+         * @return
+         */
     public int heapMin() {
         Node x = head;
         Node y = x.sibling;
-        while (x != null) {
-            if (y.key < x.key) {
-                x = y;
+        if (y != null) {
+            while (x != null) {
+                if (y.key < x.key) {
+                    x = y;
+                    y = x.sibling;
+                }
             }
         }
         return x.key;
     }
 
     /**
-     * Palauttaa keon pienimmän solmun arvon ja poistaa solmun keosta.
+     * Palauttaa keon pienimmän solmun avaimen ja poistaa solmun keosta.
      *
      * @return
      */
@@ -85,7 +99,7 @@ public class BinomialHeap {
         }
         BinomialHeap uusikeko = this.union(uusi);
         head = uusikeko.head;
-        return x.value;
+        return x.key;
     }
 
     /**
@@ -132,48 +146,51 @@ public class BinomialHeap {
 
     /**
      * Yhdistaa kekojen h1 ja h2 juurilistat kasvavaan jarjestykseen juurisolmun
-     * asteen mukaan.
+     * asteen mukaan ja palauttaa uuden juurilistan pään.
      *
      * @param h1
      * @param h2
      * @return
      */
     private Node merge(BinomialHeap h1, BinomialHeap h2) {
+        if (h1 == null && h2 == null) {
+            return null;
+        }
         if (h1 == null) {
             return h2.head;
         } else if (h2 == null) {
             return h1.head;
         } else {
-            Node eka;
-            Node vika;
-            Node seuraajah1 = h1.head;
-            Node seuraajah2 = h2.head;
+            Node alku;
+            Node loppu;
+            Node seurh1 = h1.head;
+            Node seurh2 = h2.head;
 
             if (h1.head.degree <= h2.head.degree) {
-                eka = h1.head;
-                seuraajah1 = seuraajah1.sibling;
+                alku = h1.head;
+                seurh1 = seurh1.sibling;
             } else {
-                eka = h2.head;
-                seuraajah2 = seuraajah2.sibling;
+                alku = h2.head;
+                seurh2 = seurh2.sibling;
             }
-            vika = eka;
+            loppu = alku;
 
-            while (seuraajah1 != null && seuraajah2 != null) {
-                if (seuraajah1.degree <= seuraajah2.degree) {
-                    vika.sibling = seuraajah1;
-                    seuraajah1 = seuraajah1.sibling;
+            while (seurh1 != null && seurh2 != null) {
+                if (seurh1.degree <= seurh2.degree) {
+                    loppu.sibling = seurh1;
+                    seurh1 = seurh1.sibling;
                 } else {
-                    vika.sibling = seuraajah1;
-                    seuraajah2 = seuraajah2.sibling;
+                    loppu.sibling = seurh1;
+                    seurh2 = seurh2.sibling;
                 }
-                vika = vika.sibling;
+                loppu = loppu.sibling;
             }
-            if (seuraajah1 != null) {
-                vika.sibling = seuraajah1;
+            if (seurh1 != null) {
+                loppu.sibling = seurh1;
             } else {
-                vika.sibling = seuraajah2;
+                loppu.sibling = seurh2;
             }
-            return eka;
+            return alku;
 
         }
     }
@@ -181,7 +198,7 @@ public class BinomialHeap {
     /**
      * Yhdistää tämän keon ja keon h2 yhdeksi keoksi.
      *
-     * @param h2 Yhdistettävä keko
+     * @param h2 Yhdistettävä keko }
      * @return
      */
     public BinomialHeap union(BinomialHeap toinen) {
@@ -195,8 +212,8 @@ public class BinomialHeap {
         Node seurx = x.sibling;
 
         while (seurx != null) {
-            if (x.degree != seurx.degree || 
-                    (seurx.sibling != null && seurx.sibling.degree == x.degree)) {
+            if (x.degree != seurx.degree
+                    || (seurx.sibling != null && seurx.sibling.degree == x.degree)) {
                 edellx = x;
                 x = seurx;
             } else {
@@ -220,25 +237,5 @@ public class BinomialHeap {
 
     public boolean isEmpty() {
         return head == null;
-    }
-}
-
-class Node {
-
-    public Node parent;
-    public Node child;
-    public Node sibling;
-    public int key;
-    public int value;
-    public int degree;
-
-    public Node(int key, int value) {
-        this.key = key;
-        this.value = value;
-        child = null;
-        sibling = null;
-        parent = null;
-        degree = 0;
-
     }
 }

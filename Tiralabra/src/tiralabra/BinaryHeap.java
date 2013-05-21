@@ -1,6 +1,7 @@
 package tiralabra;
 
 import java.util.Arrays;
+import tiralabra.OmaTaulukko;
 
 public class BinaryHeap {
 
@@ -15,11 +16,11 @@ public class BinaryHeap {
     /**
      * Asettaa taulukon kooksi 10, jos käyttäjän antama koko on negatiivinen.
      */
-    private int defaultKoko = 10;
+    private static int defaultKoko = 10;
 
     /**
      * Konstruktori
-     *
+     *defaultKoko
      * @param size Luo keon, johon mahtuu näin monta alkiota.
      */
     public BinaryHeap(int size) {
@@ -259,50 +260,7 @@ public class BinaryHeap {
 
     public static class HeapException extends Exception {
 
-        public HeapException(String keko_on_tyhjä) {
+        public HeapException(String keko_on_tyhja) {
         }
-    }
-}
-
-/**
- * Taulukko, jonka pituutta voidaan tarvittaessa kasvattaa.
- *
- * @author root
- */
-class OmaTaulukko {
-
-    private int[] taulu;
-
-    /**
-     * Konstruktori
-     *
-     * @param koko
-     */
-    public OmaTaulukko(int koko) {
-        taulu = new int[koko];
-    }
-
-    /**
-     * Kaksinkertaistaa taulukon pituuden ja kopioi alkuperäisen taulukon
-     * sisällön uuteen pidempään taulukkoon.
-     */
-    public void tuplaaJaKopioi() {
-        int[] uusi = new int[2 * taulu.length];
-        for (int i = 0; i < taulu.length; i++) {
-            uusi[i] = taulu[i];
-        }
-        taulu = uusi;
-    }
-
-    public int getLuku(int i) {
-        return taulu[i];
-    }
-
-    public void setLuku(int indeksi, int luku) {
-        taulu[indeksi] = luku;
-    }
-
-    public int getLength() {
-        return taulu.length;
     }
 }

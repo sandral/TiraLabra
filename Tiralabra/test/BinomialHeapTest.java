@@ -94,32 +94,50 @@ public class BinomialHeapTest {
         assertEquals(n1, keko1.merge(keko1, keko2));
     }
     
-    @Test public void keotJoissaOnMolemmissaYksiSolmuVoiMergeta() {
+    @Test 
+    public void keotJoissaOnMolemmissaYksiSolmuVoiMergeta() {
         keko1.insert(n1);
         keko2.insert(n2);
         assertEquals(n1, keko1.merge(keko1, keko2));
     }
-     
     
-    /*        
+    @Test 
+    public void tyhjatKeotVoiYhdistaa() {
+        assertEquals(keko1, keko1.union(keko2));
+    }
+    
+    @Test 
+    public void keotJoissaOnMolemmissaYksiAlkioVoiYhdistaa() {
+        keko1.insert(n1);
+        keko2.insert(n2);
+        BinomialHeap keko3 = keko1.union(keko2);
+        assertEquals(n1, keko3.getHead());
+    }
+    
+    @Test 
+    public void kekoonVoiLisataKaksiSolmuaJaNiidenAsteetJaPerheSuhteetOvatOikein() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        assertEquals(1, keko1.getHead().key);
+        assertEquals(2, keko1.getHead().child.key);
+        assertEquals(1, keko1.getHead().degree);
+        assertEquals(0, keko1.getHead().child.degree);
+        assertEquals(n2, keko1.getHead().child);
+        assertEquals(null, keko1.getHead().sibling);
+        assertEquals(n1, keko1.getHead().child.parent);
+    }
+            
     @Test
     public void solmunVoiPoistaaKeostaJaKekoOnSenJalkeenTyhja() {
         keko1.insert(n1);
         keko1.delete(n1);
         assertTrue(keko1.isEmpty());
     }
-    */ 
+     
     
-    /*
-    @Test
-    public void kekoonVoiLisataKaksiSolmua() {
-        Node n1 = new Node(1,1);
-        Node n2 = new Node(2,2);
-        keko1.insert(n1);
-        keko1.insert(n2);
-        assertEquals(1, keko1.extractMin());
-    }
-    */
+    
+    
+    
      
     
     

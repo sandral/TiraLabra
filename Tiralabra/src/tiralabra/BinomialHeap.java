@@ -162,7 +162,7 @@ public class BinomialHeap {
      * @return
      */
     public Node merge(BinomialHeap h1, BinomialHeap h2) {
-        if (h1 == null && h2 == null) {
+        if (h1.isEmpty() && h2.isEmpty()) {
             return null;
         }
         if (h1.isEmpty()) {
@@ -213,8 +213,8 @@ public class BinomialHeap {
     public BinomialHeap union(BinomialHeap toinen) {
         BinomialHeap uusi = new BinomialHeap();
         uusi.head = merge(this, toinen);
-        if (uusi.head == null) {
-            return uusi;
+        if (uusi.isEmpty()) {
+            return this;
         }
         Node edellx = null;
         Node x = uusi.head;

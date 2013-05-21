@@ -69,7 +69,46 @@ public class BinomialHeapTest {
         assertEquals(1, keko1.heapMin());
     }
     
-
+    @Test
+    public void kekoonVoiLisataSolmunJaEkstraktoidaPienimman() {
+        keko1.insert(n1);
+        assertEquals(1, keko1.extractMin());
+    }
+    
+    @Test
+    public void kunAinoaSolmuOnEkstraktoituKekoOnTyhja() {
+        keko1.insert(n1);
+        keko1.extractMin();
+        assertTrue(keko1.isEmpty());
+    }
+    
+    @Test 
+    public void solmunAvaintaVoiPienentää() {
+        keko1.insert(n1);
+        keko1.decreaseKey(n1, 0);
+        assertEquals(0, n1.key);
+    }
+    @Test
+    public void tyhjanJaYhdenSolmunSisaltavanKeonVoiMergeta() {
+        keko1.insert(n1);
+        assertEquals(n1, keko1.merge(keko1, keko2));
+    }
+    
+    @Test public void keotJoissaOnMolemmissaYksiSolmuVoiMergeta() {
+        keko1.insert(n1);
+        keko2.insert(n2);
+        assertEquals(n1, keko1.merge(keko1, keko2));
+    }
+     
+    
+    /*        
+    @Test
+    public void solmunVoiPoistaaKeostaJaKekoOnSenJalkeenTyhja() {
+        keko1.insert(n1);
+        keko1.delete(n1);
+        assertTrue(keko1.isEmpty());
+    }
+    */ 
     
     /*
     @Test

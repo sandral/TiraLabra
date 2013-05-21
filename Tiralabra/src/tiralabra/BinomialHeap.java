@@ -68,6 +68,11 @@ public class BinomialHeap {
         if (head == null) {
             return -1;
         }
+        if (head.sibling == null) {
+            int avain = head.key;
+            head = null;
+            return avain;
+        }
         Node x = head;
         Node y = x.sibling;
         Node edell = x;
@@ -109,7 +114,11 @@ public class BinomialHeap {
      * @param x
      * @param k
      */
-    private void decreaseKey(Node x, int k) {
+    public void decreaseKey(Node x, int k) {
+        if (x.degree == 0 && k < x.key) {
+            x.key = k;
+        }
+        else if (k < x.key) {
         int avain = x.key;
         Node z = x;
         while (z.parent != null && z.parent.key > z.key) {
@@ -118,14 +127,14 @@ public class BinomialHeap {
             z.parent.value = temp;
             z = z.parent;
         }
+        }
     }
-
     /**
      * Poistaa parametrina annetun solmun keosta
      *
      * @param x
      */
-    private void delete(Node x) {
+    public void delete(Node x) {
         int min = heapMin();
         decreaseKey(x, min - 1);
         extractMin();
@@ -152,13 +161,13 @@ public class BinomialHeap {
      * @param h2
      * @return
      */
-    private Node merge(BinomialHeap h1, BinomialHeap h2) {
+    public Node merge(BinomialHeap h1, BinomialHeap h2) {
         if (h1 == null && h2 == null) {
             return null;
         }
-        if (h1 == null) {
+        if (h1.isEmpty()) {
             return h2.head;
-        } else if (h2 == null) {
+        } else if (h2.isEmpty()) {
             return h1.head;
         } else {
             Node alku;

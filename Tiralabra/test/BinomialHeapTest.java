@@ -22,6 +22,9 @@ public class BinomialHeapTest {
     private BinomialHeap keko2;
     private Node n1;
     private Node n2;
+    private Node n3;
+    private Node n4;
+    private Node n5;
     
     public BinomialHeapTest() {
     }
@@ -41,6 +44,9 @@ public class BinomialHeapTest {
         keko2 = new BinomialHeap();
         n1 = new Node(1,1);
         n2 = new Node(2,2);
+        n3 = new Node(3,3);
+        n4 = new Node(4,4);
+        n5 = new Node(5,5);
     }
     
     @After
@@ -126,6 +132,38 @@ public class BinomialHeapTest {
         assertEquals(null, keko1.getHead().sibling);
         assertEquals(n1, keko1.getHead().child.parent);
     }
+    
+    @Test 
+    public void kaksiAlkiotaSisaltavatKeotVoiMergeta() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        keko2.insert(n3);
+        keko2.insert(n4);
+        assertEquals(n1, keko1.merge(keko1, keko2));
+    }
+    @Test
+    public void yksiJaKolmeAlkiotaSisaltavatKeotVoiMergeta() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        keko1.insert(n3);
+        keko2.insert(n4);
+        assertEquals(n3, keko1.merge(keko1, keko2));
+    }
+    
+    
+    
+    /*
+    @Test 
+    public void kekoonVoiLisataViisiSolmua() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        keko1.insert(n3);
+        keko1.insert(n4);
+        keko1.insert(n5);
+        assertEquals(n1, keko1.getHead());
+    }
+    */
+    
             
     @Test
     public void solmunVoiPoistaaKeostaJaKekoOnSenJalkeenTyhja() {

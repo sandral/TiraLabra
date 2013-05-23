@@ -64,10 +64,10 @@ public class BinomialHeap {
      * @return
      */
     public int extractMin() {
-        if (head == null) {
+        if (this.isEmpty()) {
             return -1;
         }
-        if (head.sibling == null) {
+        if (head.sibling == null && head.degree == 0) {
             int avain = head.key;
             head = null;
             return avain;
@@ -157,7 +157,7 @@ public class BinomialHeap {
      * asteen mukaan ja palauttaa uuden juurilistan pään.
      *
      * @param h1
-     * @param h2§
+     * @param h2
      * @return
      */
     public Node merge(BinomialHeap h1, BinomialHeap h2) {
@@ -205,48 +205,7 @@ public class BinomialHeap {
         return h1.head;
     }
 
-    /*if (h1.isEmpty() && h2.isEmpty()) {
-     return null;
-     }
-     if (h1.isEmpty()) {
-     return h2.head;
-     } else if (h2.isEmpty()) {
-     return h1.head;
-     } else {
-     Node alku;
-     Node loppu;
-     Node seurh1 = h1.head;
-     Node seurh2 = h2.head;
-
-     if (h1.head.degree <= h2.head.degree) {
-     alku = h1.head;
-     seurh1 = seurh1.sibling;
-     } else {
-     alku = h2.head;
-     seurh2 = seurh2.sibling;
-     }
-     loppu = alku;
-
-     while (seurh1 != null && seurh2 != null) {
-     if (seurh1.degree <= seurh2.degree) {
-     loppu.sibling = seurh1;
-     seurh1 = seurh1.sibling;
-     } else {
-     loppu.sibling = seurh1;
-     seurh2 = seurh2.sibling;
-     }
-     loppu = loppu.sibling;
-     }
-     if (seurh1 != null) {
-     loppu.sibling = seurh1;
-     } else {
-     loppu.sibling = seurh2;
-     }
-     return alku;
-
-     }
-     }
-     */
+   
     /**
      * Yhdistää tämän keon ja keon h2 yhdeksi keoksi.
      *

@@ -26,7 +26,6 @@ public class BinomialHeap {
      *
      * @param n lisättävä solmu
      */
-    
     public void insert(Node n) {
         if (this.isEmpty()) {
             this.head = n;
@@ -39,12 +38,12 @@ public class BinomialHeap {
         }
     }
 
-        /**
-         * Palauttaa keon pienimmän solmun avaimen.
-         *
-         * @param h
-         * @return
-         */
+    /**
+     * Palauttaa keon pienimmän solmun avaimen.
+     *
+     * @param h
+     * @return
+     */
     public int heapMin() {
         Node x = head;
         Node y = x.sibling;
@@ -117,18 +116,18 @@ public class BinomialHeap {
     public void decreaseKey(Node x, int k) {
         if (x.degree == 0 && k < x.key) {
             x.key = k;
-        }
-        else if (k < x.key) {
-        int avain = x.key;
-        Node z = x;
-        while (z.parent != null && z.parent.key > z.key) {
-            int temp = z.value;
-            z.value = z.parent.value;
-            z.parent.value = temp;
-            z = z.parent;
-        }
+        } else if (k < x.key) {
+            int avain = x.key;
+            Node z = x;
+            while (z.parent != null && z.parent.key > z.key) {
+                int temp = z.value;
+                z.value = z.parent.value;
+                z.parent.value = temp;
+                z = z.parent;
+            }
         }
     }
+
     /**
      * Poistaa parametrina annetun solmun keosta
      *
@@ -158,52 +157,96 @@ public class BinomialHeap {
      * asteen mukaan ja palauttaa uuden juurilistan pään.
      *
      * @param h1
-     * @param h2
+     * @param h2§
      * @return
      */
     public Node merge(BinomialHeap h1, BinomialHeap h2) {
+        Node n1 = h1.head;
+        Node n2 = h2.head;
+
         if (h1.isEmpty() && h2.isEmpty()) {
             return null;
         }
         if (h1.isEmpty()) {
             return h2.head;
-        } else if (h2.isEmpty()) {
-            return h1.head;
-        } else {
-            Node alku;
-            Node loppu;
-            Node seurh1 = h1.head;
-            Node seurh2 = h2.head;
-
-            if (h1.head.degree <= h2.head.degree) {
-                alku = h1.head;
-                seurh1 = seurh1.sibling;
-            } else {
-                alku = h2.head;
-                seurh2 = seurh2.sibling;
-            }
-            loppu = alku;
-
-            while (seurh1 != null && seurh2 != null) {
-                if (seurh1.degree <= seurh2.degree) {
-                    loppu.sibling = seurh1;
-                    seurh1 = seurh1.sibling;
-                } else {
-                    loppu.sibling = seurh1;
-                    seurh2 = seurh2.sibling;
-                }
-                loppu = loppu.sibling;
-            }
-            if (seurh1 != null) {
-                loppu.sibling = seurh1;
-            } else {
-                loppu.sibling = seurh2;
-            }
-            return alku;
-
         }
+        if (h2.isEmpty()) {
+            return h1.head;
+        }
+
+        if (n1.degree <= n2.degree) {
+            h1.head = n1;
+        } else {
+            h1.head = n2;
+        }
+        if (h1.head == n2) {
+            n2 = n1;
+        }
+        n1 = h1.head;
+
+        while (n2 != null) {
+            if (n1.sibling == null) {
+                n1.sibling = n2;
+                n2 = n2.sibling;
+            } else if (n1.sibling.degree < n2.degree) {
+                n1 = n1.sibling;
+            } else {
+                Node n3 = n2.sibling;
+                if (n2 == n1.sibling) {
+                    n2.sibling = null;
+                } 
+                else 
+                    n2.sibling = n1.sibling;
+                    n1.sibling = n2;
+                    n2 = n3;
+                
+            }
+        }
+        return h1.head;
     }
 
+    /*if (h1.isEmpty() && h2.isEmpty()) {
+     return null;
+     }
+     if (h1.isEmpty()) {
+     return h2.head;
+     } else if (h2.isEmpty()) {
+     return h1.head;
+     } else {
+     Node alku;
+     Node loppu;
+     Node seurh1 = h1.head;
+     Node seurh2 = h2.head;
+
+     if (h1.head.degree <= h2.head.degree) {
+     alku = h1.head;
+     seurh1 = seurh1.sibling;
+     } else {
+     alku = h2.head;
+     seurh2 = seurh2.sibling;
+     }
+     loppu = alku;
+
+     while (seurh1 != null && seurh2 != null) {
+     if (seurh1.degree <= seurh2.degree) {
+     loppu.sibling = seurh1;
+     seurh1 = seurh1.sibling;
+     } else {
+     loppu.sibling = seurh1;
+     seurh2 = seurh2.sibling;
+     }
+     loppu = loppu.sibling;
+     }
+     if (seurh1 != null) {
+     loppu.sibling = seurh1;
+     } else {
+     loppu.sibling = seurh2;
+     }
+     return alku;
+
+     }
+     }
+     */
     /**
      * Yhdistää tämän keon ja keon h2 yhdeksi keoksi.
      *
@@ -230,13 +273,14 @@ public class BinomialHeap {
                     x.sibling = seurx.sibling;
                     link(seurx, x);
                 } else {
-                    if (seurx == null) {
+                    if (edellx == null) {
                         uusi.head = seurx;
                     } else {
                         edellx.sibling = seurx;
                     }
 
                     link(x, seurx);
+                    x = seurx;
                 }
             }
             seurx = x.sibling;

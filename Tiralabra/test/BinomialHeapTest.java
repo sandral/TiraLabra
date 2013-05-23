@@ -106,6 +106,7 @@ public class BinomialHeapTest {
         keko2.insert(n2);
         assertEquals(n1, keko1.merge(keko1, keko2));
     }
+     
     
     @Test 
     public void tyhjatKeotVoiYhdistaa() {
@@ -120,6 +121,7 @@ public class BinomialHeapTest {
         assertEquals(n1, keko3.getHead());
     }
     
+    
     @Test 
     public void kekoonVoiLisataKaksiSolmuaJaNiidenAsteetJaPerheSuhteetOvatOikein() {
         keko1.insert(n1);
@@ -133,6 +135,7 @@ public class BinomialHeapTest {
         assertEquals(n1, keko1.getHead().child.parent);
     }
     
+    
     @Test 
     public void kaksiAlkiotaSisaltavatKeotVoiMergeta() {
         keko1.insert(n1);
@@ -140,29 +143,117 @@ public class BinomialHeapTest {
         keko2.insert(n3);
         keko2.insert(n4);
         assertEquals(n1, keko1.merge(keko1, keko2));
+        assertEquals(n3, n1.sibling);
+        assertEquals(null, n3.sibling);
+        assertEquals(null, n3.sibling);
+        assertEquals(n4, n3.child);
+        assertEquals(n2, n1.child);
+        assertEquals(null, n4.child);
+        assertEquals(null, n2.child);
+
     }
+    
+    @Test
+    public void kaksiAlkiotaSisaltavatKeotVoiMergetaToisinPain() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        keko2.insert(n3);
+        keko2.insert(n4);
+        assertEquals(n3, keko1.merge(keko2, keko1));
+        assertEquals(n1, n3.sibling);
+        assertEquals(null, n1.sibling);
+        assertEquals(null, n2.sibling);
+        assertEquals(n4, n3.child);
+        assertEquals(n2, n1.child);
+        assertEquals(null, n4.child);
+        assertEquals(null, n2.child);
+
+    }
+    
+    
+    @Test
+    public void kolmeJaYksiAlkiotaSisaltavatKeotVoiMergeta() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        keko1.insert(n3);
+        keko2.insert(n4);
+        assertEquals(n3, keko1.merge(keko1, keko2));
+        assertEquals(n4, n3.sibling);
+        assertEquals(n1, n4.sibling);
+        assertEquals(null, n1.sibling);
+        assertEquals(n2, n1.child);
+    }
+    
     @Test
     public void yksiJaKolmeAlkiotaSisaltavatKeotVoiMergeta() {
         keko1.insert(n1);
         keko1.insert(n2);
         keko1.insert(n3);
         keko2.insert(n4);
-        assertEquals(n3, keko1.merge(keko1, keko2));
+        assertEquals(n4, keko1.merge(keko2, keko1));
+        assertEquals(n3, n4.sibling);
+        assertEquals(n1, n3.sibling);
+        assertEquals(null, n1.sibling);
+        assertEquals(n2, n1.child);
+    }
+    @Test
+    public void kolmeJaYksiAlkiotaSisaltavaKeotVoiYhdistaaJaPerheSuhteetSailyvat() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        keko1.insert(n3);
+        keko2.insert(n4);
+        assertEquals(n1, keko2.union(keko1).getHead());
+        assertEquals(n3, n1.child);
+        assertEquals(n1, n3.parent);
+        assertEquals(n1, n2.parent);
+        assertEquals(null, n1.sibling);
+        assertEquals(n2, n3.sibling);
+        assertEquals(n4, n3.child);
+        assertEquals(n3, n4.parent);
+        assertEquals(null, n4.child);
+        assertEquals(null, n4.sibling);    
     }
     
+    @Test
+    public void yksiJaKolmeAlkiotaSisaltavatKeotVoiYhdistaaJaPerheSuhteetSailyvat() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        keko1.insert(n3);
+        keko2.insert(n4);
+        assertEquals(n1, keko2.union(keko1).getHead());
+        assertEquals(n3, n1.child);
+        assertEquals(n1, n3.parent);
+        assertEquals(n1, n2.parent);
+        assertEquals(null, n1.sibling);
+        assertEquals(n2, n3.sibling);
+        assertEquals(n4, n3.child);
+        assertEquals(n3, n4.parent);
+        assertEquals(null, n4.child);
+        assertEquals(null, n4.sibling);
+    }
+   
     
     
     /*
     @Test 
-    public void kekoonVoiLisataViisiSolmua() {
+    public void kekoonVoiLisataKolmeSolmua() {
         keko1.insert(n1);
         keko1.insert(n2);
         keko1.insert(n3);
         keko1.insert(n4);
-        keko1.insert(n5);
         assertEquals(n1, keko1.getHead());
+        assertEquals(n1, n3.sibling);
+        assertEquals(n2, n1.child);
+        assertEquals(1, n1.degree);
+        assertEquals(0, n3.degree);
+        assertEquals(0, n2.degree);
+        assertEquals(null, n2.sibling);
+        assertEquals(n1, n2.parent);
+        assertEquals(null, n1.sibling);
+        
     }
-    */
+     */
+    
     
             
     @Test

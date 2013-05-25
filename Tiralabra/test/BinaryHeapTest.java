@@ -22,7 +22,10 @@ public class BinaryHeapTest {
     private BinaryHeap keko1;
     private BinaryHeap keko2;
     
+    private int testinKoko;
+    
     public BinaryHeapTest() {
+        testinKoko = 200;
     }
     
     @BeforeClass
@@ -35,7 +38,7 @@ public class BinaryHeapTest {
     
     @Before
     public void setUp() {
-        keko = new BinaryHeap(10);
+        keko = new BinaryHeap(20);
         keko1 = new BinaryHeap(-5);
         keko2 = new BinaryHeap(16);
     }
@@ -166,6 +169,26 @@ public class BinaryHeapTest {
         assertEquals(0, keko.parent(2));
         assertEquals(8, keko.parent(17));
         
+    }
+    
+    @Test 
+    public void lisataanSuuriMaaraAlkioitaJarjestyksessa() throws HeapException {
+        for (int i = 0; i < testinKoko; i++) {
+            keko.heapInsert(i);
+        }
+        for (int i = 0; i < testinKoko; i++) {
+            assertEquals(i, keko.heapDelMin());
+        }
+    }
+    
+    @Test
+    public void lisataanSuuriMaaraAlkioitaKaanteisessaJarjestyksessa() throws HeapException {
+        for (int i = 14; i > 0; i--) {
+            keko.heapInsert(i);
+        }
+        for (int i = 1; i <= 14; i++) {
+            assertEquals(i, keko.heapDelMin());
+        }
     }
      
 }

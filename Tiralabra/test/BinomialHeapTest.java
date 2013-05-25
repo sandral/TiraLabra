@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 
+import java.util.PriorityQueue;
+import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,13 +22,17 @@ public class BinomialHeapTest {
 
     private BinomialHeap keko1;
     private BinomialHeap keko2;
+    
     private Node n1;
     private Node n2;
     private Node n3;
     private Node n4;
     private Node n5;
-
+    
+    private int testinKoko;
+    
     public BinomialHeapTest() {
+    testinKoko = 1000;
     }
 
     @BeforeClass
@@ -211,8 +217,6 @@ public class BinomialHeapTest {
         assertEquals(null, n4.child);
         assertEquals(null, n4.sibling);
     }
-    
-    
 
     @Test
     public void yksiJaKolmeAlkiotaSisaltavatKeotVoiYhdistaaJaPerheSuhteetSailyvat() {
@@ -251,7 +255,7 @@ public class BinomialHeapTest {
         assertEquals(null, n4.child);
         assertEquals(null, n4.sibling);
     }
-    
+
     @Test
     public void kekoonVoiLisataViisiSolmuaJaPerhesuhteetOvatOikein() {
         keko1.insert(n1);
@@ -268,8 +272,8 @@ public class BinomialHeapTest {
         assertEquals(n1, n3.parent);
         assertEquals(n1, n2.parent);
     }
-    
-    @Test 
+
+    @Test
     public void kekoonVoiLisataViisiSolmuaJaPoistaaNe() {
         keko1.insert(n1);
         keko1.insert(n2);
@@ -281,7 +285,7 @@ public class BinomialHeapTest {
         assertEquals(3, keko1.extractMin());
         assertEquals(4, keko1.extractMin());
         assertEquals(5, keko1.extractMin());
-        
+
     }
 
     @Test
@@ -290,9 +294,67 @@ public class BinomialHeapTest {
         keko1.delete(n1);
         assertTrue(keko1.isEmpty());
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+
+    @Test
+    public void lisataanKaksisataaSolmuaJarjestyksessa() {
+        for (int i = 0; i < testinKoko; i++) {
+            keko1.insert(new Node(i, i));
+        }
+        for (int i = 0; i < testinKoko; i++) {
+            assertEquals(i, keko1.extractMin());
+        }
+    }
+
+    @Test
+    public void lisataanKaksisataaSolmuaKaanteisessaJarjestyksessa() {
+        for (int i = testinKoko; i > 0; i--) {
+            keko1.insert(new Node(i, i));
+        }
+        for (int i = 1; i < testinKoko + 1; i++) {
+            assertEquals(i, keko1.extractMin());
+        }
+    }
+
+    @Test
+    public void lisataanKaksisataaSolmuaSatunnaisessaJarjestyksessa() {
+        Random generaattori = new Random();
+        for (int i = 0; i < testinKoko; i++) {
+            keko1.insert(new Node(generaattori.nextInt(testinKoko), 0));
+        }
+        int edellinen = keko1.extractMin();
+        for (int i = 0; i < testinKoko - 1; i++) {
+            int verrattava = keko1.extractMin();
+            assertTrue(edellinen <= verrattava);
+            edellinen = verrattava;
+        }
+    }
+    
+    @Test
+    public void vertaaLisaamistaPriorityQueuehen() {
+        PriorityQueue<Node> jono = new PriorityQueue<Node>();
+        long alkuaika = System.currentTimeMillis();
+        for (int i = 0; i < testinKoko * testinKoko; i++) {
+            jono.add(new Node(i, 0));
+        }
+        long loppuaika = System.currentTimeMillis();
+        
+        long aika = loppuaika - alkuaika;
+        
+        System.out.println(jono.poll().key);
+        
+        alkuaika = System.currentTimeMillis();
+        for (int i = 0; i < testinKoko * testinKoko; i++) {
+            keko1.insert(new Node(i, 0));
+        }
+        loppuaika = System.currentTimeMillis();
+        long aika2 = loppuaika - alkuaika;
+        
+        assertTrue("oma aika oli " + aika2 + "javan aika oli " + aika, 1.0 * aika2/aika < 2.5);
+    }
+           
 }
+// TODO add test methods here.
+// The methods must be annotated with annotation @Test. For example:
+//
+// @Test
+    // public void hello() {}}

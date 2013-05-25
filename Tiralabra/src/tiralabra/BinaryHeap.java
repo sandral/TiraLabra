@@ -19,8 +19,8 @@ public class BinaryHeap {
     private static int defaultKoko = 10;
 
     /**
-     * Konstruktori
-     *defaultKoko
+     * Konstruktori defaultKoko
+     *
      * @param size Luo keon, johon mahtuu näin monta alkiota.
      */
     public BinaryHeap(int size) {
@@ -74,12 +74,21 @@ public class BinaryHeap {
             taulukko.tuplaaJaKopioi();
         }
         heapSize++;
-        int i = heapSize;
-        while (i > 1 && taulukko.getLuku(parent(i)) > k) {
-            taulukko.setLuku(i - 1, taulukko.getLuku(parent(i)));
-            i = parent(i) + 1;
+        taulukko.setLuku(heapSize - 1, k);
+        siftUp(heapSize - 1);
+    }
+
+    private void siftUp(int k) {
+        int vanhempi;
+        if (k != 0) {
+            vanhempi = parent(k);
+            if (taulukko.getLuku(vanhempi) > taulukko.getLuku(k)) {
+                swap(vanhempi, k);
+                siftUp(vanhempi);
+
+            }
+
         }
-        taulukko.setLuku(i - 1, k);
     }
 
     /**
@@ -123,7 +132,7 @@ public class BinaryHeap {
      * @return
      */
     public int left(int i) {
-        return 2 * (i) + 1;
+        return 2 * i + 1;
     }
 
     /**
@@ -214,34 +223,57 @@ public class BinaryHeap {
     }
 
     public static void main(String[] args) throws HeapException {
-        BinaryHeap keko = new BinaryHeap(5);
-        BinaryHeap toinen = new BinaryHeap(5);
+        BinaryHeap keko = new BinaryHeap(100);
+        BinaryHeap toinen = new BinaryHeap(100);
 
-        for (int i = 5; i < 8; i++) {
+        for (int i = 15; i > 0; i--) {
             keko.heapInsert(i);
+
+            for (int j = 0; j < 15 - i; j++) {
+                System.out.print(keko.taulukko.getLuku(j) + " ");
+            }
+            System.out.println();
+
         }
-        for (int i = 0; i < 5; i++) {
-            toinen.heapInsert(i);
+
+        for (int i = 0; i < 15; i++) {
+            System.out.print(keko.taulukko.getLuku(i) + " vasen: " + keko.taulukko.getLuku(keko.left(i)) + " oikea: " + keko.taulukko.getLuku(keko.right(i)));
+            System.out.println();
         }
-        for (int i = 0; i < 4; i++) {
-            System.out.print(keko.taulukko.getLuku(i));
-        }
+
         System.out.println();
-        for (int i = 0; i < 5; i++) {
-            System.out.print(toinen.taulukko.getLuku(i));
-        }
-        System.out.println();
 
-
-        keko.merge(toinen);
-        System.out.println("koko nyt: " + keko.heapSize);
-
-        for (int i = 0; i < keko.getTaulukko().getLength(); i++) {
-            System.out.print(keko.getTaulukko().getLuku(i));
-
+        while (!keko.isEmpty()) {
+            System.out.print(keko.heapDelMin() + " ");
 
         }
 
+        /*
+         for (int i = 5; i < 8; i++) {
+         keko.heapInsert(i);
+         }
+         for (int i = 0; i < 5; i++) {
+         toinen.heapInsert(i);
+         }
+         for (int i = 0; i < 4; i++) {
+         System.out.print(keko.taulukko.getLuku(i));
+         }
+         System.out.println();
+         for (int i = 0; i < 5; i++) {
+         System.out.print(toinen.taulukko.getLuku(i));
+         }
+         System.out.println();
+
+
+         keko.merge(toinen);
+         System.out.println("koko nyt: " + keko.heapSize);
+
+         for (int i = 0; i < keko.getTaulukko().getLength(); i++) {
+         System.out.print(keko.getTaulukko().getLuku(i));
+            
+
+         }
+         */
         /*BinaryHeap keko = new BinaryHeap(5);
          BinaryHeap keko1 = new BinaryHeap(20);
          for (int i = 1; i < 16; i++) {

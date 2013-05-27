@@ -223,9 +223,18 @@ public class BinaryHeap {
     }
 
     public static void main(String[] args) throws HeapException {
-        BinaryHeap keko = new BinaryHeap(100);
-        BinaryHeap toinen = new BinaryHeap(100);
-
+        BinaryHeap keko = new BinaryHeap(10);
+        BinaryHeap toinen = new BinaryHeap(10);
+        
+        for (int i = 3; i > 0; i--) {
+            keko.heapInsert(i);
+        }
+        
+        for (int i = 0; i < 3; i++) {
+            System.out.print(keko.taulukko.getLuku(i) + " ");
+        }
+        
+        /*
         for (int i = 15; i > 0; i--) {
             keko.heapInsert(i);
 
@@ -247,7 +256,7 @@ public class BinaryHeap {
             System.out.print(keko.heapDelMin() + " ");
 
         }
-
+        */ 
         /*
          for (int i = 5; i < 8; i++) {
          keko.heapInsert(i);

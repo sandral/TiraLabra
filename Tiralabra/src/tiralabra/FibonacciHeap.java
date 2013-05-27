@@ -15,7 +15,7 @@ public class FibonacciHeap {
     private Fnode min;
     private int count; //solmujen lkm
 
-    public FibonacciHeap(Fnode min, int count) {
+    public FibonacciHeap() {
         min = null;
         count = 0;
     }

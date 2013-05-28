@@ -20,6 +20,11 @@ public class FibonacciHeap {
         count = 0;
     }
 
+    public int getCount() {
+        return count;
+    }
+    
+
     /**
      * Tarkistaa, onko keko tyhja.
      *

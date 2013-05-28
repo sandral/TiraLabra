@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import tiralabra.FibonacciHeap;
+import tiralabra.Fnode;
 
 /**
  *
@@ -17,7 +18,18 @@ import tiralabra.FibonacciHeap;
  */
 public class FibonacciHeapTest {
     FibonacciHeap keko1;
+    Fnode n1;
+    Fnode n2;
+    Fnode n3;
+    Fnode n4;
+    Fnode n5;
+            
     public FibonacciHeapTest() {
+    n1 = new Fnode(1, 1);
+    n2 = new Fnode(2, 2);
+    n3 = new Fnode(3, 3);
+    n4 = new Fnode(4, 4);
+    n5 = new Fnode(5, 5);
     }
     
     @BeforeClass
@@ -40,6 +52,40 @@ public class FibonacciHeapTest {
     @Test 
     public void kekoOnAluksiTyhja() {
         assertTrue(keko1.isEmpty());
+    }
+    
+    @Test
+    public void kekoonVoiLisataSolmunJaSeLoytyy() {
+        keko1.insert(n1);
+        assertFalse(keko1.isEmpty());
+        assertEquals(n1, keko1.heapMin());
+        assertEquals(1, keko1.extractMin());
+        assertTrue(keko1.isEmpty());
+    }
+    
+    @Test
+    public void kekoonVoiLisataKaksiSolmuaJaNeLoytyvat() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        assertEquals(2, keko1.getCount());
+        assertEquals(n1, keko1.heapMin());
+        assertEquals(1, keko1.extractMin());
+        assertEquals(1, keko1.getCount());
+        //assertEquals(2, keko1.extractMin());
+    }
+    
+    @Test
+    public void kekoonVoiLisataViisiSolmua() {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        keko1.insert(n3);
+        keko1.insert(n4);
+        keko1.insert(n5);
+        assertEquals(5, keko1.getCount());
+        assertEquals(n1, keko1.heapMin());
+        assertEquals(1, keko1.extractMin());
+               
+                
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

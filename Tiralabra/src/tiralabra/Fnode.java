@@ -8,16 +8,16 @@ package tiralabra;
  *
  * @author root
  */
-class Fnode {
+public class Fnode {
 
-    Fnode child;
-    Fnode parent;
-    Fnode left;
-    Fnode right;
-    int key;
-    int value;
-    int degree;
-    boolean mark;
+    public Fnode child;
+    public Fnode parent;
+    public Fnode left;
+    public Fnode right;
+    public int key;
+    public int value;
+    public int degree;
+    public boolean mark;
 
     public Fnode(int value, int key) {
         right = this;

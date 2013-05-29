@@ -58,24 +58,26 @@ public class FibonacciHeapTest {
     public void kekoonVoiLisataSolmunJaSeLoytyy() {
         keko1.insert(n1);
         assertFalse(keko1.isEmpty());
-        assertEquals(n1, keko1.heapMin());
+        assertEquals(n1, keko1.heapMin()); 
         assertEquals(1, keko1.extractMin());
         assertTrue(keko1.isEmpty());
-    }
+    } 
     
     @Test
-    public void kekoonVoiLisataKaksiSolmuaJaNeLoytyvat() {
+    public void kekoonVoiLisataKaksiSolmuaJaNeLoytyvat() { 
         keko1.insert(n1);
         keko1.insert(n2);
-        assertEquals(2, keko1.getCount());
+        assertEquals(2, keko1.getCount()); 
         assertEquals(n1, keko1.heapMin());
         assertEquals(1, keko1.extractMin());
         assertEquals(1, keko1.getCount());
-        //assertEquals(2, keko1.extractMin());
+        assertEquals(0, n1.degree);
+        assertEquals(0, n2.degree);
+        assertEquals(2, keko1.extractMin());
     }
     
     @Test
-    public void kekoonVoiLisataViisiSolmua() {
+    public void kekoonVoiLisataViisiSolmuaJaPerheSuhteetOvatOikein() {
         keko1.insert(n1);
         keko1.insert(n2);
         keko1.insert(n3);
@@ -83,6 +85,16 @@ public class FibonacciHeapTest {
         keko1.insert(n5);
         assertEquals(5, keko1.getCount());
         assertEquals(n1, keko1.heapMin());
+        assertEquals(n2, n1.right);
+        assertEquals(n5, n1.left);
+        assertEquals(n1, n2.left);
+        assertEquals(n3, n2.right);
+        assertEquals(n2, n3.left);
+        assertEquals(n4, n3.right);
+        assertEquals(n3, n4.left);
+        assertEquals(n5, n4.right);
+        assertEquals(n4, n5.left);
+        assertEquals(n1, n5.right);
         assertEquals(1, keko1.extractMin());
                
                 

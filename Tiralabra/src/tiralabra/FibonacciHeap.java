@@ -12,6 +12,8 @@ import tiralabra.Fnode;
  */
 public class FibonacciHeap {
 
+    private final double phi = (1.0 + Math.sqrt(5.0)) / 2.0;
+    
     private Fnode min;
     private int count; //solmujen lkm
 
@@ -23,7 +25,6 @@ public class FibonacciHeap {
     public int getCount() {
         return count;
     }
-    
 
     /**
      * Tarkistaa, onko keko tyhja.
@@ -41,16 +42,18 @@ public class FibonacciHeap {
      */
     public void insert(Fnode n) {
         if (min != null) {
-            n.left = min;
-            n.right = min.right;
-            min.right = n;
-            n.right.left = n;
+            n.right = min;
+            n.left = min.left;
+            min.left = n;
+            n.left.right = n;
 
             if (n.key < min.key) {
                 min = n;
             }
         } else {
             min = n;
+            min.left = min;
+            min.right = min;
         }
         count++;
     }
@@ -71,34 +74,39 @@ public class FibonacciHeap {
      */
     public int extractMin() {
         Fnode x = min;
+        
         if (x != null) {
+            int lapsia = x.degree;
             Fnode y = x.child;
             Fnode z;
 
-            for (int i = x.degree; i > 0; i--) {
+            while (lapsia > 0) {
                 z = y.right;
                 y.left.right = y.right;
                 y.right.left = y.left;
-
+                
                 y.left = min;
                 y.right = min.right;
                 min.right = y;
                 y.right.left = y;
-
+                
                 y.parent = null;
                 y = z;
+                lapsia--;
             }
-
+            
             x.left.right = x.right;
             x.right.left = x.left;
-
+            
             if (x == x.right) {
                 min = null;
-            } else {
+            }
+            else {
                 min = x.right;
                 consolidate();
             }
             count--;
+            
         }
         return x.key;
     }
@@ -107,94 +115,72 @@ public class FibonacciHeap {
         if (min == null) {
             return;
         }
-        double phi = (1.0 + Math.sqrt(5.0)) / 2.0;
+        
         int dCount = (int) Math.floor(Math.log(count) / Math.log(phi));
-
-        Fnode[] dIndex = new Fnode[dCount + 1];
-
-        for (int i = 0; i < dCount; i++) {
-            dIndex[i] = null;
-        }
-
-        int rCount = 0;
+        Fnode[] apu = new Fnode[dCount + 1];
+        
         Fnode x = min;
-
-        if (x != null) {
-            rCount++;
-            x = x.right;
-
-            while (x != min) {
-                rCount++;
-                x = x.right;
-            }
-        }
-        while (rCount > 0) {
+        do {
             int d = x.degree;
-            Fnode seuraava = x.right;
-
-            while (dIndex[d] != null) {
-                Fnode y = dIndex[d];
-
-                if (x.key > y.key) {
-                    Fnode z = y;
-                    y = x;
-                    x = z;
+            while (apu[d] != null) {
+                Fnode y = apu[d];
+                if(x.key > y.key) {
+                    swap(x,y);
                 }
-
-                link(y, x);
-
-                dIndex[d] = null;
-                d++;
+                link(y,x);
+                apu[d] = null;
+                d = d + 1;
             }
+            apu[d] = x;
+        } while (x != min);
 
-            dIndex[d] = x;
-            x = seuraava;
-            rCount--;
-        }
         min = null;
-
-        for (int i = 0; i < count; i++) {
-            Fnode y = dIndex[i];
-            if (y != null) {
-                if (min != null) {
-                    y.left.right = y.right;
-                    y.right.left = y.left;
-
-                    y.left = min;
-                    y.right = min.right;
-                    min.right = y;
-                    y.right.left = y;
-
-
-                    if (y.key < min.key) {
-                        min = y;
-                    } else {
-                        min = y;
-                    }
+        
+        for (int i = 0; i <= dCount; i++) {
+            if (apu[i] == null)
+                continue;
+            if (min == null) {
+                min = apu[i];
+                min.left = min;
+                min.right = min;
+            } else {
+                apu[i].left = min.left;
+                apu[i].right = min;
+                min.left.right = apu[i];
+                min.left = apu[i];
+                if (apu[i].key < min.key) {
+                    min = apu[i];
                 }
             }
         }
+    }
+    
+    public void swap(Fnode x, Fnode y) {
+        Fnode xoikea = x.right;
+        Fnode xvasen = x.left;
+        x.right = y.right;
+        x.left = y.left;
+        y.right = xoikea;
+        y.left = xvasen;
     }
 
     public void link(Fnode n1, Fnode n2) {
         n1.left.right = n1.right;
         n1.right.left = n1.left;
         n1.parent = n2;
-        
+
         if (n2.child == null) {
             n2.child = n1;
             n1.right = n1;
             n1.left = n1;
-        }
-        else {
+        } else {
             n1.left = n2.child;
             n1.right = n2.child.right;
             n2.child.right = n1;
             n1.right.left = n1;
         }
-        
+
         n2.degree++;
         n1.mark = false;
     }
-    
 }

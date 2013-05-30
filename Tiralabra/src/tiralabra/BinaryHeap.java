@@ -1,6 +1,8 @@
 package tiralabra;
 
 import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.Random;
 import tiralabra.OmaTaulukko;
 
 public class BinaryHeap {
@@ -223,9 +225,43 @@ public class BinaryHeap {
     }
 
     public static void main(String[] args) throws HeapException {
-        BinaryHeap keko = new BinaryHeap(10);
+        BinaryHeap keko = new BinaryHeap(100000000);
         BinaryHeap toinen = new BinaryHeap(10);
+        int alkioita = 10000000;
+        PriorityQueue<Integer> jono = new PriorityQueue<Integer>();
+        Random generaattori = new Random(); 
+
         
+
+        long alku = System.currentTimeMillis();        
+        for (int i = alkioita - 1; i >= 0; i--) {
+            keko.heapInsert(generaattori.nextInt(alkioita));
+        }
+        long loppu = System.currentTimeMillis();
+        
+        for (int i = 0; i < alkioita; i++) {
+            keko.heapDelMin();
+        }
+        long omaAika = loppu - alku;
+        
+        alku = System.currentTimeMillis();        
+        for (int i = alkioita - 1; i >= 0; i--) {
+            jono.add(generaattori.nextInt(alkioita));
+        }
+        loppu = System.currentTimeMillis();
+        
+        for (int i = 0; i < alkioita; i++) {
+            jono.poll();
+        }
+        
+
+        
+        long javanAika = loppu - alku;
+
+        System.out.println("oma aika: " + omaAika);
+        System.out.println("javan aika: " + javanAika);
+        
+        /*
         for (int i = 3; i > 0; i--) {
             keko.heapInsert(i);
         }
@@ -233,7 +269,7 @@ public class BinaryHeap {
         for (int i = 0; i < 3; i++) {
             System.out.print(keko.taulukko.getLuku(i) + " ");
         }
-        
+        /*
         /*
         for (int i = 15; i > 0; i--) {
             keko.heapInsert(i);

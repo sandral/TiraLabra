@@ -4,6 +4,7 @@
  */
 package tiralabra;
 
+import java.util.PriorityQueue;
 import tiralabra.Node;
 
 public class BinomialHeap {
@@ -249,5 +250,29 @@ public class BinomialHeap {
 
     public boolean isEmpty() {
         return head == null;
+    }
+    public static void main(String[] args) {
+        BinomialHeap keko = new BinomialHeap();
+        PriorityQueue<Node> jono = new PriorityQueue<Node>();
+        int alkioita = 1000000;
+        
+        long alku = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
+            keko.insert(new Node(i,0));
+        }
+        long loppu = System.currentTimeMillis();
+        long omaAika = loppu - alku;
+        
+        alku = System.currentTimeMillis();
+        for (int i = 0; i < alkioita; i++) {
+            jono.add(new Node(i, 0));
+        }
+        loppu = System.currentTimeMillis();
+        long javanAika = loppu - alku;
+        
+        System.out.println("oma aika: " + omaAika);
+        System.out.println("javan aika: " + javanAika);
+        
+       
     }
 }

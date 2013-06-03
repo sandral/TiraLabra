@@ -55,7 +55,7 @@ public class FibonacciHeapTest {
     }
     
     @Test
-    public void kekoonVoiLisataSolmunJaSeLoytyy() {
+    public void kekoonVoiLisataSolmunJaSeLoytyy() throws Exception {
         keko1.insert(n1);
         assertFalse(keko1.isEmpty());
         assertEquals(n1, keko1.heapMin()); 
@@ -64,7 +64,7 @@ public class FibonacciHeapTest {
     } 
     
     @Test
-    public void kekoonVoiLisataKaksiSolmuaJaNeLoytyvat() { 
+    public void kekoonVoiLisataKaksiSolmuaJaNeLoytyvat() throws Exception { 
         keko1.insert(n1);
         keko1.insert(n2);
         assertEquals(2, keko1.getCount()); 
@@ -74,10 +74,11 @@ public class FibonacciHeapTest {
         assertEquals(0, n1.degree);
         assertEquals(0, n2.degree);
         assertEquals(2, keko1.extractMin());
+        assertTrue(keko1.isEmpty());
     }
-    
+    /*
     @Test
-    public void kekoonVoiLisataViisiSolmuaJaPerheSuhteetOvatOikein() {
+    public void kekoonVoiLisataViisiSolmuaJaPerheSuhteetOvatOikein() throws Exception {
         keko1.insert(n1);
         keko1.insert(n2);
         keko1.insert(n3);
@@ -96,9 +97,29 @@ public class FibonacciHeapTest {
         assertEquals(n4, n5.left);
         assertEquals(n1, n5.right);
         assertEquals(1, keko1.extractMin());
-               
-                
     }
+   
+    
+    */
+    @Test 
+    public void kekoonVoiLisataNeljäAlkiotaJaPoistaaNe() throws Exception {
+        keko1.insert(n1);
+        keko1.insert(n2);
+        keko1.insert(n3);
+        
+        
+        assertEquals(3, keko1.getCount());
+        assertEquals(n1, keko1.heapMin());        
+        assertEquals(1, keko1.extractMin());
+       // assertEquals(n3, n2.child);
+        assertEquals(n2, keko1.heapMin());
+        //assertEquals(2, keko1.extractMin());
+       // assertEquals(n3, keko1.heapMin());
+//        assertEquals(3, keko1.extractMin());
+        //assertEquals(2, keko1.extractMin());
+       
+    }
+     
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

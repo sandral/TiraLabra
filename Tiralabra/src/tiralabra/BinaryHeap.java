@@ -227,7 +227,7 @@ public class BinaryHeap {
     public static void main(String[] args) throws HeapException {
         BinaryHeap keko = new BinaryHeap(100000000);
         BinaryHeap toinen = new BinaryHeap(10);
-        int alkioita = 10000000;
+        int alkioita = 1000000;
         PriorityQueue<Integer> jono = new PriorityQueue<Integer>();
         Random generaattori = new Random(); 
 

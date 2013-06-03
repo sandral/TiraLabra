@@ -5,10 +5,10 @@
 package tiralabra;
 
 /**
- *
+ * Solmu Fibonacci-kekoa varten. 
  * @author root
  */
-public class Fnode {
+public class Fnode implements Comparable {
 
     public Fnode child;
     public Fnode parent;
@@ -26,6 +26,17 @@ public class Fnode {
         this.value = value;
         mark = false;
         degree = 0;
+    }
+
+    @Override
+     public int compareTo(Object toinen) {
+        Node verrattava = (Node) toinen;
+        if (verrattava.key == this.key) {
+            return 0;
+        }
+        else {
+            return this.key - verrattava.key;
+        }
     }
 }
 

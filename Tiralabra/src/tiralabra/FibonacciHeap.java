@@ -17,6 +17,9 @@ public class FibonacciHeap {
     private Fnode min;
     private int count; //solmujen lkm
 
+    /**
+     * Konstruktori, luo tyhjän keon.
+     */
     public FibonacciHeap() {
         min = null;
         count = 0;
@@ -72,8 +75,11 @@ public class FibonacciHeap {
      *
      * @return
      */
-    public int extractMin() {
+    public int extractMin() throws Exception {
         Fnode x = min;
+        if (x == null) {
+            return 0;
+        }
         
         if (x != null) {
             int lapsia = x.degree;
@@ -110,8 +116,11 @@ public class FibonacciHeap {
         }
         return x.key;
     }
-
-    public void consolidate() {
+/**
+ * Apumetodi extractMin-metodille. Yhdistää solmuja toisiinsa siten, että 
+ * juurilistassa ei ole kahta samaa astetta olevaa solmua.
+ */
+    private void consolidate() {
         if (min == null) {
             return;
         }
@@ -132,6 +141,7 @@ public class FibonacciHeap {
                 d = d + 1;
             }
             apu[d] = x;
+            x = x.right;
         } while (x != min);
 
         min = null;
@@ -155,20 +165,47 @@ public class FibonacciHeap {
         }
     }
     
-    public void swap(Fnode x, Fnode y) {
+    /**
+     * Apumetodi consolidatelle, vaihtaa kahden solmun paikkaa keskenään siten,
+     * että näiden alipuut seuraavat vaihdossa mukana.
+     * @param x solmu jonka paikkaa vaihdetaan
+     * @param y tämän solmun kanssa
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
+}
+
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
+}
+
+     */
+    private void swap(Fnode x, Fnode y) {
         Fnode xoikea = x.right;
         Fnode xvasen = x.left;
         x.right = y.right;
         x.left = y.left;
         y.right = xoikea;
         y.left = xvasen;
+        
     }
 
-    public void link(Fnode n1, Fnode n2) {
-        n1.left.right = n1.right;
-        n1.right.left = n1.left;
+    /**
+     * Apumetodi consolidate-metodille. Linkittää solmut toisiinsa ja asettaa toisen
+     * solmun toisen lapseksi.
+     * @param n1 
+     * @param n2 
+     */
+    private void link(Fnode n1, Fnode n2) {
+        Fnode oikea = n1.right;
+        Fnode vasen = n1.left;
+        oikea.left = vasen;
+        vasen.right = oikea;
         n1.parent = n2;
-
+                        
         if (n2.child == null) {
             n2.child = n1;
             n1.right = n1;

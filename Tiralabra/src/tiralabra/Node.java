@@ -5,7 +5,7 @@
 package tiralabra;
 
 /**
- *
+ * Solmu binomikekoa varten.
  * @author root
  */
 public class Node implements Comparable {

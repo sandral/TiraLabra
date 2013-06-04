@@ -317,7 +317,7 @@ public class BinomialHeapTest {
 
     @Test
     public void lisataanKaksisataaSolmuaSatunnaisessaJarjestyksessa() {
-        Random generaattori = new Random();
+        Random generaattori = new Random(1234567);
         for (int i = 0; i < testinKoko; i++) {
             keko1.insert(new Node(generaattori.nextInt(testinKoko), 0));
         }

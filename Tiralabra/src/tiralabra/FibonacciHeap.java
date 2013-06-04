@@ -13,7 +13,6 @@ import tiralabra.Fnode;
 public class FibonacciHeap {
 
     private final double phi = (1.0 + Math.sqrt(5.0)) / 2.0;
-    
     private Fnode min;
     private int count; //solmujen lkm
 
@@ -80,75 +79,90 @@ public class FibonacciHeap {
         if (x == null) {
             return 0;
         }
-        
-        if (x != null) {
-            int lapsia = x.degree;
-            Fnode y = x.child;
-            Fnode z;
 
-            while (lapsia > 0) {
-                z = y.right;
-                y.left.right = y.right;
-                y.right.left = y.left;
-                
-                y.left = min;
-                y.right = min.right;
-                min.right = y;
-                y.right.left = y;
-                
-                y.parent = null;
-                y = z;
-                lapsia--;
-            }
-            
-            x.left.right = x.right;
-            x.right.left = x.left;
-            
-            if (x == x.right) {
-                min = null;
-            }
-            else {
-                min = x.right;
-                consolidate();
-            }
-            count--;
-            
+        int lapsia = x.degree;
+        Fnode y = x.child;
+        Fnode z;
+
+        while (lapsia > 0) {
+            z = y.right;
+            y.left.right = y.right;
+            y.right.left = y.left;
+
+            y.left = min;
+            y.right = min.right;
+            min.right = y;
+            y.right.left = y;
+
+            y.parent = null;
+            y = z;
+            lapsia--;
         }
+
+        x.left.right = x.right;
+        x.right.left = x.left;
+
+        if (x == x.right) {
+            min = null;
+        } else {
+            min = x.right;
+            consolidate();
+        }
+        count--;
         return x.key;
     }
-/**
- * Apumetodi extractMin-metodille. Yhdistää solmuja toisiinsa siten, että 
- * juurilistassa ei ole kahta samaa astetta olevaa solmua.
- */
+
+    /**
+     * Apumetodi extractMin-metodille. Yhdistää solmuja toisiinsa siten, että
+     * juurilistassa ei ole kahta samaa astetta olevaa solmua.
+     */
     private void consolidate() {
         if (min == null) {
             return;
         }
-        
-        int dCount = (int) Math.floor(Math.log(count) / Math.log(phi));
+
+        int dCount = (int) Math.floor(Math.log(count) / Math.log(phi))+1;
         Fnode[] apu = new Fnode[dCount + 1];
-        
+
+        // Lasketaan root listin koko
+        int rootListSize = 0;
         Fnode x = min;
         do {
+            x = x.right;
+            rootListSize++;
+        } while (x != min);
+        
+        Fnode[] taulu = new Fnode[rootListSize];
+
+        x = min;
+        for (int i = 0; i < rootListSize; i++) {
+            taulu[i] = x;
+            x = x.right;
+        }
+        
+        for (int i = 0; i < taulu.length; i++) {
+            x = taulu[i];
             int d = x.degree;
             while (apu[d] != null) {
                 Fnode y = apu[d];
-                if(x.key > y.key) {
-                    swap(x,y);
+                if (x.key > y.key) {
+                    Fnode _x = x;
+                    x = y;
+                    y = _x;
                 }
-                link(y,x);
+                link(y, x);
                 apu[d] = null;
                 d = d + 1;
             }
             apu[d] = x;
-            x = x.right;
-        } while (x != min);
+        }
 
         min = null;
-        
+
         for (int i = 0; i <= dCount; i++) {
-            if (apu[i] == null)
+            if (apu[i] == null) {
                 continue;
+            }
             if (min == null) {
                 min = apu[i];
                 min.left = min;
@@ -164,40 +178,14 @@ public class FibonacciHeap {
             }
         }
     }
-    
-    /**
-     * Apumetodi consolidatelle, vaihtaa kahden solmun paikkaa keskenään siten,
-     * että näiden alipuut seuraavat vaihdossa mukana.
-     * @param x solmu jonka paikkaa vaihdetaan
-     * @param y tämän solmun kanssa
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-}
 
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-}
-
-     */
-    private void swap(Fnode x, Fnode y) {
-        Fnode xoikea = x.right;
-        Fnode xvasen = x.left;
-        x.right = y.right;
-        x.left = y.left;
-        y.right = xoikea;
-        y.left = xvasen;
-        
-    }
 
     /**
-     * Apumetodi consolidate-metodille. Linkittää solmut toisiinsa ja asettaa toisen
-     * solmun toisen lapseksi.
-     * @param n1 
-     * @param n2 
+     * Apumetodi consolidate-metodille. Linkittää solmut toisiinsa ja asettaa
+     * toisen solmun toisen lapseksi.
+     *
+     * @param n1
+     * @param n2
      */
     private void link(Fnode n1, Fnode n2) {
         Fnode oikea = n1.right;
@@ -205,7 +193,7 @@ public class FibonacciHeap {
         oikea.left = vasen;
         vasen.right = oikea;
         n1.parent = n2;
-                        
+
         if (n2.child == null) {
             n2.child = n1;
             n1.right = n1;

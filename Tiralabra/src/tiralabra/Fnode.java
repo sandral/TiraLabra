@@ -31,12 +31,14 @@ public class Fnode implements Comparable {
     @Override
      public int compareTo(Object toinen) {
         Node verrattava = (Node) toinen;
-        if (verrattava.key == this.key) {
-            return 0;
-        }
-        else {
-            return this.key - verrattava.key;
-        }
+        return this.key - verrattava.key;
     }
+
+    @Override
+    public String toString() {
+        return "(" + key + " -> " + value + ')';
+    }
+    
+    
 }
 

@@ -140,15 +140,15 @@ public class FibonacciHeapTest {
     
     @Test
     public void kekoonVoiLisataMontaSolmuaKaanteisessaJarjestyksessa() throws Exception {
-        for (int i = 5; i <= 0; i--) {
+        for (int i = 5; i >= 0; i--) {
             keko1.insert(new Fnode(i, i));
         }
-        System.out.println("count: " + keko1.getCount());
-        //assertEquals(6, keko1.getCount());
-        //assertFalse(keko1.isEmpty());
-        //assertEquals(0, keko1.heapMin());
-        for (int i = 0; i < koko; i++) {
-            assertEquals(0, keko1.extractMin());
+        
+        assertEquals(6, keko1.getCount());
+        assertFalse(keko1.isEmpty());
+        assertEquals(0, keko1.heapMin().key);
+        for (int i = 0; i < 6; i++) {
+            assertEquals(i, keko1.extractMin());
         }
     }
 } 

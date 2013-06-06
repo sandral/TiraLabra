@@ -26,7 +26,7 @@ public class FibonacciHeapTest {
     int koko;
             
     public FibonacciHeapTest() {
-    koko = 100;
+    koko = 1000;
     }
     
     @BeforeClass
@@ -132,14 +132,29 @@ public class FibonacciHeapTest {
         for (int i = 0; i < 666; i++) {
             keko1.insert(new Fnode(i, i));
         }
+        System.out.println("count: " + keko1.getCount());
         for (int i = 0; i < 666; i++) {
             assertEquals(i, keko1.extractMin());
         }
     }
-      
+    
+    @Test
+    public void kekoonVoiLisataMontaSolmuaKaanteisessaJarjestyksessa() throws Exception {
+        for (int i = 5; i <= 0; i--) {
+            keko1.insert(new Fnode(i, i));
+        }
+        System.out.println("count: " + keko1.getCount());
+        //assertEquals(6, keko1.getCount());
+        //assertFalse(keko1.isEmpty());
+        //assertEquals(0, keko1.heapMin());
+        for (int i = 0; i < koko; i++) {
+            assertEquals(0, keko1.extractMin());
+        }
+    }
+} 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     // @Test
     // public void hello() {}
-}
+

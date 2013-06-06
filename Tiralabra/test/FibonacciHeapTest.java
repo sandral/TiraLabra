@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 
+import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -140,15 +141,29 @@ public class FibonacciHeapTest {
     
     @Test
     public void kekoonVoiLisataMontaSolmuaKaanteisessaJarjestyksessa() throws Exception {
-        for (int i = 5; i >= 0; i--) {
+        for (int i = koko; i >= 0; i--) {
             keko1.insert(new Fnode(i, i));
         }
         
-        assertEquals(6, keko1.getCount());
+        assertEquals(koko + 1, keko1.getCount());
         assertFalse(keko1.isEmpty());
         assertEquals(0, keko1.heapMin().key);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < koko + 1; i++) {
             assertEquals(i, keko1.extractMin());
+        }
+    }
+    
+    @Test
+    public void kekoonVoiLisataMontaSolmuaSatunnaisessaJarjestyksessa() throws Exception {
+        Random generaattori = new Random();
+        for (int i = 0; i < koko; i++) {
+            keko1.insert(new Fnode(0, generaattori.nextInt(koko)));
+        }
+        int edellinen = keko1.extractMin();
+        for (int i = 0; i < koko - 1; i++) {
+            int seuraava = keko1.extractMin();
+            assertTrue(edellinen <= seuraava);
+            edellinen = seuraava;
         }
     }
 } 

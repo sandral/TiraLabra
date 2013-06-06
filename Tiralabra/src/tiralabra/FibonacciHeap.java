@@ -4,6 +4,7 @@
  */
 package tiralabra;
 
+import tiralabra.BinaryHeap.HeapException;
 import tiralabra.Fnode;
 
 /**
@@ -74,12 +75,12 @@ public class FibonacciHeap {
      *
      * @return
      */
-    public int extractMin() throws Exception {
+    public int extractMin() throws HeapException {
         Fnode x = min;
         if (x == null) {
-            return 0;
+            throw new BinaryHeap.HeapException("keko on tyhjä");
         }
-
+        
         int lapsia = x.degree;
         Fnode y = x.child;
         Fnode z;

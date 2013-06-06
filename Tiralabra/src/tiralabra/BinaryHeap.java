@@ -71,15 +71,19 @@ public class BinaryHeap {
      *
      * @param k lisättävä luku
      */
-    public void heapInsert(int k) {
+    public void heapInsert(int lisattava) {
         if (heapSize == taulukko.getLength()) {
             taulukko.tuplaaJaKopioi();
         }
         heapSize++;
-        taulukko.setLuku(heapSize - 1, k);
+        taulukko.setLuku(heapSize - 1, lisattava);
         siftUp(heapSize - 1);
     }
 
+    /**
+     * Apumetodi heapInsertille
+     * @param k 
+     */
     private void siftUp(int k) {
         int vanhempi;
         if (k != 0) {

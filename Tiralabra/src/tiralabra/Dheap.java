@@ -22,6 +22,7 @@ public class Dheap {
         if (d < 2) {
             throw new IllegalArgumentException("d:n oltava vähintään 2");
         }
+        this.d = d;
         taulukko = new OmaTaulukko(size);
         heapSize = 0;
     }
@@ -46,14 +47,20 @@ public class Dheap {
         return heapSize == 0;
     }
 
-    public void Insert(int lisattava) {
+    public void insert(int lisattava) {
         if (heapSize == taulukko.getLength()) {
             taulukko.tuplaaJaKopioi();
         }
 
         heapSize++;
-        taulukko.setLuku(heapSize - 1, lisattava);
-        siftUp(heapSize - 1);
+        int indeksi = heapSize - 1;
+        int vanhempi = parent(indeksi);
+        while (indeksi != 0 && lisattava < parent(indeksi)) {
+            taulukko.setLuku(indeksi, taulukko.getLuku(vanhempi));
+            indeksi = vanhempi;
+            vanhempi = parent(indeksi);
+        }
+        taulukko.setLuku(indeksi, lisattava);
     }
 
     private void siftUp(int k) {
@@ -65,8 +72,16 @@ public class Dheap {
         }
         return taulukko.getLuku(0);
     }
+    
+public int parent(int indeksi) {
+    return (indeksi - 1 / d);
+}
 
-    private static class DaryHeapException extends Exception {
+
+    
+    
+
+    public static class DaryHeapException extends Exception {
 
         public DaryHeapException(String tyhjä_keko) {
         }

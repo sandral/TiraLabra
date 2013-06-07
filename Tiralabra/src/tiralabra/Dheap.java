@@ -51,39 +51,87 @@ public class Dheap {
         if (heapSize == taulukko.getLength()) {
             taulukko.tuplaaJaKopioi();
         }
+        if (isEmpty()) {
+            taulukko.setLuku(0, lisattava);
+            heapSize++;
+        } else {
+            heapSize++;
 
-        heapSize++;
-        int indeksi = heapSize - 1;
-        int vanhempi = parent(indeksi);
-        while (indeksi != 0 && lisattava < parent(indeksi)) {
-            taulukko.setLuku(indeksi, taulukko.getLuku(vanhempi));
-            indeksi = vanhempi;
-            vanhempi = parent(indeksi);
+            int indeksi = heapSize - 1;
+            int vanhempi = taulukko.getLuku(parent(indeksi));
+            while (indeksi != 0 && lisattava < vanhempi) {
+                taulukko.setLuku(indeksi, taulukko.getLuku(vanhempi));
+                indeksi = vanhempi;
+                vanhempi = parent(indeksi);
+            }
+            taulukko.setLuku(indeksi, lisattava);
         }
-        taulukko.setLuku(indeksi, lisattava);
     }
 
-    private void siftUp(int k) {
-    }
-    
     public int heapMin() throws DaryHeapException {
         if (isEmpty()) {
             throw new DaryHeapException("Tyhjä keko");
         }
         return taulukko.getLuku(0);
     }
-    
-public int parent(int indeksi) {
-    return (indeksi - 1 / d);
-}
 
+    public int parent(int indeksi) {
+        return (indeksi - 1) / d;
+    }
 
-    
-    
+    /**
+     * Palauttaa listan parametrina annetun indeksin lapsista.
+     *
+     * @param indeksi
+     * @return
+     */
+    public int[] children(int indeksi) {
+        int[] lapset = new int[d];
+        for (int i = 1;  i <= 1d;  i++) {
+            lapset[i - 1] = indeksi * d + 1;
+        }
+        return lapset;
+    }
+
+    public int deleteMin() throws DaryHeapException {
+        if (isEmpty()) {
+            throw new DaryHeapException("keko on tyhja");
+        }
+        int pienin = heapMin();
+        taulukko.setLuku(1, taulukko.getLuku(heapSize - 1));
+        kuljetaAlas(0);
+
+        return pienin;
+    }
+
+    private void kuljetaAlas(int indeksi) {
+        int x = taulukko.getLuku(indeksi);
+
+        while (indeksi < heapSize) {
+            int pieninLapsi = indeksi;
+            int[] lapset = children(indeksi);
+
+            if (lapset[0] < heapSize) {
+                pieninLapsi = lapset[0];
+            }
+
+            for (int i = 1; i < lapset.length; i++) {
+                if (lapset[i] < heapSize && taulukko.getLuku(lapset[i]) < taulukko.getLuku(pieninLapsi)) {
+                    pieninLapsi = lapset[i];
+                }
+            }
+            if (pieninLapsi != indeksi && x > taulukko.getLuku(pieninLapsi)) {
+                indeksi = pieninLapsi;
+            } else {
+                break;
+            }
+        }
+        taulukko.setLuku(indeksi, x);
+    }
 
     public static class DaryHeapException extends Exception {
 
         public DaryHeapException(String tyhjä_keko) {
         }
     }
-}        
+}

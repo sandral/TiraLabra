@@ -65,40 +65,59 @@ public class DheapTest {
 
     @Test
     public void solmunVoiLisataJaPoistaa() throws DaryHeapException {
-    keko.insert(1);
-    assertEquals(1, keko.deleteMin());
+        keko.insert(1);
+        assertEquals(1, keko.deleteMin());
     }
-    
+
     @Test
     public void kekoonVoiLisataKaksiSolmuaJaPoistaaNe() throws DaryHeapException {
+        keko.insert(0);
         keko.insert(1);
-        keko.insert(2);
         assertEquals(2, keko.getHeapSize());
-        assertEquals(1, keko.heapMin());
+        assertEquals(0, keko.heapMin());
+        assertEquals(0, keko.deleteMin());
+        assertEquals(1, keko.getHeapSize());
         assertEquals(1, keko.deleteMin());
-        assertEquals(2, keko.deleteMin());
-        
+
     }
 
     @Test
-    public void kekoonVoiLisataMontaSolmua() {
-        for (int i = 0; i < 10; i++) {
-            keko.insert(i);
-        }
-        assertEquals(0, keko.parent(1));
-        assertEquals(0, keko.parent(2));
-        assertEquals(0, keko.parent(3));
-        assertEquals(1, keko.parent(4));
-        assertEquals(1, keko.parent(5));
-        assertEquals(1, keko.parent(6));
-        assertEquals(2, keko.parent(7));
-        assertEquals(2, keko.parent(8));
-        assertEquals(2, keko.parent(9));
+    public void kekoonVoiLisataKolmeSolmuaJaPoistaaNe() throws DaryHeapException {
+        keko.insert(0);
+        keko.insert(1);
+        keko.insert(2);
+        keko.insert(3);
+        keko.insert(4);
+        keko.insert(5);
         
-
-
-
+        assertEquals(0, keko.deleteMin());
+        //System.out.println("min: " + keko.heapMin());
+        assertEquals(1, keko.deleteMin());
+        //System.out.println("min : " + keko.heapMin());
+        assertEquals(2, keko.deleteMin());
+        assertEquals(3, keko.deleteMin());
+        assertEquals(4, keko.deleteMin());
     }
+    
+     @Test
+     public void kekoonVoiLisataMontaSolmuaJaPoistaaNe() throws DaryHeapException {
+     for (int i = 0; i < 10; i++) {
+     keko.insert(i);
+     }
+     assertEquals(10, keko.getHeapSize());
+     for (int i = 0; i < 10; i++) {
+         assertEquals(i, keko.deleteMin());
+         //System.out.print("poistetaan: " + keko.deleteMin());
+     //System.out.println();
+     //for (int j = 0; j < keko.getHeapSize() - 1; j++) {
+     //System.out.print(keko.getTaulukko().getLuku(j) + " ");
+     //assertEquals(i, keko.deleteMin());
+     //}
+     //System.out.println();
+     }
+
+     }
+     
 
     @Test
     public void parentToimiiNiinKuinPitaa() {

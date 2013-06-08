@@ -87,8 +87,8 @@ public class Dheap {
      */
     public int[] children(int indeksi) {
         int[] lapset = new int[d];
-        for (int i = 1;  i <= 1d;  i++) {
-            lapset[i - 1] = indeksi * d + 1;
+        for (int i = 1;  i <= d;  i++) {
+            lapset[i - 1] = indeksi * d + i;
         }
         return lapset;
     }
@@ -98,35 +98,32 @@ public class Dheap {
             throw new DaryHeapException("keko on tyhja");
         }
         int pienin = heapMin();
-        taulukko.setLuku(1, taulukko.getLuku(heapSize - 1));
+        taulukko.setLuku(0, taulukko.getLuku(heapSize - 1));
+        heapSize--;
         kuljetaAlas(0);
 
         return pienin;
     }
-
-    private void kuljetaAlas(int indeksi) {
-        int x = taulukko.getLuku(indeksi);
-
-        while (indeksi < heapSize) {
-            int pieninLapsi = indeksi;
-            int[] lapset = children(indeksi);
-
-            if (lapset[0] < heapSize) {
-                pieninLapsi = lapset[0];
-            }
-
-            for (int i = 1; i < lapset.length; i++) {
-                if (lapset[i] < heapSize && taulukko.getLuku(lapset[i]) < taulukko.getLuku(pieninLapsi)) {
-                    pieninLapsi = lapset[i];
+    private void vaihdaKeskenaan(int i, int j) {
+         int x = taulukko.getLuku(i);
+        taulukko.setLuku(i, taulukko.getLuku(j));
+        taulukko.setLuku(j, x);
+    }
+    
+    private void kuljetaAlas(int i) {
+        int pienin = taulukko.getLuku(i);
+        while (i < heapSize) {
+            int pieninLapsi = i;
+            int[] lapset = children(i);
+            for (int j = 0; j < lapset.length; j++) {
+                if (lapset[j] < heapSize && taulukko.getLuku(pieninLapsi) > taulukko.getLuku(lapset[j])) {
+                    pieninLapsi = lapset[j];
                 }
             }
-            if (pieninLapsi != indeksi && x > taulukko.getLuku(pieninLapsi)) {
-                indeksi = pieninLapsi;
-            } else {
-                break;
-            }
+            vaihdaKeskenaan(pieninLapsi, i);
+            i++;
         }
-        taulukko.setLuku(indeksi, x);
+        
     }
 
     public static class DaryHeapException extends Exception {

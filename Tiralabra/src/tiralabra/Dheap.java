@@ -10,11 +10,29 @@ package tiralabra;
  */
 public class Dheap {
 
+    /**
+     * Taulukko joka sisältää keon alkiot
+     */
     private OmaTaulukko taulukko;
+    /**
+     * Kertoo kuinka paljon keossa on alkioita
+     */
     private int heapSize;
+    /**
+     * Kertoo keon paikkaisuuden, oltava vähintään 2
+     */
     private int d;
+    /**
+     * Asetetaan taulukon kooksi, jos käyttäjän antama koko ei ole positiivinen
+     */
     private static int defaultKoko = 10;
 
+    /**
+     * Konstruktori
+     *
+     * @param size
+     * @param d
+     */
     public Dheap(int size, int d) {
         if (size < 0) {
             size = defaultKoko;
@@ -43,10 +61,20 @@ public class Dheap {
         return defaultKoko;
     }
 
+    /**
+     * Tarkistaa, onko keko tyhjä
+     *
+     * @return
+     */
     public boolean isEmpty() {
         return heapSize == 0;
     }
 
+    /**
+     * Lisaa kekoon parametrina annettavan luvun
+     *
+     * @param lisattava
+     */
     public void insert(int lisattava) {
         if (heapSize == taulukko.getLength()) {
             taulukko.tuplaaJaKopioi();
@@ -61,6 +89,11 @@ public class Dheap {
         }
     }
 
+    /**
+     * Apumetodi metodille insert, vie lisätyn alkion oikealle paikalleen
+     *
+     * @param i
+     */
     private void kuljetaYlos(int i) {
         if (i != 0) {
             int vanhempi = parent(i);
@@ -73,6 +106,12 @@ public class Dheap {
         }
     }
 
+    /**
+     * Palauttaa keon pienimmän alkion
+     *
+     * @return
+     * @throws tiralabra.Dheap.DaryHeapException
+     */
     public int heapMin() throws DaryHeapException {
         if (isEmpty()) {
             throw new DaryHeapException("Tyhjä keko");
@@ -85,7 +124,7 @@ public class Dheap {
     }
 
     /**
-     * Palauttaa listan parametrina annetun indeksin lapsista.
+     * Palauttaa listan parametrina annetun indeksin lasten indekseistä.
      *
      * @param indeksi
      * @return
@@ -98,6 +137,12 @@ public class Dheap {
         return lapset;
     }
 
+    /**
+     * Palauttaa ja poistaa keon pienimmän alkion
+     *
+     * @return
+     * @throws tiralabra.Dheap.DaryHeapException
+     */
     public int deleteMin() throws DaryHeapException {
         if (isEmpty()) {
             throw new DaryHeapException("keko on tyhja");
@@ -110,12 +155,23 @@ public class Dheap {
         return pienin;
     }
 
+    /**
+     * Apumetodi, vaihtaa indekseissä i ja j sijaitsevien alkioiden paikat
+     * taulukossa.
+     *
+     * @param i
+     * @param j
+     */
     private void vaihdaKeskenaan(int i, int j) {
         int x = taulukko.getLuku(i);
         taulukko.setLuku(i, taulukko.getLuku(j));
         taulukko.setLuku(j, x);
     }
 
+    /**
+     * Apumetodi deleteMin:lle, korjaa kekorakenteen, kun pienin on poistettu
+     * @param i
+     */
     private void kuljetaAlas(int i) {
         int pienin = taulukko.getLuku(i);
         while (i < heapSize) {

@@ -14,19 +14,17 @@ public class Node implements Comparable {
     public Node child;
     public Node sibling;
     public int key;
-    public int value;
     public int degree;
 
-    public Node(int key, int value) {
+    public Node(int key) {
         this.key = key;
-        this.value = value;
         child = null;
         sibling = null;
         parent = null;
         degree = 0;
-
+        
     }
-
+    
     @Override
     public int compareTo(Object toinen) {
         Node verrattava = (Node) toinen;

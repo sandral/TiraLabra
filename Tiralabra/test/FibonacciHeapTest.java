@@ -41,11 +41,11 @@ public class FibonacciHeapTest {
     @Before
     public void setUp() {
         keko1 = new FibonacciHeap();
-        n1 = new Fnode(1, 1);
-        n2 = new Fnode(2, 2);
-        n3 = new Fnode(3, 3);
-        n4 = new Fnode(4, 4);
-        n5 = new Fnode(5, 5);
+        n1 = new Fnode(1);
+        n2 = new Fnode(2);
+        n3 = new Fnode(3);
+        n4 = new Fnode(4);
+        n5 = new Fnode(5);
     }
     
     @After
@@ -131,7 +131,7 @@ public class FibonacciHeapTest {
     @Test
     public void kekoonVoiLisataMontaSolmuaJarjestyksessa() throws Exception {
         for (int i = 0; i < 666; i++) {
-            keko1.insert(new Fnode(i, i));
+            keko1.insert(new Fnode(i));
         }
         System.out.println("count: " + keko1.getCount());
         for (int i = 0; i < 666; i++) {
@@ -142,7 +142,7 @@ public class FibonacciHeapTest {
     @Test
     public void kekoonVoiLisataMontaSolmuaKaanteisessaJarjestyksessa() throws Exception {
         for (int i = koko; i >= 0; i--) {
-            keko1.insert(new Fnode(i, i));
+            keko1.insert(new Fnode(i));
         }
         
         assertEquals(koko + 1, keko1.getCount());
@@ -157,7 +157,7 @@ public class FibonacciHeapTest {
     public void kekoonVoiLisataMontaSolmuaSatunnaisessaJarjestyksessa() throws Exception {
         Random generaattori = new Random();
         for (int i = 0; i < koko; i++) {
-            keko1.insert(new Fnode(0, generaattori.nextInt(koko)));
+            keko1.insert(new Fnode(generaattori.nextInt(koko)));
         }
         int edellinen = keko1.extractMin();
         for (int i = 0; i < koko - 1; i++) {

@@ -47,11 +47,11 @@ public class BinomialHeapTest {
     public void setUp() {
         keko1 = new BinomialHeap();
         keko2 = new BinomialHeap();
-        n1 = new Node(1, 1);
-        n2 = new Node(2, 2);
-        n3 = new Node(3, 3);
-        n4 = new Node(4, 4);
-        n5 = new Node(5, 5);
+        n1 = new Node(1);
+        n2 = new Node(2);
+        n3 = new Node(3);
+        n4 = new Node(4);
+        n5 = new Node(5);
     }
 
     @After
@@ -298,7 +298,7 @@ public class BinomialHeapTest {
     @Test
     public void lisataanKaksisataaSolmuaJarjestyksessa() {
         for (int i = 0; i < testinKoko; i++) {
-            keko1.insert(new Node(i, i));
+            keko1.insert(new Node(i));
         }
         for (int i = 0; i < testinKoko; i++) {
             assertEquals(i, keko1.extractMin());
@@ -308,7 +308,7 @@ public class BinomialHeapTest {
     @Test
     public void lisataanKaksisataaSolmuaKaanteisessaJarjestyksessa() {
         for (int i = testinKoko; i > 0; i--) {
-            keko1.insert(new Node(i, i));
+            keko1.insert(new Node(i));
         }
         for (int i = 1; i < testinKoko + 1; i++) {
             assertEquals(i, keko1.extractMin());
@@ -319,7 +319,7 @@ public class BinomialHeapTest {
     public void lisataanKaksisataaSolmuaSatunnaisessaJarjestyksessa() {
         Random generaattori = new Random(1234567);
         for (int i = 0; i < testinKoko; i++) {
-            keko1.insert(new Node(generaattori.nextInt(testinKoko), 0));
+            keko1.insert(new Node(generaattori.nextInt(testinKoko)));
         }
         int edellinen = keko1.extractMin();
         for (int i = 0; i < testinKoko - 1; i++) {
@@ -334,7 +334,7 @@ public class BinomialHeapTest {
         PriorityQueue<Node> jono = new PriorityQueue<Node>();
         long alkuaika = System.currentTimeMillis();
         for (int i = 0; i < testinKoko * testinKoko; i++) {
-            jono.add(new Node(i, 0));
+            jono.add(new Node(i));
         }
         long loppuaika = System.currentTimeMillis();
         
@@ -344,7 +344,7 @@ public class BinomialHeapTest {
         
         alkuaika = System.currentTimeMillis();
         for (int i = 0; i < testinKoko * testinKoko; i++) {
-            keko1.insert(new Node(i, 0));
+            keko1.insert(new Node(i));
         }
         loppuaika = System.currentTimeMillis();
         long aika2 = loppuaika - alkuaika;

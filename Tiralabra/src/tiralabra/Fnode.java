@@ -15,15 +15,13 @@ public class Fnode implements Comparable {
     public Fnode left;
     public Fnode right;
     public int key;
-    public int value;
     public int degree;
     public boolean mark;
 
-    public Fnode(int value, int key) {
+    public Fnode(int key) {
         right = this;
         left = this;
         this.key = key;
-        this.value = value;
         mark = false;
         degree = 0;
     }
@@ -36,7 +34,7 @@ public class Fnode implements Comparable {
 
     @Override
     public String toString() {
-        return "(" + key + " -> " + value + ')';
+        return "(" + key + ')';
     }
     
     

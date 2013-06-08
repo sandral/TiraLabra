@@ -85,9 +85,8 @@ public class BinaryHeap {
      * @param k 
      */
     private void siftUp(int k) {
-        int vanhempi;
         if (k != 0) {
-            vanhempi = parent(k);
+            int vanhempi = parent(k);
             if (taulukko.getLuku(vanhempi) > taulukko.getLuku(k)) {
                 swap(vanhempi, k);
                 siftUp(vanhempi);

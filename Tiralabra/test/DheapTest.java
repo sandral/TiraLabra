@@ -19,6 +19,7 @@ import tiralabra.Dheap.DaryHeapException;
 public class DheapTest {
 
     private Dheap keko;
+    private Dheap keko1;
 
     public DheapTest() {
     }
@@ -34,6 +35,7 @@ public class DheapTest {
     @Before
     public void setUp() {
         keko = new Dheap(10, 3);
+        keko1 = new Dheap(10, 4);
     }
 
     @After
@@ -89,7 +91,7 @@ public class DheapTest {
         keko.insert(3);
         keko.insert(4);
         keko.insert(5);
-        
+
         assertEquals(0, keko.deleteMin());
         //System.out.println("min: " + keko.heapMin());
         assertEquals(1, keko.deleteMin());
@@ -98,26 +100,47 @@ public class DheapTest {
         assertEquals(3, keko.deleteMin());
         assertEquals(4, keko.deleteMin());
     }
-    
-     @Test
-     public void kekoonVoiLisataMontaSolmuaJaPoistaaNe() throws DaryHeapException {
-     for (int i = 0; i < 10; i++) {
-     keko.insert(i);
-     }
-     assertEquals(10, keko.getHeapSize());
-     for (int i = 0; i < 10; i++) {
-         assertEquals(i, keko.deleteMin());
-         //System.out.print("poistetaan: " + keko.deleteMin());
-     //System.out.println();
-     //for (int j = 0; j < keko.getHeapSize() - 1; j++) {
-     //System.out.print(keko.getTaulukko().getLuku(j) + " ");
-     //assertEquals(i, keko.deleteMin());
-     //}
-     //System.out.println();
-     }
 
-     }
-     
+    @Test
+    public void kekoonVoiLisataMontaSolmuaJaPoistaaNe() throws DaryHeapException {
+        for (int i = 0; i < 1000; i++) {
+            keko.insert(i);
+        }
+        assertEquals(1000, keko.getHeapSize());
+        for (int i = 0; i < 1000; i++) {
+            assertEquals(i, keko.deleteMin());
+            //System.out.print("poistetaan: " + keko.deleteMin());
+            //System.out.println();
+            //for (int j = 0; j < keko.getHeapSize() - 1; j++) {
+            //System.out.print(keko.getTaulukko().getLuku(j) + " ");
+            //assertEquals(i, keko.deleteMin());
+            //}
+            //System.out.println();
+        }
+
+    }
+
+    @Test
+    public void neljaKekoonVoiLisataMontaSolmuaJaPoistaaNe() throws DaryHeapException {
+        for (int i = 0; i < 10; i++) {
+            keko1.insert(i);
+        }
+        assertEquals(10, keko1.getHeapSize());
+        for (int i = 0; i < 10; i++) {
+            assertEquals(i, keko1.deleteMin());
+        }
+    }
+    
+    @Test 
+    public void LisataanMontaKaanteisessaJarjestyksessa() throws DaryHeapException {
+        for (int i = 99; i >= 0; i--) {
+            keko.insert(i);
+        }
+        
+        for (int i = 0; i < 100; i++) {
+            assertEquals(i, keko.deleteMin());
+        }
+    }
 
     @Test
     public void parentToimiiNiinKuinPitaa() {

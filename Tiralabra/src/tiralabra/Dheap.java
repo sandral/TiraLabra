@@ -56,15 +56,20 @@ public class Dheap {
             heapSize++;
         } else {
             heapSize++;
+            taulukko.setLuku(heapSize - 1, lisattava);
+            kuljetaYlos(heapSize - 1);
+        }
+    }
 
-            int indeksi = heapSize - 1;
-            int vanhempi = taulukko.getLuku(parent(indeksi));
-            while (indeksi != 0 && lisattava < vanhempi) {
-                taulukko.setLuku(indeksi, taulukko.getLuku(vanhempi));
-                indeksi = vanhempi;
-                vanhempi = parent(indeksi);
+    private void kuljetaYlos(int i) {
+        if (i != 0) {
+            int vanhempi = parent(i);
+            if (taulukko.getLuku(vanhempi) > taulukko.getLuku(i)) {
+                vaihdaKeskenaan(vanhempi, i);
+                kuljetaYlos(vanhempi);
+
             }
-            taulukko.setLuku(indeksi, lisattava);
+
         }
     }
 
@@ -87,7 +92,7 @@ public class Dheap {
      */
     public int[] children(int indeksi) {
         int[] lapset = new int[d];
-        for (int i = 1;  i <= d;  i++) {
+        for (int i = 1; i <= d; i++) {
             lapset[i - 1] = indeksi * d + i;
         }
         return lapset;
@@ -104,12 +109,13 @@ public class Dheap {
 
         return pienin;
     }
+
     private void vaihdaKeskenaan(int i, int j) {
-         int x = taulukko.getLuku(i);
+        int x = taulukko.getLuku(i);
         taulukko.setLuku(i, taulukko.getLuku(j));
         taulukko.setLuku(j, x);
     }
-    
+
     private void kuljetaAlas(int i) {
         int pienin = taulukko.getLuku(i);
         while (i < heapSize) {
@@ -123,7 +129,7 @@ public class Dheap {
             vaihdaKeskenaan(pieninLapsi, i);
             i++;
         }
-        
+
     }
 
     public static class DaryHeapException extends Exception {

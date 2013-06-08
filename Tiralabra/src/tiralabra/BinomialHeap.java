@@ -7,7 +7,7 @@ package tiralabra;
 import java.util.PriorityQueue;
 import tiralabra.Node;
 
-public class BinomialHeap {
+public class BinomialHeap implements Heap {
 
     private Node head;
 
@@ -45,7 +45,7 @@ public class BinomialHeap {
      * @param h
      * @return
      */
-    public int heapMin() {
+    public int min() {
         Node x = head;
         Node y = x.sibling;
         if (y != null) {
@@ -64,7 +64,7 @@ public class BinomialHeap {
      *
      * @return
      */
-    public int extractMin() {
+    public int deleteMin() {
         if (this.isEmpty()) {
             return -1;
         }
@@ -115,17 +115,17 @@ public class BinomialHeap {
      * @param k
      */
     public void decreaseKey(Node x, int k) {
-        if (x.degree == 0 && k < x.key) {
-            x.key = k;
-        } else if (k < x.key) {
-            int avain = x.key;
-            Node z = x;
-            while (z.parent != null && z.parent.key > z.key) {
-                int temp = z.value;
-                z.value = z.parent.value;
-                z.parent.value = temp;
-                z = z.parent;
-            }
+        if (k >= x.key) {
+            return;
+        }
+
+        x.key = k;
+        Node z = x;
+        while (z.parent != null && z.parent.key > z.key) {
+            int temp = z.key;
+            z.key = z.parent.key;
+            z.parent.key = temp;
+            z = z.parent;
         }
     }
 
@@ -135,9 +135,9 @@ public class BinomialHeap {
      * @param x
      */
     public void delete(Node x) {
-        int min = heapMin();
+        int min = min();
         decreaseKey(x, min - 1);
-        extractMin();
+        deleteMin();
     }
 
     /**
@@ -195,18 +195,17 @@ public class BinomialHeap {
                 Node n3 = n2.sibling;
                 if (n2 == n1.sibling) {
                     n2.sibling = null;
-                } 
-                else 
+                } else {
                     n2.sibling = n1.sibling;
-                    n1.sibling = n2;
-                    n2 = n3;
-                
+                }
+                n1.sibling = n2;
+                n2 = n3;
+
             }
         }
         return h1.head;
     }
 
-   
     /**
      * Yhdistää tämän keon ja keon h2 yhdeksi keoksi.
      *
@@ -251,28 +250,33 @@ public class BinomialHeap {
     public boolean isEmpty() {
         return head == null;
     }
+
     public static void main(String[] args) {
         BinomialHeap keko = new BinomialHeap();
         PriorityQueue<Node> jono = new PriorityQueue<Node>();
         int alkioita = 1000000;
-        
+
         long alku = System.currentTimeMillis();
         for (int i = 0; i < 1000000; i++) {
-            keko.insert(new Node(i,0));
+            keko.insert(i);
         }
         long loppu = System.currentTimeMillis();
         long omaAika = loppu - alku;
-        
+
         alku = System.currentTimeMillis();
         for (int i = 0; i < alkioita; i++) {
-            jono.add(new Node(i, 0));
+            jono.add(new Node(i));
         }
         loppu = System.currentTimeMillis();
         long javanAika = loppu - alku;
-        
+
         System.out.println("oma aika: " + omaAika);
         System.out.println("javan aika: " + javanAika);
-        
-       
+
+
+    }
+
+    public void insert(int key) {
+        insert(new Node(key));
     }
 }

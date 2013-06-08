@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 import java.util.Random;
 import tiralabra.OmaTaulukko;
 
-public class BinaryHeap {
+public class BinaryHeap implements Heap{
 
     /**
      * Taulukko joka sisältää keon alkiot.
@@ -31,6 +31,10 @@ public class BinaryHeap {
         }
         taulukko = new OmaTaulukko(size);
         heapSize = 0;
+    }
+    
+    public BinaryHeap(){
+        this(50);
     }
 
     public int getDefaultKoko() {
@@ -71,7 +75,7 @@ public class BinaryHeap {
      *
      * @param k lisättävä luku
      */
-    public void heapInsert(int lisattava) {
+    public void insert(int lisattava) {
         if (heapSize == taulukko.getLength()) {
             taulukko.tuplaaJaKopioi();
         }
@@ -103,9 +107,9 @@ public class BinaryHeap {
      * @throws tiralabra.BinaryHeap.HeapException ilmoittaa virheestä, jos keko
      * on tyhjä.
      */
-    public int heapMin() throws HeapException {
+    public int min() throws Exception {
         if (isEmpty()) {
-            throw new HeapException("tyhjä Keko");
+            throw new Exception("tyhjä Keko");
         } else {
             return taulukko.getLuku(0);
         }
@@ -118,9 +122,9 @@ public class BinaryHeap {
      * @throws tiralabra.BinaryHeap.HeapException ilmoittaa virheestä, jos keko
      * on tyhjä.
      */
-    public int heapDelMin() throws HeapException {
+    public int deleteMin() throws Exception {
         if (isEmpty()) {
-            throw new HeapException("tyhjä Keko");
+            throw new Exception("tyhjä Keko");
         }
         int pienin = taulukko.getLuku(0);
         taulukko.setLuku(0, taulukko.getLuku(getHeapSize() - 1));
@@ -192,7 +196,7 @@ public class BinaryHeap {
      *
      * @param toinen Yhdistettava keko.
      */
-    public void merge(BinaryHeap toinen) throws HeapException {
+    public void merge(BinaryHeap toinen) throws Exception {
         while (taulukko.getLength() <= heapSize + toinen.heapSize) {
             taulukko.tuplaaJaKopioi();
         }
@@ -227,7 +231,7 @@ public class BinaryHeap {
         taulukko.setLuku(j, x);
     }
 
-    public static void main(String[] args) throws HeapException {
+    public static void main(String[] args) throws Exception {
         BinaryHeap keko = new BinaryHeap(100000000);
         BinaryHeap toinen = new BinaryHeap(10);
         int alkioita = 1000000;
@@ -238,12 +242,12 @@ public class BinaryHeap {
 
         long alku = System.currentTimeMillis();        
         for (int i = alkioita - 1; i >= 0; i--) {
-            keko.heapInsert(generaattori.nextInt(alkioita));
+            keko.insert(generaattori.nextInt(alkioita));
         }
         long loppu = System.currentTimeMillis();
         
         for (int i = 0; i < alkioita; i++) {
-            keko.heapDelMin();
+            keko.deleteMin();
         }
         long omaAika = loppu - alku;
         
@@ -266,7 +270,7 @@ public class BinaryHeap {
         
         /*
         for (int i = 3; i > 0; i--) {
-            keko.heapInsert(i);
+            keko.insert(i);
         }
         
         for (int i = 0; i < 3; i++) {
@@ -275,7 +279,7 @@ public class BinaryHeap {
         /*
         /*
         for (int i = 15; i > 0; i--) {
-            keko.heapInsert(i);
+            keko.insert(i);
 
             for (int j = 0; j < 15 - i; j++) {
                 System.out.print(keko.taulukko.getLuku(j) + " ");
@@ -292,16 +296,16 @@ public class BinaryHeap {
         System.out.println();
 
         while (!keko.isEmpty()) {
-            System.out.print(keko.heapDelMin() + " ");
+            System.out.print(keko.deleteMin() + " ");
 
         }
         */ 
         /*
          for (int i = 5; i < 8; i++) {
-         keko.heapInsert(i);
+         keko.insert(i);
          }
          for (int i = 0; i < 5; i++) {
-         toinen.heapInsert(i);
+         toinen.insert(i);
          }
          for (int i = 0; i < 4; i++) {
          System.out.print(keko.taulukko.getLuku(i));
@@ -326,8 +330,8 @@ public class BinaryHeap {
          BinaryHeap keko1 = new BinaryHeap(20);
          for (int i = 1; i < 16; i++) {
          System.out.println("taulukon koko: " + keko.taulukko.getLength());
-         keko.heapInsert(i);
-         keko1.heapInsert(16 - i);
+         keko.insert(i);
+         keko1.insert(16 - i);
          }
          for (int i = 0; i < 15; i++) {
          System.out.print(keko.getTaulukko().getLuku(i) + " ");
@@ -336,11 +340,5 @@ public class BinaryHeap {
          for (int i = 0; i < 15; i++) {
          System.out.print(keko1.getTaulukko().getLuku(i) + " ");
          */
-    }
-
-    public static class HeapException extends Exception {
-
-        public HeapException(String keko_on_tyhja) {
-        }
     }
 }

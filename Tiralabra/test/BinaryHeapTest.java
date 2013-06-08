@@ -78,37 +78,37 @@ public class BinaryHeapTest {
 
     @Test
     public void kekoMihinOnLisattyYksiAlkioEiOleTyhja() {
-        keko.heapInsert(1);
+        keko.insert(1);
         assertFalse(keko.isEmpty());
     }
 
     @Test
     public void kekoonLisaaminenOnnistuu() throws HeapException {
-        keko.heapInsert(1);
+        keko.insert(1);
         assertEquals(1, keko.heapMin());
     }
 
     @Test
     public void kekoonVoiLisataViisiAlkiotaJotkaKaikkiLoytyvat() throws HeapException {
         for (int i = 0; i < 5; i++) {
-            keko.heapInsert(i);
+            keko.insert(i);
         }
         for (int i = 0; i < 5; i++) {
-            assertEquals(i, keko.heapDelMin());
+            assertEquals(i, keko.deleteMin());
         }
     }
 
     @Test
     public void kekoonVoiLisataSolmunJaPoistaaSen() throws HeapException {
-        keko.heapInsert(1);
-        assertEquals(1, keko.heapDelMin());
+        keko.insert(1);
+        assertEquals(1, keko.deleteMin());
     }
 
     @Test
     public void kekoonVoiLisataKolmeSolmuaJarjestyksessa() {
-        keko.heapInsert(1);
-        keko.heapInsert(2);
-        keko.heapInsert(3);
+        keko.insert(1);
+        keko.insert(2);
+        keko.insert(3);
         assertEquals(1, keko.getTaulukko().getLuku(0));
         assertEquals(2, keko.getTaulukko().getLuku(1));
         assertEquals(3, keko.getTaulukko().getLuku(2));
@@ -116,17 +116,17 @@ public class BinaryHeapTest {
 
     @Test
     public void kekoonVoiLisataKaksiSolmuaKaanteisessaJarjestyksessaJaKekoRakenneSailyy() {
-        keko.heapInsert(2);
-        keko.heapInsert(1);
+        keko.insert(2);
+        keko.insert(1);
         assertEquals(1, keko.getTaulukko().getLuku(0));
         assertEquals(2, keko.getTaulukko().getLuku(1));
     }
 
     @Test
     public void kekoonVoiLisataKolmeSolmuaKaanteisessaJarjestyksessaJaKekoRakenneSailyy() {
-        keko.heapInsert(3);
-        keko.heapInsert(2);
-        keko.heapInsert(1);
+        keko.insert(3);
+        keko.insert(2);
+        keko.insert(1);
         assertEquals(1, keko.getTaulukko().getLuku(0));
         assertEquals(3, keko.getTaulukko().getLuku(1));
         assertEquals(2, keko.getTaulukko().getLuku(2));
@@ -135,7 +135,7 @@ public class BinaryHeapTest {
     @Test
     public void jarjestyksessaLisatytLuvutOvatTaulukossaJarjestyksessa() {
         for (int i = 1; i < 10; i++) {
-            keko.heapInsert(i);
+            keko.insert(i);
         }
         for (int i = 1; i < 10; i++) {
             assertEquals(i, keko.getTaulukko().getLuku(i - 1));
@@ -145,7 +145,7 @@ public class BinaryHeapTest {
     @Test
     public void kaanteisessaJarjestyksessaLisatytLuvutOvatTaulukossaJarjestyksessa() {
         for (int i = 10; i > 0; i--) {
-            keko.heapInsert(i);
+            keko.insert(i);
         }
         for (int i = 1; i < 1; i++) {
             assertEquals(i, keko.getTaulukko().getLuku(i));
@@ -177,20 +177,20 @@ public class BinaryHeapTest {
     @Test
     public void lisataanSuuriMaaraAlkioitaJarjestyksessa() throws HeapException {
         for (int i = 0; i < testinKoko; i++) {
-            keko.heapInsert(i);
+            keko.insert(i);
         }
         for (int i = 0; i < testinKoko; i++) {
-            assertEquals(i, keko.heapDelMin());
+            assertEquals(i, keko.deleteMin());
         }
     }
 
     @Test
     public void lisataanSuuriMaaraAlkioitaKaanteisessaJarjestyksessa() throws HeapException {
         for (int i = testinKoko; i > 0; i--) {
-            keko.heapInsert(i);
+            keko.insert(i);
         }
         for (int i = 1; i <= testinKoko; i++) {
-            assertEquals(i, keko.heapDelMin());
+            assertEquals(i, keko.deleteMin());
         }
     }
 
@@ -200,11 +200,11 @@ public class BinaryHeapTest {
         for (int i = 0; i < testinKoko; i++) {
             int satunnainen = generaattori.nextInt(testinKoko);
            // System.out.print(" satunnainen: " + satunnainen);
-            keko.heapInsert(generaattori.nextInt(testinKoko));
+            keko.insert(generaattori.nextInt(testinKoko));
         }
-        int edellinen = keko.heapDelMin();
+        int edellinen = keko.deleteMin();
         for (int i = 0; i < testinKoko - 1; i++) {
-            int seuraava = keko.heapDelMin();
+            int seuraava = keko.deleteMin();
             assertTrue("edellinen oli: " + edellinen + " seuraava oli: " + seuraava, edellinen <= seuraava);
             edellinen = seuraava;
         }
@@ -226,7 +226,7 @@ public class BinaryHeapTest {
                 
         alkuaika = System.currentTimeMillis();
         for (int i = 0; i < testinKoko * testinKoko; i++) {
-            keko1.heapInsert(i);
+            keko1.insert(i);
         }
         loppuaika = System.currentTimeMillis();
         long aika2 = loppuaika - alkuaika;
@@ -252,12 +252,12 @@ public class BinaryHeapTest {
         
         
         for (int i = 0; i < testinKoko * testinKoko; i++) {
-            keko1.heapInsert(i);
+            keko1.insert(i);
         }
         
         alkuaika = System.currentTimeMillis();
         for (int i = 0; i < testinKoko * testinKoko; i++) {
-            keko1.heapDelMin();
+            keko1.deleteMin();
         }
        
         loppuaika = System.currentTimeMillis();

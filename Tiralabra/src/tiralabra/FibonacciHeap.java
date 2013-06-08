@@ -3,15 +3,13 @@
  * and open the template in the editor.
  */
 package tiralabra;
-
-import tiralabra.BinaryHeap.HeapException;
 import tiralabra.Fnode;
 
 /**
  *
  * @author root
  */
-public class FibonacciHeap {
+public class FibonacciHeap implements Heap{
 
     private final double phi = (1.0 + Math.sqrt(5.0)) / 2.0;
     private Fnode min;
@@ -66,7 +64,7 @@ public class FibonacciHeap {
      *
      * @return
      */
-    public Fnode heapMin() {
+    public Fnode minNode() {
         return min;
     }
 
@@ -75,10 +73,10 @@ public class FibonacciHeap {
      *
      * @return
      */
-    public int extractMin() throws HeapException {
+    public int deleteMin() throws Exception {
         Fnode x = min;
         if (x == null) {
-            throw new BinaryHeap.HeapException("keko on tyhjä");
+            throw new Exception("keko on tyhjä");
         }
         
         int lapsia = x.degree;
@@ -114,7 +112,7 @@ public class FibonacciHeap {
     }
 
     /**
-     * Apumetodi extractMin-metodille. Yhdistää solmuja toisiinsa siten, että
+     * Apumetodi deleteMin-metodille. Yhdistää solmuja toisiinsa siten, että
      * juurilistassa ei ole kahta samaa astetta olevaa solmua.
      */
     private void consolidate() {
@@ -208,5 +206,14 @@ public class FibonacciHeap {
 
         n2.degree++;
         n1.mark = false;
+    }
+
+    
+    public void insert(int key) {
+        insert(new Fnode(key));
+    }
+    
+    public int min() throws Exception {
+        return min.key;
     }
 }

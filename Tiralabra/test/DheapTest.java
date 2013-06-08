@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import tiralabra.Dheap;
-import tiralabra.Dheap.DaryHeapException;
+
 
 /**
  *
@@ -34,8 +34,8 @@ public class DheapTest {
 
     @Before
     public void setUp() {
-        keko = new Dheap(10, 3);
-        keko1 = new Dheap(10, 4);
+        keko = new Dheap(3);
+        keko1 = new Dheap(4);
     }
 
     @After
@@ -53,9 +53,9 @@ public class DheapTest {
     }
 
     @Test
-    public void kekoonVoiLisataLuvunJaSeOnPienin() throws DaryHeapException {
+    public void kekoonVoiLisataLuvunJaSeOnPienin() throws Exception {
         keko.insert(1);
-        assertEquals(1, keko.heapMin());
+        assertEquals(1, keko.min());
     }
 
     @Test
@@ -66,17 +66,17 @@ public class DheapTest {
     }
 
     @Test
-    public void solmunVoiLisataJaPoistaa() throws DaryHeapException {
+    public void solmunVoiLisataJaPoistaa() throws Exception {
         keko.insert(1);
         assertEquals(1, keko.deleteMin());
     }
 
     @Test
-    public void kekoonVoiLisataKaksiSolmuaJaPoistaaNe() throws DaryHeapException {
+    public void kekoonVoiLisataKaksiSolmuaJaPoistaaNe() throws Exception {
         keko.insert(0);
         keko.insert(1);
         assertEquals(2, keko.getHeapSize());
-        assertEquals(0, keko.heapMin());
+        assertEquals(0, keko.min());
         assertEquals(0, keko.deleteMin());
         assertEquals(1, keko.getHeapSize());
         assertEquals(1, keko.deleteMin());
@@ -84,7 +84,7 @@ public class DheapTest {
     }
 
     @Test
-    public void kekoonVoiLisataKolmeSolmuaJaPoistaaNe() throws DaryHeapException {
+    public void kekoonVoiLisataKolmeSolmuaJaPoistaaNe() throws Exception {
         keko.insert(0);
         keko.insert(1);
         keko.insert(2);
@@ -93,16 +93,16 @@ public class DheapTest {
         keko.insert(5);
 
         assertEquals(0, keko.deleteMin());
-        //System.out.println("min: " + keko.heapMin());
+        //System.out.println("min: " + keko.min());
         assertEquals(1, keko.deleteMin());
-        //System.out.println("min : " + keko.heapMin());
+        //System.out.println("min : " + keko.min());
         assertEquals(2, keko.deleteMin());
         assertEquals(3, keko.deleteMin());
         assertEquals(4, keko.deleteMin());
     }
 
     @Test
-    public void kekoonVoiLisataMontaSolmuaJaPoistaaNe() throws DaryHeapException {
+    public void kekoonVoiLisataMontaSolmuaJaPoistaaNe() throws Exception {
         for (int i = 0; i < 1000; i++) {
             keko.insert(i);
         }
@@ -121,23 +121,23 @@ public class DheapTest {
     }
 
     @Test
-    public void neljaKekoonVoiLisataMontaSolmuaJaPoistaaNe() throws DaryHeapException {
-        for (int i = 0; i < 10; i++) {
+    public void neljaKekoonVoiLisataMontaSolmuaJaPoistaaNe() throws Exception {
+        for (int i = 0; i < 10000; i++) {
             keko1.insert(i);
         }
-        assertEquals(10, keko1.getHeapSize());
-        for (int i = 0; i < 10; i++) {
+        assertEquals(10000, keko1.getHeapSize());
+        for (int i = 0; i < 10000; i++) {
             assertEquals(i, keko1.deleteMin());
         }
     }
     
     @Test 
-    public void LisataanMontaKaanteisessaJarjestyksessa() throws DaryHeapException {
-        for (int i = 99; i >= 0; i--) {
+    public void LisataanMontaKaanteisessaJarjestyksessa() throws Exception {
+        for (int i = 10000; i >= 0; i--) {
             keko.insert(i);
         }
         
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10000; i++) {
             assertEquals(i, keko.deleteMin());
         }
     }

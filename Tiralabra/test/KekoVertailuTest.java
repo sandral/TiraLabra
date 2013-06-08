@@ -53,7 +53,7 @@ public class KekoVertailuTest {
     public void testaaLisaamista() {
         long alkuaika = System.currentTimeMillis();
         for (int i = 0; i < testinKoko * testinKoko; i++) {
-            binaarikeko.heapInsert(i);
+            binaarikeko.insert(i);
         }
         long loppuaika = System.currentTimeMillis();
         long aika = loppuaika - alkuaika;
@@ -73,11 +73,11 @@ public class KekoVertailuTest {
     @Test
     public void testaaPoistamista() throws HeapException {
          for (int i = 0; i < testinKoko * testinKoko; i++) {
-            binaarikeko.heapInsert(i);
+            binaarikeko.insert(i);
         }
          long alkuaika = System.currentTimeMillis();
          for (int i = 0; i < testinKoko * testinKoko; i++) {
-            binaarikeko.heapDelMin();
+            binaarikeko.deleteMin();
         }
          long loppuaika = System.currentTimeMillis();
          long aika = loppuaika - alkuaika;
@@ -89,7 +89,7 @@ public class KekoVertailuTest {
          
          alkuaika = System.currentTimeMillis();
          for (int i = 0; i < testinKoko * testinKoko; i++) {
-            binomikeko.extractMin();
+            binomikeko.deleteMin();
         }
          
          loppuaika = System.currentTimeMillis();

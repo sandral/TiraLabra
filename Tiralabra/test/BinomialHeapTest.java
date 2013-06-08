@@ -78,19 +78,19 @@ public class BinomialHeapTest {
     @Test
     public void kekoonLisattyAinoaSolmuOnPienin() {
         keko1.insert(n1);
-        assertEquals(1, keko1.heapMin());
+        assertEquals(1, keko1.min());
     }
 
     @Test
     public void kekoonVoiLisataSolmunJaEkstraktoidaPienimman() {
         keko1.insert(n1);
-        assertEquals(1, keko1.extractMin());
+        assertEquals(1, keko1.deleteMin());
     }
 
     @Test
     public void kunAinoaSolmuOnEkstraktoituKekoOnTyhja() {
         keko1.insert(n1);
-        keko1.extractMin();
+        keko1.deleteMin();
         assertTrue(keko1.isEmpty());
     }
 
@@ -280,11 +280,11 @@ public class BinomialHeapTest {
         keko1.insert(n3);
         keko1.insert(n4);
         keko1.insert(n5);
-        assertEquals(1, keko1.extractMin());
-        assertEquals(2, keko1.extractMin());
-        assertEquals(3, keko1.extractMin());
-        assertEquals(4, keko1.extractMin());
-        assertEquals(5, keko1.extractMin());
+        assertEquals(1, keko1.deleteMin());
+        assertEquals(2, keko1.deleteMin());
+        assertEquals(3, keko1.deleteMin());
+        assertEquals(4, keko1.deleteMin());
+        assertEquals(5, keko1.deleteMin());
 
     }
 
@@ -301,7 +301,7 @@ public class BinomialHeapTest {
             keko1.insert(new Node(i));
         }
         for (int i = 0; i < testinKoko; i++) {
-            assertEquals(i, keko1.extractMin());
+            assertEquals(i, keko1.deleteMin());
         }
     }
 
@@ -311,7 +311,7 @@ public class BinomialHeapTest {
             keko1.insert(new Node(i));
         }
         for (int i = 1; i < testinKoko + 1; i++) {
-            assertEquals(i, keko1.extractMin());
+            assertEquals(i, keko1.deleteMin());
         }
     }
 
@@ -321,9 +321,9 @@ public class BinomialHeapTest {
         for (int i = 0; i < testinKoko; i++) {
             keko1.insert(new Node(generaattori.nextInt(testinKoko)));
         }
-        int edellinen = keko1.extractMin();
+        int edellinen = keko1.deleteMin();
         for (int i = 0; i < testinKoko - 1; i++) {
-            int verrattava = keko1.extractMin();
+            int verrattava = keko1.deleteMin();
             assertTrue(edellinen <= verrattava);
             edellinen = verrattava;
         }

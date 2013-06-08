@@ -8,7 +8,7 @@ package tiralabra;
  *
  * @author root
  */
-public class Dheap {
+public class Dheap implements Heap {
 
     /**
      * Taulukko joka sisältää keon alkiot
@@ -23,9 +23,9 @@ public class Dheap {
      */
     private int d;
     /**
-     * Asetetaan taulukon kooksi, jos käyttäjän antama koko ei ole positiivinen
+     * Asetetaan taulukon kooksi
      */
-    private static int defaultKoko = 10;
+    private static int koko = 10;
 
     /**
      * Konstruktori
@@ -33,15 +33,12 @@ public class Dheap {
      * @param size
      * @param d
      */
-    public Dheap(int size, int d) {
-        if (size < 0) {
-            size = defaultKoko;
-        }
+    public Dheap(int d) {
         if (d < 2) {
             throw new IllegalArgumentException("d:n oltava vähintään 2");
         }
         this.d = d;
-        taulukko = new OmaTaulukko(size);
+        taulukko = new OmaTaulukko(koko);
         heapSize = 0;
     }
 
@@ -57,8 +54,8 @@ public class Dheap {
         return d;
     }
 
-    public static int getDefaultKoko() {
-        return defaultKoko;
+    public static int getKoko() {
+        return koko;
     }
 
     /**
@@ -112,9 +109,9 @@ public class Dheap {
      * @return
      * @throws tiralabra.Dheap.DaryHeapException
      */
-    public int heapMin() throws DaryHeapException {
+    public int min() throws Exception {
         if (isEmpty()) {
-            throw new DaryHeapException("Tyhjä keko");
+            throw new Exception("Tyhjä keko");
         }
         return taulukko.getLuku(0);
     }
@@ -143,11 +140,11 @@ public class Dheap {
      * @return
      * @throws tiralabra.Dheap.DaryHeapException
      */
-    public int deleteMin() throws DaryHeapException {
+    public int deleteMin() throws Exception {
         if (isEmpty()) {
-            throw new DaryHeapException("keko on tyhja");
+            throw new Exception("keko on tyhja");
         }
-        int pienin = heapMin();
+        int pienin = min();
         taulukko.setLuku(0, taulukko.getLuku(heapSize - 1));
         heapSize--;
         kuljetaAlas(0);
@@ -170,6 +167,7 @@ public class Dheap {
 
     /**
      * Apumetodi deleteMin:lle, korjaa kekorakenteen, kun pienin on poistettu
+     *
      * @param i
      */
     private void kuljetaAlas(int i) {
@@ -186,11 +184,5 @@ public class Dheap {
             i++;
         }
 
-    }
-
-    public static class DaryHeapException extends Exception {
-
-        public DaryHeapException(String tyhjä_keko) {
-        }
     }
 }

@@ -19,6 +19,7 @@ import tiralabra.Fnode;
  */
 public class FibonacciHeapTest {
     FibonacciHeap keko1;
+    FibonacciHeap keko2;
     Fnode n1;
     Fnode n2;
     Fnode n3;
@@ -41,6 +42,7 @@ public class FibonacciHeapTest {
     @Before
     public void setUp() {
         keko1 = new FibonacciHeap();
+        keko2 = new FibonacciHeap();
         n1 = new Fnode(1);
         n2 = new Fnode(2);
         n3 = new Fnode(3);
@@ -61,7 +63,7 @@ public class FibonacciHeapTest {
     public void kekoonVoiLisataSolmunJaSeLoytyy() throws Exception {
         keko1.insert(n1);
         assertFalse(keko1.isEmpty());
-        assertEquals(n1, keko1.min()); 
+        assertEquals(n1, keko1.minNode()); 
         assertEquals(1, keko1.deleteMin());
         assertTrue(keko1.isEmpty());
     } 
@@ -71,7 +73,7 @@ public class FibonacciHeapTest {
         keko1.insert(n1);
         keko1.insert(n2);
         assertEquals(2, keko1.getCount()); 
-        assertEquals(n1, keko1.min());
+        assertEquals(n1, keko1.minNode());
         assertEquals(1, keko1.deleteMin());
         assertEquals(1, keko1.getCount());
         assertEquals(0, n1.degree);
@@ -88,7 +90,7 @@ public class FibonacciHeapTest {
         keko1.insert(n4);
         keko1.insert(n5);
         assertEquals(5, keko1.getCount());
-        assertEquals(n1, keko1.min());
+        assertEquals(n1, keko1.minNode());
         assertEquals(n2, n1.right);
         assertEquals(n5, n1.left);
         assertEquals(n1, n2.left);
@@ -117,12 +119,12 @@ public class FibonacciHeapTest {
         
         
         assertEquals(3, keko1.getCount());
-        assertEquals(n1, keko1.min());        
+        assertEquals(n1, keko1.minNode());        
         assertEquals(1, keko1.deleteMin());
         assertEquals(n3, n2.child);
-        assertEquals(n2, keko1.min());
+        assertEquals(n2, keko1.minNode());
         assertEquals(2, keko1.deleteMin());
-        assertEquals(n3, keko1.min());
+        assertEquals(n3, keko1.minNode());
         assertEquals(3, keko1.deleteMin());
         
        
@@ -147,7 +149,7 @@ public class FibonacciHeapTest {
         
         assertEquals(koko + 1, keko1.getCount());
         assertFalse(keko1.isEmpty());
-        assertEquals(0, keko1.min().key);
+        assertEquals(0, keko1.min());
         for (int i = 0; i < koko + 1; i++) {
             assertEquals(i, keko1.deleteMin());
         }
@@ -165,6 +167,21 @@ public class FibonacciHeapTest {
             assertTrue(edellinen <= seuraava);
             edellinen = seuraava;
         }
+    }
+    
+    @Test
+    public void testaaYhdistamista() throws Exception {
+        keko1.insert(n1);
+        keko2.insert(n2);
+        
+        FibonacciHeap keko3 = keko1.union(keko2);
+        assertFalse(keko3.isEmpty());
+        assertEquals(n1, keko3.minNode());
+        assertEquals(n2, n1.right);
+        assertEquals(n1, n2.right);
+        assertEquals(n2, n1.left);
+        assertEquals(n1, n2.left);
+        assertEquals(1, keko3.deleteMin());
     }
 } 
     // TODO add test methods here.

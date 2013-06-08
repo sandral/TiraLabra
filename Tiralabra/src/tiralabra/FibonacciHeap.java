@@ -3,13 +3,14 @@
  * and open the template in the editor.
  */
 package tiralabra;
+
 import tiralabra.Fnode;
 
 /**
  *
  * @author root
  */
-public class FibonacciHeap implements Heap{
+public class FibonacciHeap implements Heap {
 
     private final double phi = (1.0 + Math.sqrt(5.0)) / 2.0;
     private Fnode min;
@@ -78,7 +79,7 @@ public class FibonacciHeap implements Heap{
         if (x == null) {
             throw new Exception("keko on tyhjä");
         }
-        
+
         int lapsia = x.degree;
         Fnode y = x.child;
         Fnode z;
@@ -120,7 +121,7 @@ public class FibonacciHeap implements Heap{
             return;
         }
 
-        int dCount = (int) Math.floor(Math.log(count) / Math.log(phi))+1;
+        int dCount = (int) Math.floor(Math.log(count) / Math.log(phi)) + 1;
         Fnode[] apu = new Fnode[dCount + 1];
 
         // Lasketaan root listin koko
@@ -130,7 +131,7 @@ public class FibonacciHeap implements Heap{
             x = x.right;
             rootListSize++;
         } while (x != min);
-        
+
         Fnode[] taulu = new Fnode[rootListSize];
 
         x = min;
@@ -138,7 +139,7 @@ public class FibonacciHeap implements Heap{
             taulu[i] = x;
             x = x.right;
         }
-        
+
         for (int i = 0; i < taulu.length; i++) {
             x = taulu[i];
             int d = x.degree;
@@ -178,7 +179,6 @@ public class FibonacciHeap implements Heap{
         }
     }
 
-
     /**
      * Apumetodi consolidate-metodille. Linkittää solmut toisiinsa ja asettaa
      * toisen solmun toisen lapseksi.
@@ -208,11 +208,40 @@ public class FibonacciHeap implements Heap{
         n1.mark = false;
     }
 
-    
+    public FibonacciHeap union(FibonacciHeap toinen) {
+        if (isEmpty()) {
+            return toinen;
+        }
+        if (toinen.isEmpty()) {
+            return this;
+        }
+        
+        FibonacciHeap uusi = new FibonacciHeap();
+        uusi.min = min;
+        
+        Fnode hanta = min;
+        do {
+            hanta = hanta.right;
+            
+        } while (hanta != min);
+
+        Fnode toisenHanta = toinen.min;
+        do {
+            toisenHanta = toisenHanta.right;
+        } while (toisenHanta != toinen.min);
+        
+        hanta.right = toisenHanta;
+        toisenHanta.left = hanta;
+        uusi.min.left = toisenHanta;
+        toisenHanta.right = uusi.min;
+        
+        return uusi;
+    }
+
     public void insert(int key) {
         insert(new Fnode(key));
     }
-    
+
     public int min() throws Exception {
         return min.key;
     }

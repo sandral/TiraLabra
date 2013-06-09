@@ -208,35 +208,43 @@ public class FibonacciHeap implements Heap {
         n1.mark = false;
     }
 
-    public FibonacciHeap union(FibonacciHeap toinen) {
+    /**
+     * Yhdistaa kaksi kekoa yhdeksi keoksi
+     * @param toinen
+     * @return
+     * @throws Exception 
+     */
+    public FibonacciHeap union(FibonacciHeap toinen) throws Exception {
         if (isEmpty()) {
             return toinen;
-        }
-        if (toinen.isEmpty()) {
+        } else if (toinen.isEmpty()) {
             return this;
+        } else {
+
+            FibonacciHeap uusi = new FibonacciHeap();
+            if (min() <= toinen.min()) {
+                uusi.min = min;
+                Fnode vasen = uusi.min.left;
+                uusi.min.left.right = toinen.min;
+                uusi.min.left = toinen.min.left;
+                toinen.min.left.right = uusi.min;
+                toinen.min.left = vasen;
+                uusi.count = count + toinen.count;
+            } else {
+                uusi.min = toinen.min;
+                Fnode vasen = uusi.min.left;
+                uusi.min.left.right = min;
+                uusi.min.left = min.left;
+                min.left.right = uusi.min;
+                min.left = vasen;
+                uusi.count = count + toinen.count;
+            }
+            return uusi;
         }
         
-        FibonacciHeap uusi = new FibonacciHeap();
-        uusi.min = min;
-        
-        Fnode hanta = min;
-        do {
-            hanta = hanta.right;
-            
-        } while (hanta != min);
-
-        Fnode toisenHanta = toinen.min;
-        do {
-            toisenHanta = toisenHanta.right;
-        } while (toisenHanta != toinen.min);
-        
-        hanta.right = toisenHanta;
-        toisenHanta.left = hanta;
-        uusi.min.left = toisenHanta;
-        toisenHanta.right = uusi.min;
-        
-        return uusi;
     }
+    
+    
 
     public void insert(int key) {
         insert(new Fnode(key));

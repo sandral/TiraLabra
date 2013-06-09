@@ -151,6 +151,25 @@ public class DheapTest {
         System.out.println("parent(4): " + keko.parent(4));
 
     }
+    
+    @Test
+    public void testaaDecreaseKey() throws Exception {
+        for (int i = 5; i < 20; i++) {
+            keko.insert(i);
+        }
+        keko.decreaseKey(4, 0);
+        assertEquals(0, keko.min());
+        
+        keko.deleteMin();
+        
+        keko.decreaseKey(10, 1);
+        assertEquals(1, keko.min());
+        
+        keko.deleteMin();
+        
+        keko.decreaseKey(13, 2);
+        assertEquals(2, keko.min());
+    }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

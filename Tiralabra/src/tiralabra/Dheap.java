@@ -185,4 +185,30 @@ public class Dheap implements Heap {
         }
 
     }
+    
+    /**
+     * Pienentää parametrina annettavassa taulukon kohdassa olevan solmun avainta
+     * jos se on suurempi kuin luku.
+     * @param kohta
+     * @param luku
+     */
+    public void decreaseKey(int kohta, int luku) {
+        if (taulukko.getLuku(kohta) > luku) {
+            taulukko.setLuku(kohta, luku);
+            kuljetaYlos(kohta);
+        }
+    }
+    
+    /**
+     * Kasvattaa parametrina annettavassa taulukonkohtassa olevan solmun
+     * avainta jos sen on suurempi kuin annettu luku
+     * @param kohta
+     * @param luku 
+     */
+    public void increaseKey(int kohta, int luku) {
+        if (taulukko.getLuku(kohta) < luku) {
+            taulukko.setLuku(kohta, luku);
+            kuljetaAlas(kohta);          
+        }
+    }
 }

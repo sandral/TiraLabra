@@ -230,6 +230,19 @@ public class BinaryHeap implements Heap{
         taulukko.setLuku(i, taulukko.getLuku(j));
         taulukko.setLuku(j, x);
     }
+    
+    /**
+     * Pienentää parametrina annettavassa taulukon kohdassa olevan
+     * solmun avainta, jos se on suurempi kuin annettu luku
+     * @param kohta
+     * @param luku 
+     */
+    public void decreaseKey(int kohta, int luku) {
+        if (taulukko.getLuku(kohta) > luku) {
+            taulukko.setLuku(kohta, luku);
+            heapify(kohta);
+        }
+    }
 
     public static void main(String[] args) throws Exception {
         BinaryHeap keko = new BinaryHeap(100000000);

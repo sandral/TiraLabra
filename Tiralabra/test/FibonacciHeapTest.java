@@ -204,6 +204,7 @@ public class FibonacciHeapTest {
         assertEquals(1, keko3.min());
         assertEquals(c1 + c2, keko3.getCount());
         
+        
     }
 } 
     // TODO add test methods here.

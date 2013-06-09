@@ -185,10 +185,11 @@ public class Dheap implements Heap {
         }
 
     }
-    
+
     /**
-     * Pienentää parametrina annettavassa taulukon kohdassa olevan solmun avainta
-     * jos se on suurempi kuin luku.
+     * Pienentää parametrina annettavassa taulukon kohdassa olevan solmun
+     * avainta jos se on suurempi kuin luku.
+     *
      * @param kohta
      * @param luku
      */
@@ -198,17 +199,33 @@ public class Dheap implements Heap {
             kuljetaYlos(kohta);
         }
     }
-    
+
     /**
-     * Kasvattaa parametrina annettavassa taulukonkohtassa olevan solmun
-     * avainta jos sen on suurempi kuin annettu luku
+     * Kasvattaa parametrina annettavassa taulukonkohtassa olevan solmun avainta
+     * jos sen on suurempi kuin annettu luku
+     *
      * @param kohta
-     * @param luku 
+     * @param luku
      */
     public void increaseKey(int kohta, int luku) {
         if (taulukko.getLuku(kohta) < luku) {
             taulukko.setLuku(kohta, luku);
-            kuljetaAlas(kohta);          
+            kuljetaAlas(kohta);
+        }
+    }
+
+    /**
+     * Poistaa ja palauttaa parametrina annettavassa taulukonkohdassa olevan
+     * luvun
+     *
+     * @param indeksi
+     */
+    public int delete(int indeksi) throws Exception {
+        if (indeksi < 0) {
+            throw new Exception("indeksi ei voi olla negatiivinen");
+        } else {
+            decreaseKey(indeksi, min() - 1);
+            return deleteMin();
         }
     }
 }

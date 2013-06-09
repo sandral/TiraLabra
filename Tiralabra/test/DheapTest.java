@@ -153,7 +153,7 @@ public class DheapTest {
     }
     
     @Test
-    public void testaaDecreaseKey() throws Exception {
+    public void testaaDecreaseKeyta() throws Exception {
         for (int i = 5; i < 20; i++) {
             keko.insert(i);
         }
@@ -168,6 +168,18 @@ public class DheapTest {
         keko.deleteMin();
         
         keko.decreaseKey(13, 2);
+        assertEquals(2, keko.min());
+    }
+    
+    @Test
+    public void testaaIncreseKeyta() throws Exception {
+        for (int i = 0; i < 15; i++) {
+            keko.insert(i);
+        }
+        
+        keko.increaseKey(0, 5);
+        assertEquals(1, keko.min());
+        keko.increaseKey(0, 13);
         assertEquals(2, keko.min());
     }
     // TODO add test methods here.

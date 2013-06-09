@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 import java.util.Random;
 import tiralabra.OmaTaulukko;
 
-public class BinaryHeap implements Heap{
+public class BinaryHeap implements Heap {
 
     /**
      * Taulukko joka sisältää keon alkiot.
@@ -32,8 +32,8 @@ public class BinaryHeap implements Heap{
         taulukko = new OmaTaulukko(size);
         heapSize = 0;
     }
-    
-    public BinaryHeap(){
+
+    public BinaryHeap() {
         this(50);
     }
 
@@ -86,7 +86,8 @@ public class BinaryHeap implements Heap{
 
     /**
      * Apumetodi heapInsertille
-     * @param k 
+     *
+     * @param k
      */
     private void siftUp(int k) {
         if (k != 0) {
@@ -230,12 +231,13 @@ public class BinaryHeap implements Heap{
         taulukko.setLuku(i, taulukko.getLuku(j));
         taulukko.setLuku(j, x);
     }
-    
+
     /**
-     * Pienentää parametrina annettavassa taulukon kohdassa olevan
-     * solmun avainta, jos se on suurempi kuin annettu luku
+     * Pienentää parametrina annettavassa taulukon kohdassa olevan solmun
+     * avainta, jos se on suurempi kuin annettu luku
+     *
      * @param kohta
-     * @param luku 
+     * @param luku
      */
     public void decreaseKey(int kohta, int luku) {
         if (taulukko.getLuku(kohta) > luku) {
@@ -244,75 +246,92 @@ public class BinaryHeap implements Heap{
         }
     }
 
+    /**
+     * Poistaa ja palauttaa parametrinä annettavassa taulukonkohdassa olevan
+     * luvun
+     *
+     * @param indeksi
+     * @return
+     */
+    public int delete(int indeksi) throws Exception {
+        if (indeksi < 0) {
+            throw new Exception("indeksi ei voi olla negatiivinen");
+        } else {
+            decreaseKey(indeksi, min() - 1);
+            return deleteMin();
+        }
+
+    }
+
     public static void main(String[] args) throws Exception {
         BinaryHeap keko = new BinaryHeap(100000000);
         BinaryHeap toinen = new BinaryHeap(10);
         int alkioita = 1000000;
         PriorityQueue<Integer> jono = new PriorityQueue<Integer>();
-        Random generaattori = new Random(); 
+        Random generaattori = new Random();
 
-        
 
-        long alku = System.currentTimeMillis();        
+
+        long alku = System.currentTimeMillis();
         for (int i = alkioita - 1; i >= 0; i--) {
             keko.insert(generaattori.nextInt(alkioita));
         }
         long loppu = System.currentTimeMillis();
-        
+
         for (int i = 0; i < alkioita; i++) {
             keko.deleteMin();
         }
         long omaAika = loppu - alku;
-        
-        alku = System.currentTimeMillis();        
+
+        alku = System.currentTimeMillis();
         for (int i = alkioita - 1; i >= 0; i--) {
             jono.add(generaattori.nextInt(alkioita));
         }
         loppu = System.currentTimeMillis();
-        
+
         for (int i = 0; i < alkioita; i++) {
             jono.poll();
         }
-        
 
-        
+
+
         long javanAika = loppu - alku;
 
         System.out.println("oma aika: " + omaAika);
         System.out.println("javan aika: " + javanAika);
+
+        /*
+         for (int i = 3; i > 0; i--) {
+         keko.insert(i);
+         }
         
-        /*
-        for (int i = 3; i > 0; i--) {
-            keko.insert(i);
-        }
-        
-        for (int i = 0; i < 3; i++) {
-            System.out.print(keko.taulukko.getLuku(i) + " ");
-        }
-        /*
-        /*
-        for (int i = 15; i > 0; i--) {
-            keko.insert(i);
+         for (int i = 0; i < 3; i++) {
+         System.out.print(keko.taulukko.getLuku(i) + " ");
+         }
+         /*
+         /*
+         for (int i = 15; i > 0; i--) {
+         keko.insert(i);
 
-            for (int j = 0; j < 15 - i; j++) {
-                System.out.print(keko.taulukko.getLuku(j) + " ");
-            }
-            System.out.println();
+         for (int j = 0; j < 15 - i; j++) {
+         System.out.print(keko.taulukko.getLuku(j) + " ");
+         }
+         System.out.println();
 
-        }
+         }
 
-        for (int i = 0; i < 15; i++) {
-            System.out.print(keko.taulukko.getLuku(i) + " vasen: " + keko.taulukko.getLuku(keko.left(i)) + " oikea: " + keko.taulukko.getLuku(keko.right(i)));
-            System.out.println();
-        }
+         for (int i = 0; i < 15; i++) {
+         System.out.print(keko.taulukko.getLuku(i) + " vasen: " + keko.taulukko.getLuku(keko.left(i)) + " oikea: " + keko.taulukko.getLuku(keko.right(i)));
+         System.out.println();
+         }
 
-        System.out.println();
+         System.out.println();
 
-        while (!keko.isEmpty()) {
-            System.out.print(keko.deleteMin() + " ");
+         while (!keko.isEmpty()) {
+         System.out.print(keko.deleteMin() + " ");
 
-        }
-        */ 
+         }
+         */
         /*
          for (int i = 5; i < 8; i++) {
          keko.insert(i);

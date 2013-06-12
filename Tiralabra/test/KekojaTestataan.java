@@ -20,22 +20,22 @@ import tiralabra.Heap;
  * @author root
  */
 public class KekojaTestataan {
-    
+
     public KekojaTestataan() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -44,9 +44,9 @@ public class KekojaTestataan {
     //
     // @Test
     // public void hello() {}
-    
+
     @Test
-    public void testi() throws Exception{
+    public void testi() throws Exception {
         Heap keko1 = new BinaryHeap();
         Heap keko2 = new BinomialHeap();
         Heap keko3 = new FibonacciHeap();
@@ -56,18 +56,18 @@ public class KekojaTestataan {
         System.out.println(aputesti(keko3));
         System.out.println(aputesti(keko4));
     }
-    
-    private double aputesti(Heap keko) throws Exception{
-        final int testeja = 10000;
+
+    private double aputesti(Heap keko) throws Exception {
+        final int testeja = 100;
         long[] ajat = new long[testeja];
-        
+
         for (int i = 0; i < testeja; i++) {
             long aika = System.currentTimeMillis();
-            for (int j = 0; j < 1000; j++) {
+            for (int j = 0; j < 10000; j++) {
                 keko.insert(j);
             }
             aika = System.currentTimeMillis() - aika;
-            for (int j = 0; j < 1000; j++) {
+            for (int j = 0; j < 10000; j++) {
                 keko.deleteMin();
             }
             ajat[i] = aika;
@@ -76,6 +76,17 @@ public class KekojaTestataan {
         for (int i = 0; i < testeja; i++) {
             summa += ajat[i];
         }
-        return (summa*1.0)/testeja;
+        return (summa * 1.0) / testeja;
     }
-}
+    
+   /*private double aputesti2(Heap keko) {
+       final int testeja = 100;
+       long[] ajat = new long[testeja];
+       
+       for (int i = 0; i < testeja; i++) {
+           long aika = System.currentTimeMillis();
+       }
+   }
+     */   
+    }
+

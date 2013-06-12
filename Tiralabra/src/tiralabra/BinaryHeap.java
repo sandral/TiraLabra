@@ -197,7 +197,7 @@ public class BinaryHeap implements Heap {
      *
      * @param toinen Yhdistettava keko.
      */
-    public void merge(BinaryHeap toinen) throws Exception {
+    public void union(BinaryHeap toinen) throws Exception {
         while (taulukko.getLength() <= heapSize + toinen.heapSize) {
             taulukko.tuplaaJaKopioi();
         }
@@ -264,42 +264,7 @@ public class BinaryHeap implements Heap {
     }
 
     public static void main(String[] args) throws Exception {
-        BinaryHeap keko = new BinaryHeap(100000000);
-        BinaryHeap toinen = new BinaryHeap(10);
-        int alkioita = 1000000;
-        PriorityQueue<Integer> jono = new PriorityQueue<Integer>();
-        Random generaattori = new Random();
-
-
-
-        long alku = System.currentTimeMillis();
-        for (int i = alkioita - 1; i >= 0; i--) {
-            keko.insert(generaattori.nextInt(alkioita));
-        }
-        long loppu = System.currentTimeMillis();
-
-        for (int i = 0; i < alkioita; i++) {
-            keko.deleteMin();
-        }
-        long omaAika = loppu - alku;
-
-        alku = System.currentTimeMillis();
-        for (int i = alkioita - 1; i >= 0; i--) {
-            jono.add(generaattori.nextInt(alkioita));
-        }
-        loppu = System.currentTimeMillis();
-
-        for (int i = 0; i < alkioita; i++) {
-            jono.poll();
-        }
-
-
-
-        long javanAika = loppu - alku;
-
-        System.out.println("oma aika: " + omaAika);
-        System.out.println("javan aika: " + javanAika);
-
+       
         /*
          for (int i = 3; i > 0; i--) {
          keko.insert(i);
@@ -349,7 +314,7 @@ public class BinaryHeap implements Heap {
          System.out.println();
 
 
-         keko.merge(toinen);
+         keko.union(toinen);
          System.out.println("koko nyt: " + keko.heapSize);
 
          for (int i = 0; i < keko.getTaulukko().getLength(); i++) {

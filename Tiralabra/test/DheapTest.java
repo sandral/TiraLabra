@@ -103,11 +103,11 @@ public class DheapTest {
 
     @Test
     public void kekoonVoiLisataMontaSolmuaJaPoistaaNe() throws Exception {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             keko.insert(i);
         }
-        assertEquals(1000, keko.getHeapSize());
-        for (int i = 0; i < 1000; i++) {
+        assertEquals(10000, keko.getHeapSize());
+        for (int i = 0; i < 10000; i++) {
             assertEquals(i, keko.deleteMin());
             //System.out.print("poistetaan: " + keko.deleteMin());
             //System.out.println();
@@ -118,6 +118,22 @@ public class DheapTest {
             //System.out.println();
         }
 
+    }
+    
+    @Test 
+    public void insertJaDeleteMinToimivatEriPaikkaisilleKeoille() throws Exception {
+        for (int i = 3; i < 10; i++) {
+            Dheap keko = new Dheap(i);
+            
+            for (int j = 0; j < 100; j++) {
+                keko.insert(j);
+                
+            }
+            for (int j = 0; j < 100; j++) {
+                //System.out.println("min: " + keko.min());
+                assertEquals(j, keko.deleteMin());
+            }
+        }
     }
 
     @Test
@@ -182,6 +198,8 @@ public class DheapTest {
         keko.increaseKey(0, 13);
         assertEquals(2, keko.min());
     }
+    
+    
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

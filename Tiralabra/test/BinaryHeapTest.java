@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tiralabra.BinaryHeap.HeapException;
 import tiralabra.Node;
 
 /**
@@ -83,13 +82,13 @@ public class BinaryHeapTest {
     }
 
     @Test
-    public void kekoonLisaaminenOnnistuu() throws HeapException {
+    public void kekoonLisaaminenOnnistuu() throws Exception {
         keko.insert(1);
-        assertEquals(1, keko.heapMin());
+        assertEquals(1, keko.min());
     }
 
     @Test
-    public void kekoonVoiLisataViisiAlkiotaJotkaKaikkiLoytyvat() throws HeapException {
+    public void kekoonVoiLisataViisiAlkiotaJotkaKaikkiLoytyvat() throws Exception {
         for (int i = 0; i < 5; i++) {
             keko.insert(i);
         }
@@ -99,7 +98,7 @@ public class BinaryHeapTest {
     }
 
     @Test
-    public void kekoonVoiLisataSolmunJaPoistaaSen() throws HeapException {
+    public void kekoonVoiLisataSolmunJaPoistaaSen() throws Exception {
         keko.insert(1);
         assertEquals(1, keko.deleteMin());
     }
@@ -175,7 +174,7 @@ public class BinaryHeapTest {
     }
 
     @Test
-    public void lisataanSuuriMaaraAlkioitaJarjestyksessa() throws HeapException {
+    public void lisataanSuuriMaaraAlkioitaJarjestyksessa() throws Exception {
         for (int i = 0; i < testinKoko; i++) {
             keko.insert(i);
         }
@@ -185,7 +184,7 @@ public class BinaryHeapTest {
     }
 
     @Test
-    public void lisataanSuuriMaaraAlkioitaKaanteisessaJarjestyksessa() throws HeapException {
+    public void lisataanSuuriMaaraAlkioitaKaanteisessaJarjestyksessa() throws Exception {
         for (int i = testinKoko; i > 0; i--) {
             keko.insert(i);
         }
@@ -195,7 +194,7 @@ public class BinaryHeapTest {
     }
 
     @Test
-    public void lisataanSuuriMaaraAlkioitaSatunnaisessaJarjestyksessa() throws HeapException {
+    public void lisataanSuuriMaaraAlkioitaSatunnaisessaJarjestyksessa() throws Exception {
         Random generaattori = new Random();
         for (int i = 0; i < testinKoko; i++) {
             int satunnainen = generaattori.nextInt(testinKoko);
@@ -235,7 +234,7 @@ public class BinaryHeapTest {
     }
     
     @Test 
-    public void vertaaPoistamistaPriorityQueuehen() throws HeapException {
+    public void vertaaPoistamistaPriorityQueuehen() throws Exception {
         PriorityQueue<Integer> jono = new PriorityQueue<Integer>();
         for (int i = 0; i < testinKoko * testinKoko; i++) {
             jono.add(i);
@@ -265,5 +264,7 @@ public class BinaryHeapTest {
         
         assertTrue("Oma aika oli " + aika2 + "javan aika oli " + aika, 1.0 * aika2/aika < 2.0);
     }
+    
+    
 }
 

@@ -75,13 +75,13 @@ public class FibonacciHeap implements Heap {
      * @return
      */
     public int deleteMin() throws Exception {
-        Fnode x = min;
-        if (x == null) {
+        Fnode pienin = min;
+        if (pienin == null) {
             throw new Exception("keko on tyhjä");
         }
 
-        int lapsia = x.degree;
-        Fnode y = x.child;
+        int lapsia = pienin.degree;
+        Fnode y = pienin.child;
         Fnode z;
 
         while (lapsia > 0) {
@@ -99,17 +99,17 @@ public class FibonacciHeap implements Heap {
             lapsia--;
         }
 
-        x.left.right = x.right;
-        x.right.left = x.left;
+        pienin.left.right = pienin.right;
+        pienin.right.left = pienin.left;
 
-        if (x == x.right) {
+        if (pienin == pienin.right) {
             min = null;
         } else {
-            min = x.right;
+            min = pienin.right;
             consolidate();
         }
         count--;
-        return x.key;
+        return pienin.key;
     }
 
     /**

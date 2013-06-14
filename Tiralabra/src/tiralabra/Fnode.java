@@ -28,7 +28,7 @@ public class Fnode implements Comparable {
 
     @Override
      public int compareTo(Object toinen) {
-        Node verrattava = (Node) toinen;
+        Bnode verrattava = (Bnode) toinen;
         return this.key - verrattava.key;
     }
 

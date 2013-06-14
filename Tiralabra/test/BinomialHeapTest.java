@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import tiralabra.BinomialHeap;
-import tiralabra.Node;
+import tiralabra.Bnode;
 
 /**
  *
@@ -23,11 +23,11 @@ public class BinomialHeapTest {
     private BinomialHeap keko1;
     private BinomialHeap keko2;
     
-    private Node n1;
-    private Node n2;
-    private Node n3;
-    private Node n4;
-    private Node n5;
+    private Bnode n1;
+    private Bnode n2;
+    private Bnode n3;
+    private Bnode n4;
+    private Bnode n5;
     
     private int testinKoko;
     
@@ -47,11 +47,11 @@ public class BinomialHeapTest {
     public void setUp() {
         keko1 = new BinomialHeap();
         keko2 = new BinomialHeap();
-        n1 = new Node(1);
-        n2 = new Node(2);
-        n3 = new Node(3);
-        n4 = new Node(4);
-        n5 = new Node(5);
+        n1 = new Bnode(1);
+        n2 = new Bnode(2);
+        n3 = new Bnode(3);
+        n4 = new Bnode(4);
+        n5 = new Bnode(5);
     }
 
     @After
@@ -298,7 +298,7 @@ public class BinomialHeapTest {
     @Test
     public void lisataanKaksisataaSolmuaJarjestyksessa() {
         for (int i = 0; i < testinKoko; i++) {
-            keko1.insert(new Node(i));
+            keko1.insert(new Bnode(i));
         }
         for (int i = 0; i < testinKoko; i++) {
             assertEquals(i, keko1.deleteMin());
@@ -308,7 +308,7 @@ public class BinomialHeapTest {
     @Test
     public void lisataanKaksisataaSolmuaKaanteisessaJarjestyksessa() {
         for (int i = testinKoko; i > 0; i--) {
-            keko1.insert(new Node(i));
+            keko1.insert(new Bnode(i));
         }
         for (int i = 1; i < testinKoko + 1; i++) {
             assertEquals(i, keko1.deleteMin());
@@ -319,7 +319,7 @@ public class BinomialHeapTest {
     public void lisataanKaksisataaSolmuaSatunnaisessaJarjestyksessa() {
         Random generaattori = new Random(1234567);
         for (int i = 0; i < testinKoko; i++) {
-            keko1.insert(new Node(generaattori.nextInt(testinKoko)));
+            keko1.insert(new Bnode(generaattori.nextInt(testinKoko)));
         }
         int edellinen = keko1.deleteMin();
         for (int i = 0; i < testinKoko - 1; i++) {
@@ -331,10 +331,10 @@ public class BinomialHeapTest {
     
     @Test
     public void vertaaLisaamistaPriorityQueuehen() {
-        PriorityQueue<Node> jono = new PriorityQueue<Node>();
+        PriorityQueue<Bnode> jono = new PriorityQueue<Bnode>();
         long alkuaika = System.currentTimeMillis();
         for (int i = 0; i < testinKoko * testinKoko; i++) {
-            jono.add(new Node(i));
+            jono.add(new Bnode(i));
         }
         long loppuaika = System.currentTimeMillis();
         
@@ -344,7 +344,7 @@ public class BinomialHeapTest {
         
         alkuaika = System.currentTimeMillis();
         for (int i = 0; i < testinKoko * testinKoko; i++) {
-            keko1.insert(new Node(i));
+            keko1.insert(new Bnode(i));
         }
         loppuaika = System.currentTimeMillis();
         long aika2 = loppuaika - alkuaika;

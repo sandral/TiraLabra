@@ -5,12 +5,12 @@ import java.util.PriorityQueue;
 import java.util.Random;
 import tiralabra.OmaTaulukko;
 
-public class BinaryHeap implements Heap {
+public class BinaryHeapOlioilla implements Heap {
 
     /**
      * Taulukko joka sisältää keon alkiot.
      */
-    private OmaTaulukko taulukko;
+    private OmaTaulukko2 taulukko;
     /**
      * Kertoo kuinka paljon keossa on alkioita.
      */
@@ -25,15 +25,15 @@ public class BinaryHeap implements Heap {
      *
      * @param size Luo keon, johon mahtuu näin monta alkiota.
      */
-    public BinaryHeap(int size) {
+    public BinaryHeapOlioilla(int size) {
         if (size <= 0) {
             size = defaultKoko;
         }
-        taulukko = new OmaTaulukko(size);
+        taulukko = new OmaTaulukko2(size);
         heapSize = 0;
     }
 
-    public BinaryHeap() {
+    public BinaryHeapOlioilla() {
         this(50);
     }
 
@@ -45,11 +45,11 @@ public class BinaryHeap implements Heap {
         this.defaultKoko = defaultKoko;
     }
 
-    public OmaTaulukko getTaulukko() {
+    public OmaTaulukko2 getTaulukko() {
         return taulukko;
     }
 
-    public void setTaulukko(OmaTaulukko taulukko) {
+    public void setTaulukko(OmaTaulukko2 taulukko) {
         this.taulukko = taulukko;
     }
 
@@ -188,7 +188,7 @@ public class BinaryHeap implements Heap {
      *
      * @param toinen Yhdistettava keko.
      */
-    public void union(BinaryHeap toinen) {
+    public void union(BinaryHeapOlioilla toinen) {
         while (taulukko.getLength() <= heapSize + toinen.heapSize) {
             taulukko.tuplaaJaKopioi();
         }
@@ -205,7 +205,7 @@ public class BinaryHeap implements Heap {
      *
      * @param taulukko keonnettava taulukko.
      */
-    public void buildHeap(OmaTaulukko taulukko) {
+    public void buildHeap(OmaTaulukko2 taulukko) {
         for (int i = taulukko.getLength() / 2; i >= 0; i--) {
             heapify(i);
         }

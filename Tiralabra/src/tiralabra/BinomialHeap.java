@@ -5,11 +5,11 @@
 package tiralabra;
 
 import java.util.PriorityQueue;
-import tiralabra.Node;
+import tiralabra.Bnode;
 
 public class BinomialHeap implements Heap {
 
-    private Node head;
+    private Bnode head;
 
     /**
      * Konstruktori
@@ -18,7 +18,7 @@ public class BinomialHeap implements Heap {
         head = null;
     }
 
-    public Node getHead() {
+    public Bnode getHead() {
         return head;
     }
 
@@ -27,7 +27,7 @@ public class BinomialHeap implements Heap {
      *
      * @param n lisättävä solmu
      */
-    public void insert(Node n) {
+    public void insert(Bnode n) {
         if (this.isEmpty()) {
             this.head = n;
         } else {
@@ -46,8 +46,8 @@ public class BinomialHeap implements Heap {
      * @return
      */
     public int min() {
-        Node x = head;
-        Node y = x.sibling;
+        Bnode x = head;
+        Bnode y = x.sibling;
         if (y != null) {
             while (x != null) {
                 if (y.key < x.key) {
@@ -73,10 +73,10 @@ public class BinomialHeap implements Heap {
             head = null;
             return avain;
         }
-        Node x = head;
-        Node y = x.sibling;
-        Node edell = x;
-        Node edellx = null;
+        Bnode x = head;
+        Bnode y = x.sibling;
+        Bnode edell = x;
+        Bnode edellx = null;
 
         while (y != null) {
             if (y.key < x.key) {
@@ -95,9 +95,9 @@ public class BinomialHeap implements Heap {
 
         BinomialHeap uusi = new BinomialHeap();
 
-        Node z = x.child;
+        Bnode z = x.child;
         while (z != null) {
-            Node seur = z.sibling;
+            Bnode seur = z.sibling;
             z.sibling = uusi.head;
             uusi.head = z;
             z = seur;
@@ -114,13 +114,13 @@ public class BinomialHeap implements Heap {
      * @param x
      * @param k
      */
-    public void decreaseKey(Node x, int k) {
+    public void decreaseKey(Bnode x, int k) {
         if (k >= x.key) {
             return;
         }
 
         x.key = k;
-        Node z = x;
+        Bnode z = x;
         while (z.parent != null && z.parent.key > z.key) {
             int temp = z.key;
             z.key = z.parent.key;
@@ -134,7 +134,7 @@ public class BinomialHeap implements Heap {
      *
      * @param x
      */
-    public void delete(Node x) {
+    public void delete(Bnode x) {
         int min = min();
         decreaseKey(x, min - 1);
         deleteMin();
@@ -146,7 +146,7 @@ public class BinomialHeap implements Heap {
      * @param x toisen alipuun juuri, josta tulee vanhempi
      * @param y toisen alipuun juuri, josta tulee ensimmäisen lapsi.
      */
-    private void link(Node x, Node y) {
+    private void link(Bnode x, Bnode y) {
         x.parent = y;
         x.sibling = y.child;
         y.child = x;
@@ -161,9 +161,9 @@ public class BinomialHeap implements Heap {
      * @param h2
      * @return
      */
-    public Node merge(BinomialHeap h1, BinomialHeap h2) {
-        Node n1 = h1.head;
-        Node n2 = h2.head;
+    public Bnode merge(BinomialHeap h1, BinomialHeap h2) {
+        Bnode n1 = h1.head;
+        Bnode n2 = h2.head;
 
         if (h1.isEmpty() && h2.isEmpty()) {
             return null;
@@ -192,7 +192,7 @@ public class BinomialHeap implements Heap {
             } else if (n1.sibling.degree < n2.degree) {
                 n1 = n1.sibling;
             } else {
-                Node n3 = n2.sibling;
+                Bnode n3 = n2.sibling;
                 if (n2 == n1.sibling) {
                     n2.sibling = null;
                 } else {
@@ -218,9 +218,9 @@ public class BinomialHeap implements Heap {
         if (uusi.isEmpty()) {
             return this;
         }
-        Node edellx = null;
-        Node x = uusi.head;
-        Node seurx = x.sibling;
+        Bnode edellx = null;
+        Bnode x = uusi.head;
+        Bnode seurx = x.sibling;
 
         while (seurx != null) {
             if (x.degree != seurx.degree
@@ -253,7 +253,7 @@ public class BinomialHeap implements Heap {
 
     public static void main(String[] args) {
         BinomialHeap keko = new BinomialHeap();
-        PriorityQueue<Node> jono = new PriorityQueue<Node>();
+        PriorityQueue<Bnode> jono = new PriorityQueue<Bnode>();
         int alkioita = 1000000;
 
         long alku = System.currentTimeMillis();
@@ -265,7 +265,7 @@ public class BinomialHeap implements Heap {
 
         alku = System.currentTimeMillis();
         for (int i = 0; i < alkioita; i++) {
-            jono.add(new Node(i));
+            jono.add(new Bnode(i));
         }
         loppu = System.currentTimeMillis();
         long javanAika = loppu - alku;
@@ -277,6 +277,6 @@ public class BinomialHeap implements Heap {
     }
 
     public void insert(int key) {
-        insert(new Node(key));
+        insert(new Bnode(key));
     }
 }

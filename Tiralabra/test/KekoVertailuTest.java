@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 import tiralabra.BinaryHeap;
 import tiralabra.BinaryHeap.HeapException;
 import tiralabra.BinomialHeap;
-import tiralabra.Node;
+import tiralabra.Bnode;
 import tiralabra.OmaTaulukko;
 
 /**
@@ -60,7 +60,7 @@ public class KekoVertailuTest {
         
         alkuaika = System.currentTimeMillis();
         for (int i = 0; i < testinKoko * testinKoko; i++) {
-            Node n = new Node(i, i);
+            Bnode n = new Bnode(i, i);
             binomikeko.insert(n);
         }
         loppuaika = System.currentTimeMillis();
@@ -83,7 +83,7 @@ public class KekoVertailuTest {
          long aika = loppuaika - alkuaika;
          
          for (int i = 0; i < testinKoko * testinKoko; i++) {
-            Node n = new Node(i, i);
+            Bnode n = new Bnode(i, i);
             binomikeko.insert(n);
         }
          

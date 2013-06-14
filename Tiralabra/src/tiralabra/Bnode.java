@@ -8,15 +8,15 @@ package tiralabra;
  * Solmu binomikekoa varten.
  * @author root
  */
-public class Node implements Comparable {
+public class Bnode implements Comparable {
 
-    public Node parent;
-    public Node child;
-    public Node sibling;
+    public Bnode parent;
+    public Bnode child;
+    public Bnode sibling;
     public int key;
     public int degree;
 
-    public Node(int key) {
+    public Bnode(int key) {
         this.key = key;
         child = null;
         sibling = null;
@@ -27,7 +27,7 @@ public class Node implements Comparable {
     
     @Override
     public int compareTo(Object toinen) {
-        Node verrattava = (Node) toinen;
+        Bnode verrattava = (Bnode) toinen;
         if (verrattava.key == this.key) {
             return 0;
         }

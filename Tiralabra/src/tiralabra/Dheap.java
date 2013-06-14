@@ -107,12 +107,8 @@ public class Dheap implements Heap {
      * Palauttaa keon pienimmän alkion
      *
      * @return
-     * @throws tiralabra.Dheap.DaryHeapException
      */
-    public int min() throws Exception {
-        if (isEmpty()) {
-            throw new Exception("Tyhjä keko");
-        }
+    public int min() { 
         return taulukko.getLuku(0);
     }
 
@@ -120,12 +116,14 @@ public class Dheap implements Heap {
         return (indeksi - 1) / d;
     }
 
+    
     /**
      * Palauttaa listan parametrina annetun indeksin lasten indekseistä.
      *
      * @param indeksi
      * @return
      */
+    
     public int[] children(int indeksi) {
         int[] lapset = new int[d];
         for (int i = 1; i <= d; i++) {
@@ -133,22 +131,19 @@ public class Dheap implements Heap {
         }
         return lapset;
     }
+    
 
     /**
      * Palauttaa ja poistaa keon pienimmän alkion
      *
      * @return
-     * @throws tiralabra.Dheap.DaryHeapException
      */
-    public int deleteMin() throws Exception {
-        if (isEmpty()) {
-            throw new Exception("keko on tyhja");
-        }
+    public int deleteMin() {
         int pienin = min();
         taulukko.setLuku(0, taulukko.getLuku(heapSize - 1));
         heapSize--;
         kuljetaAlas(0);
-
+        
         return pienin;
     }
 
@@ -220,12 +215,11 @@ public class Dheap implements Heap {
      *
      * @param indeksi
      */
-    public int delete(int indeksi) throws Exception {
-        if (indeksi < 0) {
-            throw new Exception("indeksi ei voi olla negatiivinen");
-        } else {
-            decreaseKey(indeksi, min() - 1);
-            return deleteMin();
-        }
+    public int delete(int indeksi) {
+        decreaseKey(indeksi, min() - 1);
+        return deleteMin();
+        
     }
+
+    
 }

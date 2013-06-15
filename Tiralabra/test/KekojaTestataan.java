@@ -64,13 +64,15 @@ public class KekojaTestataan {
         System.out.println("BinäärikekoOlioilla: " + aputesti(keko5));
     }
 
+    final int testinkoko = 100000;
+    
     private double jonotesti(PriorityQueue jono) {
         final int testeja = 10;
         long[] ajat = new long[testeja];
 
         for (int i = 0; i < testeja; i++) {
             long aika = System.currentTimeMillis();
-            for (int j = 0; j < 100000; j++) {
+            for (int j = 0; j < testinkoko; j++) {
                 jono.add(j);
             }
             aika = System.currentTimeMillis() - aika;
@@ -90,11 +92,11 @@ public class KekojaTestataan {
 
         for (int i = 0; i < testeja; i++) {
 
-            for (int j = 0; j < 1000000; j++) {
+            for (int j = 0; j < testinkoko; j++) {
                 jono.add(j);
             }
             long aika = System.currentTimeMillis();
-            for (int j = 0; j < 1000000; j++) {
+            for (int j = 0; j < testinkoko; j++) {
                 jono.poll();
             }
             aika = System.currentTimeMillis() - aika;
@@ -109,15 +111,16 @@ public class KekojaTestataan {
 
     private double aputesti(Heap keko) throws Exception {
         final int testeja = 10;
+        
         long[] ajat = new long[testeja];
 
         for (int i = 0; i < testeja; i++) {
             long aika = System.currentTimeMillis();
-            for (int j = 0; j < 1000000; j++) {
+            for (int j = 0; j < testinkoko; j++) {
                 keko.insert(j);
             }
             aika = System.currentTimeMillis() - aika;
-            for (int j = 0; j < 1000000; j++) {
+            for (int j = 0; j < testinkoko; j++) {
                 keko.deleteMin();
             }
             ajat[i] = aika;
@@ -135,11 +138,11 @@ public class KekojaTestataan {
 
         for (int i = 0; i < testeja; i++) {
 
-            for (int j = 0; j < 10000000; j++) {
+            for (int j = 0; j < testinkoko; j++) {
                 keko.insert(j);
             }
             long aika = System.currentTimeMillis();
-            for (int j = 0; j < 10000000; j++) {
+            for (int j = 0; j < testinkoko; j++) {
                 keko.deleteMin();
             }
             aika = System.currentTimeMillis() - aika;
@@ -151,18 +154,18 @@ public class KekojaTestataan {
         }
         return (summa * 1.0) / testeja;
     }
-
+/*
     private double jonotesti3(PriorityQueue jono) {
         final int testeja = 100;
         long[] ajat = new long[testeja];
 
         for (int i = 0; i < testeja; i++) {
 
-            for (int j = 0; j < 10000000; j++) {
+            for (int j = 0; j < testinkoko; j++) {
                 jono.add(j);
             }
             long aika = System.currentTimeMillis();
-            for (int j = 0; j < 10000000; j++) {
+            for (int j = 0; j < testinkoko; j++) {
                 jono.poll();
             }
             aika = System.currentTimeMillis() - aika;
@@ -174,4 +177,5 @@ public class KekojaTestataan {
         }
         return (summa * 1.0) / testeja;
     }
+    */ 
 }

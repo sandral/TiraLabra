@@ -12,7 +12,7 @@ package tiralabra;
  
 public class OmaTaulukko2 {
 
-    private int[] taulu;
+    private Integer[] taulu;
 
     /**
      * Konstruktori
@@ -20,7 +20,7 @@ public class OmaTaulukko2 {
      * @param koko
      */
     public OmaTaulukko2(int koko) {
-        taulu = new int[koko];
+        taulu = new Integer[koko];
     }
 
     /**
@@ -28,18 +28,18 @@ public class OmaTaulukko2 {
      * sisällön uuteen pidempään taulukkoon.
      */
     public void tuplaaJaKopioi() {
-        int[] uusi = new int[2 * taulu.length];
-        for (int i = 0; i < taulu.length; i++) {
+        Integer[] uusi = new Integer[2 * taulu.length];
+        for (Integer i = 0; i < taulu.length; i++) {
             uusi[i] = taulu[i];
         }
         taulu = uusi;
     }
 
-    public int getLuku(int i) {
+    public Integer getLuku(Integer i) {
         return taulu[i];
     }
 
-    public void setLuku(int indeksi, int luku) {
+    public void setLuku(int indeksi, Integer luku) {
         taulu[indeksi] = luku;
     }
 

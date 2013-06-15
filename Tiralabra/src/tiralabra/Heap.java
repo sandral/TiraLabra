@@ -9,8 +9,7 @@ package tiralabra;
  * @author root
  */
 public interface Heap {
-    
-    public void insert(int key);
+    public void insert(int i);
     public int min() throws Exception;
     public int deleteMin() throws Exception;
     public boolean isEmpty();

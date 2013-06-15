@@ -77,11 +77,11 @@ public class Dheap implements Heap {
             taulukko.tuplaaJaKopioi();
         }
         if (isEmpty()) {
-            taulukko.setLuku(0, lisattava);
+            taulukko.set(0, lisattava);
             heapSize++;
         } else {
             heapSize++;
-            taulukko.setLuku(heapSize - 1, lisattava);
+            taulukko.set(heapSize - 1, lisattava);
             kuljetaYlos(heapSize - 1);
         }
     }
@@ -94,7 +94,7 @@ public class Dheap implements Heap {
     private void kuljetaYlos(int i) {
         if (i != 0) {
             int vanhempi = parent(i);
-            if (taulukko.getLuku(vanhempi) > taulukko.getLuku(i)) {
+            if (taulukko.get(vanhempi) > taulukko.get(i)) {
                 vaihdaKeskenaan(vanhempi, i);
                 kuljetaYlos(vanhempi);
 
@@ -109,7 +109,7 @@ public class Dheap implements Heap {
      * @return
      */
     public int min() { 
-        return taulukko.getLuku(0);
+        return taulukko.get(0);
     }
 
     public int parent(int indeksi) {
@@ -124,12 +124,8 @@ public class Dheap implements Heap {
      * @return
      */
     
-    public int[] children(int indeksi) {
-        int[] lapset = new int[d];
-        for (int i = 1; i <= d; i++) {
-            lapset[i - 1] = indeksi * d + i;
-        }
-        return lapset;
+    public int firstChild(int indeksi) {
+            return indeksi * d + 1;
     }
     
 
@@ -140,7 +136,7 @@ public class Dheap implements Heap {
      */
     public int deleteMin() {
         int pienin = min();
-        taulukko.setLuku(0, taulukko.getLuku(heapSize - 1));
+        taulukko.set(0, taulukko.get(heapSize - 1));
         heapSize--;
         kuljetaAlas(0);
         
@@ -155,9 +151,9 @@ public class Dheap implements Heap {
      * @param j
      */
     private void vaihdaKeskenaan(int i, int j) {
-        int x = taulukko.getLuku(i);
-        taulukko.setLuku(i, taulukko.getLuku(j));
-        taulukko.setLuku(j, x);
+        int x = taulukko.get(i);
+        taulukko.set(i, taulukko.get(j));
+        taulukko.set(j, x);
     }
 
     /**
@@ -166,17 +162,19 @@ public class Dheap implements Heap {
      * @param i
      */
     private void kuljetaAlas(int i) {
-        int pienin = taulukko.getLuku(i);
         while (i < heapSize) {
-            int pieninLapsi = i;
-            int[] lapset = children(i);
-            for (int j = 0; j < lapset.length; j++) {
-                if (lapset[j] < heapSize && taulukko.getLuku(pieninLapsi) > taulukko.getLuku(lapset[j])) {
-                    pieninLapsi = lapset[j];
+            if (firstChild(i) >= heapSize) {
+                break;
+            }
+            
+            int pieninLapsi = firstChild(i);
+            for (int j = firstChild(i)+1; j < Math.min(firstChild(i) + d, heapSize); j++) {
+                if (taulukko.get(pieninLapsi) > taulukko.get(j)) {
+                    pieninLapsi = j;
                 }
             }
             vaihdaKeskenaan(pieninLapsi, i);
-            i++;
+            i = pieninLapsi;
         }
 
     }
@@ -189,22 +187,22 @@ public class Dheap implements Heap {
      * @param luku
      */
     public void decreaseKey(int kohta, int luku) {
-        if (taulukko.getLuku(kohta) > luku) {
-            taulukko.setLuku(kohta, luku);
+        if (taulukko.get(kohta) > luku) {
+            taulukko.set(kohta, luku);
             kuljetaYlos(kohta);
         }
     }
 
     /**
      * Kasvattaa parametrina annettavassa taulukonkohtassa olevan solmun avainta
-     * jos sen on suurempi kuin annettu luku
+     * jos sen on pienempi kuin annettu luku
      *
      * @param kohta
      * @param luku
      */
     public void increaseKey(int kohta, int luku) {
-        if (taulukko.getLuku(kohta) < luku) {
-            taulukko.setLuku(kohta, luku);
+        if (taulukko.get(kohta) < luku) {
+            taulukko.set(kohta, luku);
             kuljetaAlas(kohta);
         }
     }

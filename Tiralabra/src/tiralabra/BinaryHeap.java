@@ -34,15 +34,11 @@ public class BinaryHeap implements Heap {
     }
 
     public BinaryHeap() {
-        this(50);
+        this(defaultKoko);
     }
 
     public int getDefaultKoko() {
         return defaultKoko;
-    }
-
-    public void setDefaultKoko(int defaultKoko) {
-        this.defaultKoko = defaultKoko;
     }
 
     public OmaTaulukko getTaulukko() {
@@ -80,7 +76,7 @@ public class BinaryHeap implements Heap {
             taulukko.tuplaaJaKopioi();
         }
         heapSize++;
-        taulukko.setLuku(heapSize - 1, lisattava);
+        taulukko.set(heapSize - 1, lisattava);
         siftUp(heapSize - 1);
     }
 
@@ -91,9 +87,11 @@ public class BinaryHeap implements Heap {
      * @param k indeksi, jonka kohdalta kekoehto on mahdollisesti mennyt rikki.
      */
     private void siftUp(int k) {
+        /*heapify(k);
+        if (true) return;*/
         if (k != 0) {
             int vanhempi = parent(k);
-            if (taulukko.getLuku(vanhempi) > taulukko.getLuku(k)) {
+            if (taulukko.get(vanhempi) > taulukko.get(k)) {
                 swap(vanhempi, k);
                 siftUp(vanhempi);
 
@@ -108,7 +106,7 @@ public class BinaryHeap implements Heap {
      * @return kekotaulukon ensimmäinen, eli keon pienin alkio.
      */
     public int min() {
-        return taulukko.getLuku(0);
+        return taulukko.get(0);
     }
 
     /**
@@ -117,9 +115,10 @@ public class BinaryHeap implements Heap {
      *
      * @return kekotaulukon ensimmäinen eli keon pienin alkio.
      */
+    @Override
     public int deleteMin() {
-        int pienin = taulukko.getLuku(0);
-        taulukko.setLuku(0, taulukko.getLuku(getHeapSize() - 1));
+        int pienin = taulukko.get(0);
+        taulukko.set(0, taulukko.get(getHeapSize() - 1));
         heapSize--;
         heapify(0);
         return pienin;
@@ -168,17 +167,17 @@ public class BinaryHeap implements Heap {
         int r = right(i);
         int pienin;
         if (r < heapSize) {
-            if (taulukko.getLuku(l) < taulukko.getLuku(r)) {
+            if (taulukko.get(l) < taulukko.get(r)) {
                 pienin = l;
             } else {
                 pienin = r;
             }
-            if (taulukko.getLuku(i) > taulukko.getLuku(pienin)) {
+            if (taulukko.get(i) > taulukko.get(pienin)) {
                 swap(i, pienin);
                 heapify(pienin);
             }
 
-        } else if (l == heapSize - 1 && taulukko.getLuku(i) > taulukko.getLuku(l)) {
+        } else if (l < heapSize && taulukko.get(i) > taulukko.get(l)) {
             swap(i, l);
         }
     }
@@ -195,7 +194,7 @@ public class BinaryHeap implements Heap {
         int aloitusKohta = heapSize;
         heapSize = heapSize + toinen.heapSize;
         for (int i = aloitusKohta; i < heapSize; i++) {
-            taulukko.setLuku(i, toinen.getTaulukko().getLuku(i - aloitusKohta));
+            taulukko.set(i, toinen.getTaulukko().get(i - aloitusKohta));
         }
         buildHeap(taulukko);
     }
@@ -218,9 +217,9 @@ public class BinaryHeap implements Heap {
      * @param j
      */
     private void swap(int i, int j) {
-        int x = taulukko.getLuku(i);
-        taulukko.setLuku(i, taulukko.getLuku(j));
-        taulukko.setLuku(j, x);
+        int x = taulukko.get(i);
+        taulukko.set(i, taulukko.get(j));
+        taulukko.set(j, x);
     }
 
     /**
@@ -231,8 +230,8 @@ public class BinaryHeap implements Heap {
      * @param luku
      */
     public void decreaseKey(int kohta, int luku) {
-        if (taulukko.getLuku(kohta) > luku) {
-            taulukko.setLuku(kohta, luku);
+        if (taulukko.get(kohta) > luku) {
+            taulukko.set(kohta, luku);
             heapify(kohta);
         }
     }
@@ -261,7 +260,7 @@ public class BinaryHeap implements Heap {
          }
         
          for (int i = 0; i < 3; i++) {
-         System.out.print(keko.taulukko.getLuku(i) + " ");
+         System.out.print(keko.taulukko.get(i) + " ");
          }
          /*
          /*
@@ -269,14 +268,14 @@ public class BinaryHeap implements Heap {
          keko.insert(i);
 
          for (int j = 0; j < 15 - i; j++) {
-         System.out.print(keko.taulukko.getLuku(j) + " ");
+         System.out.print(keko.taulukko.get(j) + " ");
          }
          System.out.println();
 
          }
 
          for (int i = 0; i < 15; i++) {
-         System.out.print(keko.taulukko.getLuku(i) + " vasen: " + keko.taulukko.getLuku(keko.left(i)) + " oikea: " + keko.taulukko.getLuku(keko.right(i)));
+         System.out.print(keko.taulukko.get(i) + " vasen: " + keko.taulukko.get(keko.left(i)) + " oikea: " + keko.taulukko.get(keko.right(i)));
          System.out.println();
          }
 
@@ -295,11 +294,11 @@ public class BinaryHeap implements Heap {
          toinen.insert(i);
          }
          for (int i = 0; i < 4; i++) {
-         System.out.print(keko.taulukko.getLuku(i));
+         System.out.print(keko.taulukko.get(i));
          }
          System.out.println();
          for (int i = 0; i < 5; i++) {
-         System.out.print(toinen.taulukko.getLuku(i));
+         System.out.print(toinen.taulukko.get(i));
          }
          System.out.println();
 
@@ -308,7 +307,7 @@ public class BinaryHeap implements Heap {
          System.out.println("koko nyt: " + keko.heapSize);
 
          for (int i = 0; i < keko.getTaulukko().getLength(); i++) {
-         System.out.print(keko.getTaulukko().getLuku(i));
+         System.out.print(keko.getTaulukko().get(i));
             
 
          }
@@ -321,11 +320,12 @@ public class BinaryHeap implements Heap {
          keko1.insert(16 - i);
          }
          for (int i = 0; i < 15; i++) {
-         System.out.print(keko.getTaulukko().getLuku(i) + " ");
+         System.out.print(keko.getTaulukko().get(i) + " ");
          }
          System.out.println();
          for (int i = 0; i < 15; i++) {
-         System.out.print(keko1.getTaulukko().getLuku(i) + " ");
+         System.out.print(keko1.getTaulukko().get(i) + " ");
          */
     }
+
 }

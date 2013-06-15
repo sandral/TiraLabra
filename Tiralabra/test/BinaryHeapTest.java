@@ -108,17 +108,17 @@ public class BinaryHeapTest {
         keko.insert(1);
         keko.insert(2);
         keko.insert(3);
-        assertEquals(1, keko.getTaulukko().getLuku(0));
-        assertEquals(2, keko.getTaulukko().getLuku(1));
-        assertEquals(3, keko.getTaulukko().getLuku(2));
+        assertEquals(1, (int) keko.getTaulukko().get(0));
+        assertEquals(2, (int) keko.getTaulukko().get(1));
+        assertEquals(3, (int) keko.getTaulukko().get(2));
     }
 
     @Test
     public void kekoonVoiLisataKaksiSolmuaKaanteisessaJarjestyksessaJaKekoRakenneSailyy() {
         keko.insert(2);
         keko.insert(1);
-        assertEquals(1, keko.getTaulukko().getLuku(0));
-        assertEquals(2, keko.getTaulukko().getLuku(1));
+        assertEquals(1, keko.getTaulukko().get(0));
+        assertEquals(2, keko.getTaulukko().get(1));
     }
 
     @Test
@@ -126,9 +126,9 @@ public class BinaryHeapTest {
         keko.insert(3);
         keko.insert(2);
         keko.insert(1);
-        assertEquals(1, keko.getTaulukko().getLuku(0));
-        assertEquals(3, keko.getTaulukko().getLuku(1));
-        assertEquals(2, keko.getTaulukko().getLuku(2));
+        assertEquals(1, keko.getTaulukko().get(0));
+        assertEquals(3, keko.getTaulukko().get(1));
+        assertEquals(2, keko.getTaulukko().get(2));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class BinaryHeapTest {
             keko.insert(i);
         }
         for (int i = 1; i < 10; i++) {
-            assertEquals(i, keko.getTaulukko().getLuku(i - 1));
+            assertEquals(i, keko.getTaulukko().get(i - 1));
         }
     }
 
@@ -147,7 +147,7 @@ public class BinaryHeapTest {
             keko.insert(i);
         }
         for (int i = 1; i < 1; i++) {
-            assertEquals(i, keko.getTaulukko().getLuku(i));
+            assertEquals(i, keko.getTaulukko().get(i));
         }
     }
 

@@ -1,11 +1,22 @@
 \documentclass[12pt]{report}
 \usepackage[utf8]{inputenc}
+\usepackage[finnish]{babel}
+\usepackage{url}
 \begin{document}
 \begin{center}
   Määrittelydokumentti
 \end{center}
-Toteutan työssäni neljä erilaista minimikekoa, binäärikeon, binomikeon, Fibonacci-keon sekä d-keon, ja niille tavanomaiset keko-operaatiot, kuten alkioiden lisääminen, pienimmän palauttaminen, pienimmän palauttaminen ja poistaminen, sekä kahden keon yhdistämisen. 
+Toteutan työssäni neljä erilaista minimikekoa, binäärikeon, binomikeon, Fibonacci-keon sekä d-keon, ja niille tavanomaiset keko-operaatiot, kuten alkioiden lisääminen, pienimmän palauttaminen, pienimmän palauttaminen ja poistaminen, sekä kahden keon yhdistämisen. \\
+\ \\
 Valitsin kyseisin tietorakenteen siksi, että keko oli mielestäni yksi hauskimpia aiheita kurssilla Tietorakenteet ja algoritmit. Kurssilla käsiteltiin vain binäärikekoa, joten on hauska tutustua myös muunlaisiin kekoihin ja niiden toteutuksiin. Eri kekotyyppien standarditoteutukset poikkeavat toisistaan hyvinkin paljon. Binäärikeko on d-keon eräs erikoistapaus, ja näiden toteutukset ovat hyvin samankaltaiset. 
 Vertailen keskenään toteuttamieni kekojen suorituskykyä insert- ja delete operaatioiden osalta. Yksi idea oli myös testata niitä Dijkstran algoritmilla, mutta itse kekojen toteutus oli niin vaativa ja aikaa vievä projekti, että tämä projekti saa jäädä toiseen kertaan. 
-Tavoitteena olevat aikavaativuudet eri operaatioiden osalta ovat binäärikeolle insert: $O (\log (n))$, deleteMin $O (\log (n))$ ja merge $O(n)$.
+Tavoitteena olevat aikavaativuudet eri operaatioiden osalta ovat binäärikeolle, binomikeolle ja d-keolle insert ja deleteMin: $O(\log n)$ sekä Fibonacci-keolle insert: $O(1)$ ja deleteMin: $O(\log n)$.\\
+\ \\
+Binäärikeko sekä d-keko toteutetaan int-taulukkona, kuten yleensäkin. Binomi- ja Fibonacci-kekojen toteutus on erilainen; ne toteutetaan linkitettyinä listoina, ja sisältävät kumpikin omanlaisiaan solmuolioita, jotka sisältävät viitteet lapsiinsa, vanhempiinsa ja mahdollisesti sisaruksiinsa. 
+
+\begin{thebibliography}{99}
+\bibitem{1} Cormen, Leiserson, Rivest, Stein: Introduction to Algorithms, 3. painos
+\bibitem{2} Patrik Floréen: Tietorakenteet ja algoritmit, luentomoniste, Helsingin yliopisto 2013
+\bibitem{3} \url{http://en.wikipedia.org/wiki/Heap_(data_structure)}
+\end{thebibliography}
 \end{document}

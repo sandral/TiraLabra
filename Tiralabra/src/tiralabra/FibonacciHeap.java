@@ -12,8 +12,8 @@ import tiralabra.Fnode;
  */
 public class FibonacciHeap implements Heap {
 
-    private final double phi = (1.0 + Math.sqrt(5.0)) / 2.0;
-    private Fnode min;
+    private final double phi = (1.0 + Math.sqrt(5.0)) / 2.0; // juurilistan pituus enintään
+    private Fnode min; // keon pienin solmu
     private int count; //solmujen lkm
 
     /**
@@ -31,7 +31,7 @@ public class FibonacciHeap implements Heap {
     /**
      * Tarkistaa, onko keko tyhja.
      *
-     * @return
+     * @return palauttaa true, jos keon pienin on null
      */
     public boolean isEmpty() {
         return min == null;
@@ -40,7 +40,7 @@ public class FibonacciHeap implements Heap {
     /**
      * Lisaa kekoon parametrina annetun solmun.
      *
-     * @param n parametrina annettava solmu.
+     * @param n lisättävä solmu
      */
     public void insert(Fnode n) {
         if (min != null) {
@@ -63,7 +63,7 @@ public class FibonacciHeap implements Heap {
     /**
      * Palauttaa keon pienimmän solmun.
      *
-     * @return
+     * @return keon pienin solmu
      */
     public Fnode minNode() {
         return min;
@@ -72,7 +72,7 @@ public class FibonacciHeap implements Heap {
     /**
      * Palauttaa ja poistaa keon pienimman avaimen omaavan solmun avaimen.
      *
-     * @return
+     * @return keon pienimmän solmun avain.
      */
     public int deleteMin() throws Exception {
         Fnode pienin = min;
@@ -183,8 +183,8 @@ public class FibonacciHeap implements Heap {
      * Apumetodi consolidate-metodille. Linkittää solmut toisiinsa ja asettaa
      * toisen solmun toisen lapseksi.
      *
-     * @param n1
-     * @param n2
+     * @param n1 solmu, josta tulee toisen lapsi
+     * @param n2 solmu, josta tulee toisen vanhempi
      */
     private void link(Fnode n1, Fnode n2) {
         Fnode oikea = n1.right;
@@ -209,12 +209,11 @@ public class FibonacciHeap implements Heap {
     }
 
     /**
-     * Yhdistaa kaksi kekoa yhdeksi keoksi
-     * @param toinen
-     * @return
-     * @throws Exception 
+     * Yhdistaa tämän keon toisen keon kanssa yhdeksi keoksi
+     * @param toinen tämän keon kanssa yhdistettävä keko
+     * @return yhdistetty keko
      */
-    public FibonacciHeap union(FibonacciHeap toinen) throws Exception {
+    public FibonacciHeap union(FibonacciHeap toinen) {
         if (isEmpty()) {
             return toinen;
         } else if (toinen.isEmpty()) {
@@ -250,7 +249,7 @@ public class FibonacciHeap implements Heap {
         insert(new Fnode(key));
     }
 
-    public int min() throws Exception {
+    public int min() {
         return min.key;
     }
 }

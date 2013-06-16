@@ -28,10 +28,9 @@ public class Dheap implements Heap {
     private static int koko = 10;
 
     /**
-     * Konstruktori
+     * Konstruktori luo uuden tyhjän keon, jonka paikkaisuus on vähintään 2
      *
-     * @param size
-     * @param d
+     * @param d parametri, joka kertoo keon paikkaisuuden, oltava vähintään 2
      */
     public Dheap(int d) {
         if (d < 2) {
@@ -61,7 +60,7 @@ public class Dheap implements Heap {
     /**
      * Tarkistaa, onko keko tyhjä
      *
-     * @return
+     * @return palauttaa true, jos keon koko on 0
      */
     public boolean isEmpty() {
         return heapSize == 0;
@@ -70,7 +69,7 @@ public class Dheap implements Heap {
     /**
      * Lisaa kekoon parametrina annettavan luvun
      *
-     * @param lisattava
+     * @param lisattava kekoon lisättävä luku
      */
     public void insert(int lisattava) {
         if (heapSize == taulukko.getLength()) {
@@ -88,8 +87,8 @@ public class Dheap implements Heap {
 
     /**
      * Apumetodi metodille insert, vie lisätyn alkion oikealle paikalleen
-     *
-     * @param i
+     * taulukossa, jos keko rakenne on mennyt indeksin i kohdalta rikki
+     * @param i indeksi, jonka kohdalta kekorakenne on mennyt rikki
      */
     private void kuljetaYlos(int i) {
         if (i != 0) {
@@ -106,22 +105,27 @@ public class Dheap implements Heap {
     /**
      * Palauttaa keon pienimmän alkion
      *
-     * @return
+     * @return keon pienin alkio
      */
     public int min() { 
         return taulukko.get(0);
     }
-
+    /**
+     * Palauttaa alkion vanhemman indeksin.
+     * @param indeksi missa alkio jonka vanhempi halutaan tietaa
+     * sijaitsee
+     * @return vanhemman indeksi
+     */
     public int parent(int indeksi) {
         return (indeksi - 1) / d;
     }
 
     
     /**
-     * Palauttaa listan parametrina annetun indeksin lasten indekseistä.
+     * Palauttaa parametrina annetun indeksin ensimmäisen lapsen indeksin
      *
-     * @param indeksi
-     * @return
+     * @param indeksi alkion, jonka lapset halutaan tietää, indeksi
+     * @return ensimmäisen lapsen indeksi
      */
     
     public int firstChild(int indeksi) {
@@ -132,7 +136,7 @@ public class Dheap implements Heap {
     /**
      * Palauttaa ja poistaa keon pienimmän alkion
      *
-     * @return
+     * @return keon pienin alkio
      */
     public int deleteMin() {
         int pienin = min();
@@ -147,7 +151,7 @@ public class Dheap implements Heap {
      * Apumetodi, vaihtaa indekseissä i ja j sijaitsevien alkioiden paikat
      * taulukossa.
      *
-     * @param i
+     * @param i 
      * @param j
      */
     private void vaihdaKeskenaan(int i, int j) {
@@ -157,9 +161,9 @@ public class Dheap implements Heap {
     }
 
     /**
-     * Apumetodi deleteMin:lle, korjaa kekorakenteen, kun pienin on poistettu
+     * Korjaa kekorakenteen, jos se on mennyt rikki indeksin i kohdalta
      *
-     * @param i
+     * @param i indeksi, jonka kohdalta kekorakenne on mennyt rikki
      */
     private void kuljetaAlas(int i) {
         while (i < heapSize) {
@@ -183,8 +187,8 @@ public class Dheap implements Heap {
      * Pienentää parametrina annettavassa taulukon kohdassa olevan solmun
      * avainta jos se on suurempi kuin luku.
      *
-     * @param kohta
-     * @param luku
+     * @param kohta taulukonindeksi, missä pienennettävä luku sijaitsee
+     * @param luku lukuarvo, joksi alkiota pienennetään
      */
     public void decreaseKey(int kohta, int luku) {
         if (taulukko.get(kohta) > luku) {
@@ -197,8 +201,8 @@ public class Dheap implements Heap {
      * Kasvattaa parametrina annettavassa taulukonkohtassa olevan solmun avainta
      * jos sen on pienempi kuin annettu luku
      *
-     * @param kohta
-     * @param luku
+     * @param kohta taulukonindeksi, missä suurennettava luku sijaitsee
+     * @param luku lukuarvo, joksi alkiota suurennetaan
      */
     public void increaseKey(int kohta, int luku) {
         if (taulukko.get(kohta) < luku) {
@@ -211,7 +215,8 @@ public class Dheap implements Heap {
      * Poistaa ja palauttaa parametrina annettavassa taulukonkohdassa olevan
      * luvun
      *
-     * @param indeksi
+     * @param indeksi taulukonkohta, missä poistettava alkio sijaitsee
+     * @return taulukonkohdassa indeksi sijaitseva alkio
      */
     public int delete(int indeksi) {
         decreaseKey(indeksi, min() - 1);

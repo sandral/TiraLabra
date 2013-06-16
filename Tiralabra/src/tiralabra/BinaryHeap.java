@@ -82,13 +82,13 @@ public class BinaryHeap implements Heap {
 
     /**
      * Apumetodi heapInsertille, korjaa kekoehdon, mikäli se on mennyt rikki
-     * indeksin k kohdalta.
+     * indeksin k kohdalta. Indeksin k alapuolella kekorakenteen oletetaan
+     * olevan kunnossa.
      *
      * @param k indeksi, jonka kohdalta kekoehto on mahdollisesti mennyt rikki.
      */
     private void siftUp(int k) {
-        /*heapify(k);
-        if (true) return;*/
+        if (true) return;
         if (k != 0) {
             int vanhempi = parent(k);
             if (taulukko.get(vanhempi) > taulukko.get(k)) {
@@ -158,9 +158,10 @@ public class BinaryHeap implements Heap {
     }
 
     /**
-     * Korjaa kekorakenteen, jos se on indeksin i kohdalta rikki.
+     * Korjaa kekorakenteen, jos se on indeksin i kohdalta rikki. 
+     * Indeksin i yläpuolella kekorakenteen oletetaan olevan kunnossa.
      *
-     * @param i
+     * @param i indeksi, jonka kohdalta kekorakenne on mennyt rikki
      */
     public void heapify(int i) {
         int l = left(i);
@@ -200,7 +201,7 @@ public class BinaryHeap implements Heap {
     }
 
     /**
-     * Järjestää taulukon sisällön siten, että taulukko kuvailee keon.
+     * Järjestää taulukon sisällön siten, että taulukossa on kekorakenne.
      *
      * @param taulukko keonnettava taulukko.
      */
@@ -226,8 +227,8 @@ public class BinaryHeap implements Heap {
      * Pienentää parametrina annettavassa taulukon kohdassa olevan solmun
      * avainta, jos se on suurempi kuin annettu luku
      *
-     * @param kohta
-     * @param luku
+     * @param kohta taulukonindeksi missä luku sijaitsee
+     * @param luku luku jota pienennetään
      */
     public void decreaseKey(int kohta, int luku) {
         if (taulukko.get(kohta) > luku) {
@@ -241,7 +242,7 @@ public class BinaryHeap implements Heap {
      * luvun
      *
      * @param indeksi
-     * @return
+     * @return poistettava luku
      */
     public int delete(int indeksi) throws Exception {
         if (indeksi < 0) {

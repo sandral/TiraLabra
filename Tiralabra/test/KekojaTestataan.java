@@ -56,17 +56,23 @@ public class KekojaTestataan {
         Heap keko5 = new BinaryHeapOlioilla();
         PriorityQueue<Integer> jono = new PriorityQueue<Integer>();
 
-        System.out.println("binäärikeko: " + aputesti(keko1));
-        System.out.println("binomikeko: " + aputesti(keko2));
-        System.out.println("Fibonacci-keko: " + aputesti(keko3));
-        System.out.println("d-keko: " + aputesti(keko4));
-        System.out.println("PriorityQueue: " + jonotesti(jono));
-        System.out.println("BinäärikekoOlioilla: " + aputesti(keko5));
+        System.out.println("binäärikeko insert: " + testaaInsert(keko1));
+        System.out.println("binäärikeko deleteMin: " + testaaDeleteMin(keko1));
+        System.out.println("binomikeko insert: " + testaaInsert(keko2));
+        System.out.println("binomikeko deleteMin: " + testaaDeleteMin(keko2));
+        System.out.println("Fibonacci-keko insert: " + testaaInsert(keko3));
+        System.out.println("Fibonacci-keko deleteMin: " + testaaDeleteMin(keko3));
+        System.out.println("d-keko insert: " + testaaInsert(keko4));
+        System.out.println("d-keko deleteMin: " + testaaDeleteMin(keko4));
+        System.out.println("PriorityQueue: " + testaaAdd(jono));
+        System.out.println("PriorityQueue poll: " + testaaPoll(jono));
+        System.out.println("binäärikekoOlioilla insert: " + testaaInsert(keko5));
+        System.out.println("binäärikekoOlioilla deleteMin: " + testaaDeleteMin(keko5));
     }
 
-    final int testinkoko = 100000;
+    final int testinkoko = 10000000;
     
-    private double jonotesti(PriorityQueue jono) {
+    private double testaaAdd(PriorityQueue jono) {
         final int testeja = 10;
         long[] ajat = new long[testeja];
 
@@ -86,7 +92,7 @@ public class KekojaTestataan {
         return (summa * 1.0) / testeja;
     }
 
-    private double jonotesti2(PriorityQueue jono) {
+    private double testaaPoll(PriorityQueue jono) {
         final int testeja = 1;
         long[] ajat = new long[testeja];
 
@@ -109,7 +115,7 @@ public class KekojaTestataan {
         return (summa * 1.0) / testeja;
     }
 
-    private double aputesti(Heap keko) throws Exception {
+    private double testaaInsert(Heap keko) throws Exception {
         final int testeja = 10;
         
         long[] ajat = new long[testeja];
@@ -132,7 +138,7 @@ public class KekojaTestataan {
         return (summa * 1.0) / testeja;
     }
 
-    private double aputesti2(Heap keko) throws Exception {
+    private double testaaDeleteMin(Heap keko) throws Exception {
         final int testeja = 1;
         long[] ajat = new long[testeja];
 

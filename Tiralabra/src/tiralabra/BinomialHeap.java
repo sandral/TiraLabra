@@ -8,7 +8,9 @@ import java.util.PriorityQueue;
 import tiralabra.Bnode;
 
 public class BinomialHeap implements Heap {
-
+/**
+ * Keon juurilistan ensimmäinen solmu
+ */
     private Bnode head;
 
     /**
@@ -23,7 +25,9 @@ public class BinomialHeap implements Heap {
     }
 
     /**
-     * Lisää parametrina annetun solmun kekoon.
+     * Lisää parametrina annetun solmun kekoon luomalla uuden keon,
+     * jonka headiksi lisättävä solmu asetetaan, ja yhdistämällä 
+     * uuden keon alkuperäisen kanssa.
      *
      * @param n lisättävä solmu
      */
@@ -41,9 +45,7 @@ public class BinomialHeap implements Heap {
 
     /**
      * Palauttaa keon pienimmän solmun avaimen.
-     *
-     * @param h
-     * @return
+     * @return keon pienimmän solmun avain
      */
     public int min() {
         Bnode x = head;
@@ -62,7 +64,7 @@ public class BinomialHeap implements Heap {
     /**
      * Palauttaa keon pienimmän solmun avaimen ja poistaa solmun keosta.
      *
-     * @return
+     * @return keon pienimmän solmun avain
      */
     public int deleteMin() {
         if (this.isEmpty()) {
@@ -78,7 +80,7 @@ public class BinomialHeap implements Heap {
         Bnode edell = x;
         Bnode edellx = null;
 
-        while (y != null) {
+        while (y != null) { // log n
             if (y.key < x.key) {
                 x = y;
                 edellx = edell;
@@ -96,7 +98,7 @@ public class BinomialHeap implements Heap {
         BinomialHeap uusi = new BinomialHeap();
 
         Bnode z = x.child;
-        while (z != null) {
+        while (z != null) {  // log n
             Bnode seur = z.sibling;
             z.sibling = uusi.head;
             uusi.head = z;
@@ -111,8 +113,8 @@ public class BinomialHeap implements Heap {
      * Pienentää parametrina annetun solmun avaimen arvon k:ksi, jos k pienempi
      * kuin solmun x avain.
      *
-     * @param x
-     * @param k
+     * @param x solmu, jonka avainta pienennetään
+     * @param k lukuarvo, joksi k:n avaimen arvo pienennetään
      */
     public void decreaseKey(Bnode x, int k) {
         if (k >= x.key) {
@@ -132,7 +134,7 @@ public class BinomialHeap implements Heap {
     /**
      * Poistaa parametrina annetun solmun keosta
      *
-     * @param x
+     * @param x poistettava solmu
      */
     public void delete(Bnode x) {
         int min = min();
@@ -141,7 +143,8 @@ public class BinomialHeap implements Heap {
     }
 
     /**
-     * Linkittää kaksi alipuuta toisiinsa.
+     * Linkittää kaksi alipuuta toisiinsa siten, että toisesta
+     * tulee toisen vanhempi.
      *
      * @param x toisen alipuun juuri, josta tulee vanhempi
      * @param y toisen alipuun juuri, josta tulee ensimmäisen lapsi.
@@ -157,8 +160,8 @@ public class BinomialHeap implements Heap {
      * Yhdistaa kekojen h1 ja h2 juurilistat kasvavaan jarjestykseen juurisolmun
      * asteen mukaan ja palauttaa uuden juurilistan pään.
      *
-     * @param h1
-     * @param h2
+     * @param h1 yhdistettävä keko
+     * @param h2 yhdistettävä keko
      * @return
      */
     public Bnode merge(BinomialHeap h1, BinomialHeap h2) {
@@ -185,7 +188,7 @@ public class BinomialHeap implements Heap {
         }
         n1 = h1.head;
 
-        while (n2 != null) {
+        while (n2 != null) { // log n + log m
             if (n1.sibling == null) {
                 n1.sibling = n2;
                 n2 = n2.sibling;
@@ -209,8 +212,8 @@ public class BinomialHeap implements Heap {
     /**
      * Yhdistää tämän keon ja keon h2 yhdeksi keoksi.
      *
-     * @param h2 Yhdistettävä keko }
-     * @return
+     * @param h2 keko, jonka kanssa tämä keko yhdistetään.
+     * @return yhdistetty keko
      */
     public BinomialHeap union(BinomialHeap toinen) {
         BinomialHeap uusi = new BinomialHeap();
